@@ -1,0 +1,128 @@
+{% extends "jarrbo_contributie/base-2.html" %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+{% load my_tags %}
+
+{% block main_content %}
+  <h3>{% trans 'Payment overview' %}</h3>
+  <table class="table table-sm table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">{% trans 'Name' %}</th>
+        <th scope="col">{% trans 'Activity' %}</th>
+        <th scope="col">{% trans 'Method' %}</th>
+        <th scope="col">{% trans 'Invoice' %}</th>
+        <th scope="col">{% trans 'Details' %}</th>
+        <th scope="col">{% trans 'All' %}</th>
+        <th scope="col">{% trans 'Amount' %}</th>
+        <th scope="col">{% trans 'Date' %}</th>
+        <th scope="col">{% trans 'State' %}</th>
+        <th scope="col">{% trans 'Action' %}</th>
+        <th scope="col">{% trans 'New state' %}</th>
+      </tr>
+    </thead>
+    {% for payment in object_list %}
+    <tr>
+      <td>
+        <a href="{{ payment.contribution.member.get_absolute_url }}">
+          {{ payment.contribution.member.fullname }}
+        </a>
+      </td>
+      <td>{{ payment.contribution.activity }}</td>
+      <td>{{ payment.method }}</td>
+      <td>
+        {% if payment.method.description == 'Factuur' or payment.method.description == 'Jeugdsportfonds' %}
+          <form 
+            method="POST"
+            action="{% url 'jarrbo_contributie:factuur' pk=payment.pk %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-primary btn-xs">
+              {% trans 'Print' %}
+            </button>
+          </form>
+        {% endif %}
+      </td>
+      <td>
+        <a 
+          class="btn btn-primary btn-xs"
+          href="{{ payment.get_absolute_url }}"
+          role="button">
+          {% trans 'Details' %}
+        </a>
+      </td>
+      <td>
+        {% if payment.contribution.payments.all.count > 1 %}
+        <a 
+          class="btn btn-primary btn-xs"
+          href="{% url 'jarrbo_contributie:payments' %}?contribution__member__relatiecode={{ payment.contribution.member.relatiecode }}"
+          role="button">
+          {% trans 'All' %}
+        {% endif %}
+        </a>
+      </td>
+      </td>
+      <td>€ {{ payment.amount }}</td>
+        {% if payment.paymentbatch %}
+      <td>{{ payment.paymentbatch }}</td>
+        {% else %}
+      <td>{{ payment.paymentdate }}</td>
+        {% endif %}
+      <td>{{ payment.status }}</td>
+      <td>
+          {% if payment.status.status == 'Teruggeboekt' or payment.status.status == 'Geensaldo' %}
+            {% if not payment.withdrawnmaildate %}
+              <form 
+                method="POST"
+                action="{% url 'jarrbo_contributie:mail' pk=payment.pk %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-primary btn-xs">
+                  {% trans 'Mail' %}
+                </button>
+              </form>
+            {% endif %}
+          {% endif %}
+          {% if payment.method.description == 'Huygenspas' %}
+            {% if not payment.huygensmaildate %}
+              <form 
+                method="POST"
+                action="{% url 'jarrbo_contributie:mail' pk=payment.pk %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-primary btn-xs">
+                  {% trans 'Huygensmail' %}
+                </button>
+              </form>
+            {% endif %}
+          {% endif %}
+      </td>
+      {% for newstatus in view.paymentstatus %}
+        {% if payment|status_valid:newstatus %}
+          <td>
+            <form 
+              method="POST"
+              action="{% url 'jarrbo_contributie:payment_statusupdate' pk=payment.pk newstatuspk=newstatus.pk %}">
+              {% csrf_token %}
+              <button type="submit" class="btn 
+                    {% if payment|standard_change:newstatus %} btn-primary 
+                    {% else %} btn-secondary
+                    {% endif %}
+                    btn-xs">
+                {{ newstatus.actie }}
+              </button>
+            </form>
+          </td>
+        {% endif %}
+      {% endfor %}
+    {% endfor %}
+  </table>
+{% include "jarrbo_contributie/paginator.html" %}
+{% endblock %}
+{% block right_content %}
+    <h3>{% trans 'Selections' %}</h3>
+    <form method="get">
+        {{ filter.form|crispy }}
+        <button type="submit">Search</button>
+    </form>
+{% endblock %}
+
+
+

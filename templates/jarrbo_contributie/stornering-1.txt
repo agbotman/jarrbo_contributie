@@ -1,0 +1,18 @@
+Goedendag,
+
+Op {{payment.paymentdate }} hebben we geprobeerd om de contributie van {{ payment.contribution.member.fullname }} voor het nieuwe seizoen {{ payment.seizoen }} te incasseren van IBAN nummer {{ payment.contribution.iban }}.
+
+Deze incasso is niet geslaagd.
+We zullen deze incasso de volgende maand op  nog een keer proberen.
+
+Als de betaling van de contributie op een andere wijze moet plaatsvinden geef dit dan door als reactie op deze mail. Dit kan ook voor andere vragen over de contributie.
+
+Indien de contributie niet via incasso kan plaatsvinden of voor de 2e mail niet kan worden geïncasseerd dan wordt er conform het contributiereglement € 7,50 aan administratiekosten in rekening worden gebracht.
+
+Met vriendelijke groeten.
+-- 
+Contributie administratie SVW'27
+contributie@svw27.nl
+
+
+

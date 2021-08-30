@@ -1,0 +1,58 @@
+{% extends "jarrbo_contributie/base-2.html" %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block main_content %}
+    <div class="border mt-3 p-2">
+        <h3>{% block title %}{% trans 'Contribution information' %}{% endblock %}</h3>
+        <div class="row">
+            <div class="col-lg-3">{% trans 'Name' %}:</div>
+            <div class="col-lg-3"><a href="{{ object.member.get_absolute_url }}">{{ object.member.fullname }}</a></div>
+            <div class="col-lg-4">{% trans 'Activity' %}:</div>
+            <div class="col-lg-2">{{ object.activity }}</div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3">{% trans 'Base contribution' %}:</div>
+            <div class="col-lg-3">€ {{ object.base_contribution|floatformat:2 }}</div>
+            <div class="col-lg-4">{% trans 'Age categorie' %}:</div>
+            <div class="col-lg-2">{{ object.member.leeftijdscategorie }}</div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3">{% trans 'Contribution clothing fund' %}:</div>
+            <div class="col-lg-3">€ {{ object.kledingfonds|floatformat:2 }}</div>
+            <div class="col-lg-4">{% trans 'General discount' %}:</div>
+            <div class="col-lg-2">€ {{ object.korting|floatformat:2 }}
+                {% if object.kortingpercentage != 0 %} ({{ object.kortingpercentage }} %) {% endif %}</div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3">{% trans 'Administration cost' %}:</div>
+            <div class="col-lg-3">€ {{ object.administratiekosten|floatformat:2 }}</div>
+            <div class="col-lg-4">{% trans 'Discount (sign up date)' %}:</div>
+            <div class="col-lg-2">€ {{ object.kortingopdatum|floatformat:2 }}
+                {% if object.kortingdatum != 0 %} ({{ object.kortingopdatum }} %) {% endif %}</div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3">{% trans 'Reminder costs' %}:</div>
+            <div class="col-lg-3">€ {{ object.aanmaningskosten|floatformat:2 }}</div>
+            <div class="col-lg-4">{% trans 'Family discount' %}:</div>
+            <div class="col-lg-2">€ {{ object.kortingopadres|floatformat:2 }}</div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3"><b>{% trans 'Total contribution' %}:</b></div>
+            <div class="col-lg-3"><b>€ {{ object.total_contribution|floatformat:2 }}</b></div>
+            <div class="col-lg-4"><b>{% trans 'Already paid' %}:</b></div>
+            <div class="col-lg-2"><b>€ {{ object.payed|floatformat:2 }}</b></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 pt-3">
+            <a href="{% url 'jarrbo_contributie:payments' %}?contribution__member__relatiecode={{ object.member.relatiecode }}" 
+               class="btn btn-primary" role="button align-item-centre">{% trans 'Payment overview' %}</a>
+            </div>
+        </div>
+    </div>
+    <div class="border mt-3 p-2">
+        {% crispy form %}
+    </div>
+{% endblock %}
+
+

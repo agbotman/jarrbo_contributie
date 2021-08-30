@@ -1,0 +1,10 @@
+{% extends "jarrbo_contributie/base-2.html" %}
+{% load i18n %}
+
+{% block main_content %}
+    <h1>{% trans 'Import succeeded' %}</h1>
+    <p>{{object.active_members}} {% trans 'active members' %}</p>
+    <p>{{object.new_members}} {% trans 'new members' %}</p>
+    <p>{{object.unsubscribed_members}} {% trans 'unsubscribed members' %}</p>
+    <p>{{object.changed_members}} {% trans 'changed members' %}</p>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends "jarrbo_contributie/base-2.html" %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+
+{% block main_content %}
+  <h3>{% trans 'Members' %}</h3>
+  <table class="table table-sm table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">{% trans 'Relationcode' %}</th>
+        <th scope="col">{% trans 'Name' %}</th>
+        <th scope="col">{% trans 'Payments' %}</th>
+        <th scope="col">{% trans 'Category' %}</th>
+      </tr>
+    </thead>
+    {% for member in object_list %}
+    <tr>
+      <td>{{ member.relatiecode }}</td>
+      <td><a href="{{ member.get_absolute_url }}">{{ member.fullname }}</a></td>
+      <td>
+        <a href="{% url 'jarrbo_contributie:payments' %}?contribution__member__relatiecode={{ member.relatiecode }}" 
+           class="btn btn-xs btn-primary" role="button align-item-centre">{% trans 'Payments' %}</a>
+      </td>
+      <td>{{ member.lc }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+{% include "jarrbo_contributie/paginator.html" %}
+{% endblock %}
+{% block right_content %}
+  <h3>{% trans 'Selections' %}</h3>
+  <form method="get">
+    {{ filter.form|crispy }}
+    <button type="submit">Search</button>
+  </form>
+{% endblock %}
+

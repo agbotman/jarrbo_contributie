@@ -1,0 +1,64 @@
+{% extends "jarrbo_contributie/base-2.html" %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block main_content %}
+  <div class="border mt-3 p-2">
+    <h3>{% block title %}{% trans 'Member information' %}{% endblock %}</h3>
+      <div class="row">
+        <div class="col-lg-3">{% trans 'Name' %}:</div>
+        <div class="col-lg-3">{{ object.fullname }}</div>
+        <div class="col-lg-3">{% trans 'Date of birth' %}:</div>
+        <div class="col-lg-3">{{ object.geboortedatum }}</div>
+      </div>
+      <div class="row">
+        <div class="col-lg-3">{% trans 'Relation code' %}:</div>
+        <div class="col-lg-3">{{ object.relatiecode }}</div>
+        <div class="col-lg-3">{% trans 'Age category' %}:</div>
+        <div class="col-lg-3">{{ object.leeftijdscategorie }}</div>
+      </div>
+      <div class="row">
+        <div class="col-lg-3">{% trans 'E-mail address' %}:</div>
+        <div class="col-lg-3">{{ object.email }}</div>
+        <div class="col-lg-3">{% trans 'Phone number' %}:</div>
+        <div class="col-lg-3">{{ object.telefoon }}</div>
+      </div>
+      {% for contribution in object.contributions.all %}
+        <div class="row">
+          <div class="col-lg-3"><a href="{{ contribution.get_absolute_url }}">{% trans 'Contribution' %} {{ contribution.activity }}:</a></div>
+          <div class="col-lg-3">€&nbsp{{ contribution.total_contribution }}</div>
+          <div class="col-lg-3">{% trans 'Already payed' %}:</div>
+          <div class="col-lg-3">€&nbsp{{ contribution.payed }}</div>
+        </div>
+      {% endfor %}
+        <div class="row">
+          <div class="col-lg-2">
+            <a 
+              class="btn btn-primary btn-xs"
+              href="{% url 'jarrbo_contributie:note_create' %}?relatiecode={{ object.relatiecode }}&next={{ member.get_absolute_url }}"
+              role="button">
+              {% trans 'New note' %}
+            </a>
+          </div>         
+        </div>
+      {% for note in object.notes.all %}
+        <div class="row">
+          <div class="col-lg-2">
+            <a 
+              class="btn btn-primary btn-xs"
+              href="{% url 'jarrbo_contributie:note_update' pk=note.pk %}?next={{ member.get_absolute_url }}"
+              role="button">
+              {{ note.datetime|date:"j b" }}
+            </a>
+          </div>         
+          <div class="col-lg-10">{{ note.description }}</div>
+        </div>
+      {% endfor %}
+      
+   </div>
+   <div class="border mt-3 p-2">
+        {% crispy form %}
+    </div>
+{% endblock %}
+
+

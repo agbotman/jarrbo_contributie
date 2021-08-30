@@ -1,0 +1,76 @@
+{% extends "jarrbo_contributie/base-2.html" %}
+{% load humanize %}
+{% load i18n %}
+
+{% block main_content %}
+<h3>{% trans 'Paymentbatches' %}</h3>
+  <table class="table table-sm table-bordered">
+    <thead>
+      <tr>
+        <th>{% trans 'Date' %}</th>
+        <th>{% trans 'State' %}</th>
+        <th>{% trans 'Planned' %}</th>
+        <th>{% trans 'Action' %}</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for batch in object_list %}
+      <tr>
+        <td>{{ batch.datum|date:"d F Y" }}</td>
+        <td>{{ batch.status }}</td>
+        <td>€ {{ batch.totalplanned|default_if_none:"0"|floatformat:2|intcomma }}</td>
+        <td>
+          {% if batch.status.status == "Gepland" %}
+            <form 
+              method="POST"
+              action=" {% url 'jarrbo_contributie:paymentbatch_submit' pk=batch.pk %}">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-primary btn-xs">{% trans 'Send' %}</button>
+            </form>
+          {% endif %}
+          {% if batch.status.status == "Verzonden" %}
+            <form 
+              method="POST"
+              action=" {% url 'jarrbo_contributie:paymentbatch_execute' pk=batch.pk %}">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-primary btn-xs">{% trans 'Execute' %}</button>
+            </form>
+          {% endif %}
+          {% if batch.status.status == "Uitgevoerd" %}
+            {% if batch.withdrawn == 0 and batch.nobalance == 0 %}
+            <form 
+              method="POST"
+              action="{% url 'jarrbo_contributie:paymentbatch_plan' pk=batch.pk %}">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-danger btn-xs">{% trans 'Plan' %}</button>
+            </form>
+            {% endif %}
+          {% endif %}
+        </td>
+        <td>
+          <a 
+            class="btn btn-primary btn-xs"
+            href="{% url 'jarrbo_contributie:payments' %}?method=1&paymentbatch={{batch.pk}}"
+            role="button"
+          >
+            {% trans 'Payments' %}
+          </a>
+        </td>
+        <td>
+          <a 
+            class="btn btn-primary btn-xs"
+            href="{% url 'jarrbo_contributie:paymentbatch_create' pk=batch.pk %}"
+            role="button"
+          >
+            {% trans 'Create collection batch' %}
+          </a>
+        </td>
+      </tr>
+{% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
+
+

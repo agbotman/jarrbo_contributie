@@ -1,0 +1,59 @@
+{% extends "jarrbo_contributie/base-2.html" %}
+{% load humanize %}
+{% load i18n %}
+{% load l10n %}
+{% load crispy_forms_tags %}
+
+{% block main_content %}
+{% language 'nl' %}
+    <h3>{% trans 'Dashboard' %}</h3>
+    <div class="row">
+        <table class="table table-sm">
+            <thead>
+              <tr>
+                <th></th>
+                <th>{% trans 'Base' %}</th>
+                <th>{% trans 'Clothing fund' %}</th>
+                <th>{% trans 'Allowances' %}</th>
+                <th>{% trans 'Discounts' %}</th>
+                <th>{% trans 'Total' %}</th>
+                <th>{% trans 'Payed' %}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">{% trans 'General' %}</th>
+                <td>€{{ view.generictotals.basiscontributie|default_if_none:"0"|floatformat:0|intcomma }}</td>
+                <td>€{{ view.generictotals.kledingfonds|default_if_none:"0"|floatformat:0|intcomma }}</td>
+                <td>€{{ view.generictotals.toeslagen|default_if_none:"0"|floatformat:0|intcomma }}</td>
+                <td>€{{ view.generictotals.kortingen|default_if_none:"0"|floatformat:0|intcomma }}</td>
+                <td>€{{ view.generictotals.totalcontribution|default_if_none:"0"|floatformat:0|intcomma }}</td>
+                <td>€{{ view.generictotals.betaald|default_if_none:"0"|floatformat:0|intcomma }}</td>
+              </tr>
+    {% for activity in view.activitytotals %}
+              <tr>
+                <th scope="row">{{ activity.activity__description }}</th>
+                <td>€{{ activity.basiscontributie|default_if_none:"0"|floatformat:0|intcomma }}</td>
+                <td>€{{ activity.kledingfonds|default_if_none:"0"|floatformat:0|intcomma }}</td>
+                <td>€{{ activity.toeslagen|default_if_none:"0"|floatformat:0|intcomma }}</td>
+                <td>€{{ activity.kortingen|default_if_none:"0"|floatformat:0|intcomma }}</td>
+                <td>€{{ activity.totalcontribution|default_if_none:"0"|floatformat:0|intcomma }}</td>
+                <td>€{{ activity.betaald|default_if_none:"0"|floatformat:0|intcomma }}</td>
+              </tr>
+    {% endfor %}
+    {% for category in view.categorytotals %}
+               <tr>
+                <th scope="row">{{ category.member__lc__description }}</th>
+                <td>€{{ category.basiscontributie|default_if_none:"0"|floatformat:0|intcomma }}</td>
+                <td>€{{ category.kledingfonds|default_if_none:"0"|floatformat:0|intcomma }}</td>
+                <td>€{{ category.toeslagen|default_if_none:"0"|floatformat:0|intcomma }}</td>
+                <td>€{{ category.kortingen|default_if_none:"0"|floatformat:0|intcomma }}</td>
+                <td>€{{ category.totalcontribution|default_if_none:"0"|floatformat:0|intcomma }}</td>
+                <td>€{{ category.betaald|default_if_none:"0"|floatformat:0|intcomma }}</td>
+              </tr>
+     {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endlanguage %}
+{% endblock %}

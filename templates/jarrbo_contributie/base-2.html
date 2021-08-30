@@ -1,0 +1,63 @@
+{% extends "djangocms/base.html" %}
+{% load i18n %}
+{% load cms_tags menu_tags %}
+
+{% block title %}{% page_attribute "page_title" %}{% endblock title %}
+
+{% block layout %}
+    <div class="text-success">
+        <center><h1>{% trans "Contribution administration SVW'27" %}</h1></center>
+    </div>
+	<div class="row">
+		<div class="col-lg-2">
+            <div class="p-2">
+			{% block left_content %}
+              <h2></h2>
+              <ul class="nav flex-column">
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url "jarrbo_contributie:dashboard" %}">{% trans 'Dashboard' %}</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url "jarrbo_contributie:payments" %}">{% trans 'Payments' %}</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url "jarrbo_contributie:members" %}">{% trans 'Members' %}</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url "jarrbo_contributie:incasso" %}">{% trans 'Collection batches' %}</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url "jarrbo_contributie:importmember" %}">{% trans 'Member import' %}</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url "jarrbo_contributie:importinschrijvingen" %}">{% trans 'Subscription import' %}</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url "jarrbo_contributie:importmachtigingen" %}">{% trans 'Authority import' %}</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url "jarrbo_contributie:importrddata" %}">{% trans 'Rddata import' %}</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url "jarrbo_contributie:payment_export" %}">{% trans 'Payment export' %}</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url "jarrbo_contributie:member_create" %}">{% trans 'New member' %}</a>
+                </li>
+              </ul>
+			{% endblock left_content %}
+            </div>
+		</div>
+		<div class="col-lg-8">
+			{% block main_content %}
+			{% endblock main_content %}
+		</div>
+		<div class="col-lg-2">
+			{% block right_content %}
+			{% endblock right_content %}
+        </div>
+	</div>
+{% endblock layout %}
+
+
+

@@ -1,0 +1,47 @@
+{% load my_tags %}
+
+{% if page_obj.has_other_pages %}
+  <ul class="pagination">
+    <!-- link to the first page, only needed when actual page > 5 -->
+    <!-- otherwise included by "nearby pages" -->
+    {% if page_obj.number > 5 %}
+            <li>
+              <a class="page-link" href="?{% param_replace page=1 %}">
+                {{ 1 }}
+              </a>
+            </li>
+    {% endif %}
+    {% for i in page_obj.paginator.page_range %}
+        <!-- the active page -->
+        {% if page_obj.number == i %}
+          <li class="page-item active">
+            <a class="page-link" href="#">
+              {{ i }} 
+            </a>
+          </li>
+        <!-- "nearby pages" are also shown -->
+        {% elif i > page_obj.number|add:'-5' and i < page_obj.number|add:'5' %}
+            <li>
+              <a class="page-link" href="?page={{ i }}">
+                {{ i }}
+              </a>
+            </li>
+        {% else %}
+              <a href="?page={{ i }}">
+                &bull;
+              </a>         
+        {% endif %}
+    {% endfor %}
+    <!-- link to the last page -->
+    {% if page_obj.number < page_obj.paginator.num_pages|add:'-4' %}
+            <li>
+              <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">
+                {{ page_obj.paginator.num_pages }}
+              </a>
+            </li>
+    {% endif %}
+  </ul>
+{% endif %}
+
+
+

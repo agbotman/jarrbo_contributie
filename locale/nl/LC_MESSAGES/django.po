@@ -1,0 +1,694 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-08-27 19:12+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: filters.py:16
+msgid "Family name contains"
+msgstr "Achternaam bevat"
+
+#: filters.py:17 templates/jarrbo_contributie/member_form.html:17
+#: templates/jarrbo_contributie/payment_form.html:17
+msgid "Age category"
+msgstr "Leeftijdscategorie"
+
+#: filters.py:24 templates/jarrbo_contributie/contribution_form.html:11
+#: templates/jarrbo_contributie/payment_filter.html:12
+#: templates/jarrbo_contributie/payment_form.html:11
+msgid "Activity"
+msgstr "Activiteit"
+
+#: filters.py:41 templates/jarrbo_contributie/member_form.html:15
+msgid "Relation code"
+msgstr "Relatiecode"
+
+#: forms.py:19 forms.py:27 forms.py:35 forms.py:43
+msgid "Import"
+msgstr "Importeren"
+
+#: forms.py:56
+msgid "Authority"
+msgstr "Machtiging"
+
+#: forms.py:57
+msgid "Discount"
+msgstr "Korting"
+
+#: forms.py:58
+msgid "Authority ascription"
+msgstr "Tenaamstelling machtiging"
+
+#: forms.py:59
+msgid "Authority addresss"
+msgstr "Adres machtiging"
+
+#: forms.py:60 forms.py:276
+msgid "Postal code"
+msgstr "Postcode"
+
+#: forms.py:61
+msgid "Authority city"
+msgstr "Plaats machtiging"
+
+#: forms.py:62
+msgid "Authority e-mail"
+msgstr "E-mail machtiging"
+
+#: forms.py:63
+msgid "Withdrawn"
+msgstr "Ingetrokken"
+
+#: forms.py:64 forms.py:127 forms.py:191
+msgid "Payment method"
+msgstr "Betalingsmethode"
+
+#: forms.py:65
+msgid "state"
+msgstr "Status"
+
+#: forms.py:73 forms.py:142
+msgid "Invalid IBAN number"
+msgstr "Ongeldig IBAN nummer"
+
+#: forms.py:81 forms.py:150 forms.py:286
+msgid "Invalid postal code"
+msgstr "Ongeldige postcode"
+
+#: forms.py:111 forms.py:179 forms.py:238 forms.py:257 forms.py:314
+msgid "Update"
+msgstr "Bijwerken"
+
+#: forms.py:123
+msgid "Discount percentage"
+msgstr "Kortingspercentage"
+
+#: forms.py:124
+msgid "Fixed discount"
+msgstr "Vaste korting"
+
+#: forms.py:125
+msgid "Terms"
+msgstr "Termijnen"
+
+#: forms.py:126 templates/jarrbo_contributie/contribution_form.html:37
+msgid "Family discount"
+msgstr "Gezinskorting"
+
+#: forms.py:128
+msgid "IBAN number"
+msgstr "IBAN nummer"
+
+#: forms.py:129
+msgid "Invoice name"
+msgstr "Tenaamstelling factuur"
+
+#: forms.py:130
+msgid "Invoice address"
+msgstr "Adres factuur"
+
+#: forms.py:131
+msgid "Invoice postal code"
+msgstr "Postcode factuur"
+
+#: forms.py:132
+msgid "Invoice city"
+msgstr "Plaats factuur"
+
+#: forms.py:133
+msgid "Invoice e-mail address"
+msgstr "E-mailadres factuur"
+
+#: forms.py:134
+msgid "Sponsored"
+msgstr "Gesponsord"
+
+#: forms.py:189 templates/jarrbo_contributie/payment_filter.html:17
+#: templates/jarrbo_contributie/payment_form.html:21
+msgid "Amount"
+msgstr "Bedrag"
+
+#: forms.py:190
+msgid "Paymentbatch"
+msgstr "Incassobatch"
+
+#: forms.py:192
+msgid "Payment date"
+msgstr "Betalingsdatum"
+
+#: forms.py:193
+#| msgid "House number"
+msgid "Request number"
+msgstr "Aanvraagnummer"
+
+#: forms.py:210
+msgid "Amount too high"
+msgstr "Bedrag te hoog"
+
+#: forms.py:247
+msgid "Member"
+msgstr "Lid"
+
+#: forms.py:248 templates/jarrbo_contributie/payment_form.html:27
+msgid "Description"
+msgstr "Beschrijving"
+
+#: forms.py:249
+msgid "Note"
+msgstr "Notitie"
+
+#: forms.py:268 templates/jarrbo_contributie/member_filter.html:10
+msgid "Relationcode"
+msgstr "Relatiecode"
+
+#: forms.py:269
+msgid "First name"
+msgstr "Roepnaam"
+
+#: forms.py:270
+msgid "Initials"
+msgstr "Voorletters"
+
+#: forms.py:271
+msgid "Infixes"
+msgstr "Voorvoegsels"
+
+#: forms.py:272
+msgid "Family name"
+msgstr "Achternaam"
+
+#: forms.py:273
+msgid "Street"
+msgstr "Straat"
+
+#: forms.py:274
+msgid "House number"
+msgstr "Huisnummer"
+
+#: forms.py:275
+msgid "Addition"
+msgstr "Toevoeging"
+
+#: forms.py:277
+msgid "City"
+msgstr "Plaats"
+
+#: forms.py:278
+msgid "Activities"
+msgstr "Activiteiten"
+
+#: importers.py:31
+#, python-format
+msgid "The following headers are missing: %s"
+msgstr "De volgende headers ontbreken: %s"
+
+#: importers.py:42
+msgid "Invalid file format"
+msgstr "Onjuist bestandsformaat"
+
+#: models.py:22
+msgid "season"
+msgstr "Seizoen"
+
+#: models.py:23
+msgid "seasons"
+msgstr "Seizoenen"
+
+#: models.py:31
+msgid "last member import"
+msgstr "laatste ledenverwerking"
+
+#: models.py:32
+msgid "refresh all"
+msgstr "alles verversen"
+
+#: models.py:43
+msgid "configuration"
+msgstr "configuratie"
+
+#: models.py:44
+msgid "configurations"
+msgstr "confuguraties"
+
+#: models.py:51
+msgid "activity"
+msgstr "activiteit"
+
+#: models.py:52
+msgid "activities"
+msgstr "activiteiten"
+
+#: models.py:61
+msgid "maximum age end of season"
+msgstr "maximale leeftijd bij einde seizoen"
+
+#: models.py:64
+msgid "age category"
+msgstr "leeftijdscategorie"
+
+#: models.py:65
+msgid "age categories"
+msgstr "leeftijdscategoriën"
+
+#: models.py:76
+msgid "extended category name"
+msgstr "lange categorienaam"
+
+#: models.py:77
+msgid "extended category names"
+msgstr "lange categorienamen"
+
+#: models.py:87
+msgid "payment type"
+msgstr "betalingstype"
+
+#: models.py:88
+msgid "payment types"
+msgstr "betalingstypes"
+
+#: models.py:100
+msgid "payment method"
+msgstr "betalingsmethode"
+
+#: models.py:101
+msgid "payment methods"
+msgstr "betalingsmethoden"
+
+#: models.py:111 models.py:802
+msgid "timestamp"
+msgstr "tijdstip"
+
+#: models.py:112 templates/jarrbo_contributie/import_member_detail.html:6
+msgid "active members"
+msgstr "actieve leden"
+
+#: models.py:113
+msgid "new registrations"
+msgstr "aanmeldingen"
+
+#: models.py:114
+msgid "unsubscribes"
+msgstr "afmeldingen"
+
+#: models.py:115
+msgid "changes"
+msgstr "wijzigingen"
+
+#: models.py:116
+msgid "non active members"
+msgstr "niet actieve leden"
+
+#: models.py:119
+msgid "member import"
+msgstr "ledenverwerking"
+
+#: models.py:120
+msgid "member imports"
+msgstr "ledenverwerking"
+
+#: models.py:147
+msgid "subscription"
+msgstr "aanmelding"
+
+#: models.py:148
+msgid "subscriptions"
+msgstr "aanmeldingen"
+
+#: models.py:158
+msgid "member status"
+msgstr "lidstatus"
+
+#: models.py:159
+msgid "member statuses"
+msgstr "lidstatus"
+
+#: models.py:277
+msgid "member"
+msgstr "lid"
+
+#: models.py:278
+msgid "members"
+msgstr "leden"
+
+#: models.py:519
+msgid "contribution"
+msgstr "contributie"
+
+#: models.py:520
+msgid "contributions"
+msgstr "contributies"
+
+#: models.py:575
+msgid "authority"
+msgstr "machtiging"
+
+#: models.py:576
+msgid "authorities"
+msgstr "machtigingen"
+
+#: models.py:593
+msgid "contribution amount"
+msgstr "contributiebedrag"
+
+#: models.py:594
+msgid "contribution amounts"
+msgstr "contributiebedragen"
+
+#: models.py:613
+msgid "payment status"
+msgstr "betalingsstatus"
+
+#: models.py:614
+msgid "payment statuses"
+msgstr "betalingsstatus"
+
+#: models.py:623
+msgid "paymentbatch status"
+msgstr "incassobatch status"
+
+#: models.py:624
+msgid "paymentbatch statuses"
+msgstr "incassobatch status"
+
+#: models.py:699
+msgid "payment batch"
+msgstr "incassobatch"
+
+#: models.py:700
+msgid "payment batches"
+msgstr "incassobatches"
+
+#: models.py:729 models.py:777
+msgid "payment"
+msgstr "betaling"
+
+#: models.py:730 models.py:778
+msgid "payments"
+msgstr "betalingen"
+
+#: models.py:793
+msgid "payment status change"
+msgstr "betalingsstatus wijziging"
+
+#: models.py:794
+msgid "payment status changes"
+msgstr "betalingsstatus wijzigingen"
+
+#: models.py:807 models.py:808
+msgid "notes"
+msgstr "notities"
+
+#: templates/jarrbo_contributie/base-2.html:9
+msgid "Contribution administration SVW'27"
+msgstr "Contributie administratie SVW'27"
+
+#: templates/jarrbo_contributie/base-2.html:18
+#: templates/jarrbo_contributie/dashboard.html:9
+msgid "Dashboard"
+msgstr "Dashboard"
+
+#: templates/jarrbo_contributie/base-2.html:21
+#: templates/jarrbo_contributie/member_filter.html:12
+#: templates/jarrbo_contributie/member_filter.html:22
+#: templates/jarrbo_contributie/paymentbatch_list.html:58
+msgid "Payments"
+msgstr "Betalingen"
+
+#: templates/jarrbo_contributie/base-2.html:24
+#: templates/jarrbo_contributie/member_filter.html:6
+msgid "Members"
+msgstr "Leden"
+
+#: templates/jarrbo_contributie/base-2.html:27
+msgid "Collection batches"
+msgstr "Incassobatches"
+
+#: templates/jarrbo_contributie/base-2.html:30
+msgid "Member import"
+msgstr "Ledenverwerking"
+
+#: templates/jarrbo_contributie/base-2.html:33
+msgid "Subscription import"
+msgstr "Inschrijvingen import"
+
+#: templates/jarrbo_contributie/base-2.html:36
+msgid "Authority import"
+msgstr "Machtigingen import"
+
+#: templates/jarrbo_contributie/base-2.html:39
+msgid "Rddata import"
+msgstr "Rddata import"
+
+#: templates/jarrbo_contributie/base-2.html:42
+msgid "Payment export"
+msgstr "Exporteer betalingen"
+
+#: templates/jarrbo_contributie/base-2.html:45
+msgid "New member"
+msgstr "Nieuw lid"
+
+#: templates/jarrbo_contributie/contribution_form.html:7
+msgid "Contribution information"
+msgstr "Contributie informatie"
+
+#: templates/jarrbo_contributie/contribution_form.html:9
+#: templates/jarrbo_contributie/member_filter.html:11
+#: templates/jarrbo_contributie/member_form.html:9
+#: templates/jarrbo_contributie/payment_filter.html:11
+#: templates/jarrbo_contributie/payment_form.html:9
+msgid "Name"
+msgstr "Naam"
+
+#: templates/jarrbo_contributie/contribution_form.html:15
+msgid "Base contribution"
+msgstr "Basis contributie"
+
+#: templates/jarrbo_contributie/contribution_form.html:17
+msgid "Age categorie"
+msgstr "Leeftijdscategorie"
+
+#: templates/jarrbo_contributie/contribution_form.html:21
+msgid "Contribution clothing fund"
+msgstr "Kledingfonds"
+
+#: templates/jarrbo_contributie/contribution_form.html:23
+msgid "General discount"
+msgstr "Algemene korting"
+
+#: templates/jarrbo_contributie/contribution_form.html:28
+msgid "Administration cost"
+msgstr "Administratiekosten"
+
+#: templates/jarrbo_contributie/contribution_form.html:30
+msgid "Discount (sign up date)"
+msgstr "Korting (aanmeldingsdatum)"
+
+#: templates/jarrbo_contributie/contribution_form.html:35
+msgid "Reminder costs"
+msgstr "Aanmaningskosten"
+
+#: templates/jarrbo_contributie/contribution_form.html:41
+msgid "Total contribution"
+msgstr "Totale contributie"
+
+#: templates/jarrbo_contributie/contribution_form.html:43
+msgid "Already paid"
+msgstr "Reeds betaald"
+
+#: templates/jarrbo_contributie/contribution_form.html:49
+#: templates/jarrbo_contributie/payment_filter.html:7
+msgid "Payment overview"
+msgstr "Betalingsoverzicht"
+
+#: templates/jarrbo_contributie/dashboard.html:15
+msgid "Base"
+msgstr "Basis"
+
+#: templates/jarrbo_contributie/dashboard.html:16
+msgid "Clothing fund"
+msgstr "Kledingfonds"
+
+#: templates/jarrbo_contributie/dashboard.html:17
+msgid "Allowances"
+msgstr "Toeslagen"
+
+#: templates/jarrbo_contributie/dashboard.html:18
+msgid "Discounts"
+msgstr "Kortingen"
+
+#: templates/jarrbo_contributie/dashboard.html:19
+msgid "Total"
+msgstr "Totaal"
+
+#: templates/jarrbo_contributie/dashboard.html:20
+msgid "Payed"
+msgstr "Betaald"
+
+#: templates/jarrbo_contributie/dashboard.html:25
+msgid "General"
+msgstr "Algemeen"
+
+#: templates/jarrbo_contributie/import_inschrijvingen.html:8
+msgid "Upload subscriptions"
+msgstr "Uploaden inschrijvingen"
+
+#: templates/jarrbo_contributie/import_inschrijvingen_detail.html:5
+#: templates/jarrbo_contributie/import_machtigingen_detail.html:5
+#: templates/jarrbo_contributie/import_member_detail.html:5
+#: templates/jarrbo_contributie/import_rddata_detail.html:5
+msgid "Import succeeded"
+msgstr "Import geslaagd"
+
+#: templates/jarrbo_contributie/import_machtigingen.html:8
+msgid "Upload Allowances"
+msgstr "Upload machtigingen"
+
+#: templates/jarrbo_contributie/import_member_detail.html:7
+msgid "new members"
+msgstr "nieuwe leden"
+
+#: templates/jarrbo_contributie/import_member_detail.html:8
+#| msgid "unsubscribes"
+msgid "unsubscribed members"
+msgstr "afmeldingen"
+
+#: templates/jarrbo_contributie/import_member_detail.html:9
+msgid "changed members"
+msgstr "wijzigingen"
+
+#: templates/jarrbo_contributie/import_members.html:8
+msgid "Upload memberfile"
+msgstr "Verwerk ledenbestand"
+
+#: templates/jarrbo_contributie/import_rddata.html:8
+msgid "Upload RD data"
+msgstr "Upload Rddata"
+
+#: templates/jarrbo_contributie/member_filter.html:13
+msgid "Category"
+msgstr "Categorie"
+
+#: templates/jarrbo_contributie/member_filter.html:31
+#: templates/jarrbo_contributie/payment_filter.html:120
+msgid "Selections"
+msgstr "Selecties"
+
+#: templates/jarrbo_contributie/member_form.html:7
+msgid "Member information"
+msgstr "Leden informatie"
+
+#: templates/jarrbo_contributie/member_form.html:11
+#: templates/jarrbo_contributie/payment_form.html:15
+msgid "Date of birth"
+msgstr "Geboortedatum"
+
+#: templates/jarrbo_contributie/member_form.html:21
+msgid "E-mail address"
+msgstr "E-mailadres"
+
+#: templates/jarrbo_contributie/member_form.html:23
+msgid "Phone number"
+msgstr "Telefoonnummer"
+
+#: templates/jarrbo_contributie/member_form.html:28
+msgid "Contribution"
+msgstr "Contributie"
+
+#: templates/jarrbo_contributie/member_form.html:30
+msgid "Already payed"
+msgstr "Reeds betaald"
+
+#: templates/jarrbo_contributie/member_form.html:40
+msgid "New note"
+msgstr "Nieuwe notitie"
+
+#: templates/jarrbo_contributie/payment_filter.html:13
+msgid "Method"
+msgstr "Methode"
+
+#: templates/jarrbo_contributie/payment_filter.html:14
+msgid "Invoice"
+msgstr "Factuur"
+
+#: templates/jarrbo_contributie/payment_filter.html:15
+#: templates/jarrbo_contributie/payment_filter.html:50
+msgid "Details"
+msgstr "Details"
+
+#: templates/jarrbo_contributie/payment_filter.html:16
+#: templates/jarrbo_contributie/payment_filter.html:59
+msgid "All"
+msgstr "Allemaal"
+
+#: templates/jarrbo_contributie/payment_filter.html:18
+#: templates/jarrbo_contributie/paymentbatch_list.html:10
+msgid "Date"
+msgstr "Datum"
+
+#: templates/jarrbo_contributie/payment_filter.html:19
+#: templates/jarrbo_contributie/paymentbatch_list.html:11
+msgid "State"
+msgstr "Status"
+
+#: templates/jarrbo_contributie/payment_filter.html:20
+#: templates/jarrbo_contributie/paymentbatch_list.html:13
+msgid "Action"
+msgstr "Actie"
+
+#: templates/jarrbo_contributie/payment_filter.html:21
+msgid "New state"
+msgstr "Nieuwe status"
+
+#: templates/jarrbo_contributie/payment_filter.html:40
+msgid "Print"
+msgstr "Afdrukken"
+
+#: templates/jarrbo_contributie/payment_filter.html:79
+msgid "Mail"
+msgstr "Mailen"
+
+#: templates/jarrbo_contributie/payment_filter.html:91
+msgid "Huygensmail"
+msgstr "Huygensmail"
+
+#: templates/jarrbo_contributie/payment_form.html:7
+msgid "Payment information"
+msgstr "Betalingsinformatie"
+
+#: templates/jarrbo_contributie/paymentbatch_list.html:6
+msgid "Paymentbatches"
+msgstr "Incassobatches"
+
+#: templates/jarrbo_contributie/paymentbatch_list.html:12
+msgid "Planned"
+msgstr "Gepland"
+
+#: templates/jarrbo_contributie/paymentbatch_list.html:30
+msgid "Send"
+msgstr "Verzenden"
+
+#: templates/jarrbo_contributie/paymentbatch_list.html:38
+msgid "Execute"
+msgstr "Uitvoeren"
+
+#: templates/jarrbo_contributie/paymentbatch_list.html:47
+msgid "Plan"
+msgstr "Plannen"
+
+#: templates/jarrbo_contributie/paymentbatch_list.html:67
+msgid "Create collection batch"
+msgstr "Aanmaken incassobatch"

@@ -37,4 +37,5 @@ urlpatterns = [
     url(r'^member/create/$', MemberCreateView.as_view(), name='member_create'),
     url(r'^payments/export/$', PaymentExport, name='payment_export'),
     url(r'^factuur/(?P<pk>\d+)/$', FactuurView.as_view(), name='factuur'),
+    url(r'^restitutions/$', RestitutionFormSet.as_view(), name='restitutions'),
 ]

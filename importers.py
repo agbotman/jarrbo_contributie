@@ -358,7 +358,7 @@ def import_Machtigingenfile(inschrijvingenfile):
     reader = csv.DictReader(csvfile, delimiter=';')
     startdate = pytz.UTC.localize(datetime(2000,1,1))
     last = Machtiging.objects.aggregate(maxdt=Max('datumtijd'))['maxdt'] or startdate
-    dateprocess = pytz.UTC.localize(datetime(2021,11,7))
+    dateprocess = pytz.UTC.localize(datetime(2021,1,1))
     for row in reader:
         dt = datetime.strptime(row['Datum ingevuld'],"%d-%m-%Y %H:%M")
         dt = pytz.UTC.localize(dt)
@@ -377,6 +377,7 @@ def import_Machtigingenfile(inschrijvingenfile):
             m.geboortedatum = clean_date(row['Geboortedatum'])
             m.naam_machtiging = row['ten name van']
             m.plaats_machtiging = row['Plaats']
+            m.email_machtiging = row['email adres']
             cl_iban = clean_iban(row['IBAN Nummer'])
             if valid_iban(cl_iban):
                 m.iban = cl_iban
@@ -391,8 +392,19 @@ def import_Machtigingenfile(inschrijvingenfile):
                     mbr.adres_machtiging = m.adres
                     mbr.postcode_machtiging = m.postcode
                     mbr.plaats_machtiging = m.plaats_machtiging
+                    mbr.email_machtiging = m.email_machtiging
                     mbr.iban = m.iban
+                    mbr.payment_method = Paymentmethod.objects.get(description='Incasso')
                     mbr.save()
+                for c in mbr.contributions.all():
+                    c.factuur_naam = m.naam_machtiging
+                    c.factuur_adres = m.adres
+                    c.factuur_postcode = m.postcode
+                    c.factuur_plaats = m.plaats_machtiging
+                    c.factuur_email = m.email_machtiging
+                    c.payment_method = mbr.payment_method
+                    c.save()
+                    c.recreate_payments()
     return
     
 def getMember(roepnaam, achternaam, postcode, geboortedatum):

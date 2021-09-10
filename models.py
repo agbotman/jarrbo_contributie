@@ -186,7 +186,7 @@ class Member(models.Model):
     adres_machtiging = models.CharField(max_length=50, blank=True)
     postcode_machtiging = models.CharField(max_length=7, blank=True)
     plaats_machtiging = models.CharField(max_length=30, blank=True)
-    email_machtiging = models.EmailField(blank=True)
+    email_machtiging = models.EmailField(blank=True, null=True)
     # korting percentage blijft behouden, ook in nieuwe seizoen
     # termijnbetalingen moet ieder seizoen opnieuw afgesproken worden, dus niet in deze tabel
     kortingpercentage = models.PositiveIntegerField(default=0)
@@ -319,11 +319,11 @@ class Contribution(models.Model):
     termijnen = models.PositiveIntegerField(default=1)
     payment_method = models.ForeignKey(Paymentmethod, on_delete=models.PROTECT, null=True)
     iban = models.CharField(max_length=34, null=True, blank=True)
-    factuur_naam = models.CharField(max_length=50, blank=True)
-    factuur_adres = models.CharField(max_length=50, blank=True)
-    factuur_postcode = models.CharField(max_length=7, blank=True)
-    factuur_plaats = models.CharField(max_length=30, blank=True)
-    factuur_email = models.EmailField(blank=True)
+    factuur_naam = models.CharField(max_length=50, null=True, blank=True)
+    factuur_adres = models.CharField(max_length=50, null=True, blank=True)
+    factuur_postcode = models.CharField(max_length=7, null=True, blank=True)
+    factuur_plaats = models.CharField(max_length=30, null=True, blank=True)
+    factuur_email = models.EmailField(null=True, blank=True)
     sponsored = models.BooleanField(default=False)
     # calculated fields
     # korting percentage op aanmelddatum
@@ -450,6 +450,15 @@ class Contribution(models.Model):
             payments = payments.filter(paymentdate__gt=fromdate)
         payments.filter(status__status='Gepland').delete()
         if self.sponsored:
+            if self.payed > 0:
+                p = Payment(seizoen = self.seizoen,
+                            contribution = self,
+                            method = Paymentmethod.objects.get(description='Overboeking'),
+                            amount = - (self.payed),
+                            status = Paymentstatus.objects.get(status='Gepland'),
+                            createdate = datetime.today(),
+                            )
+                p.save()
             return
         remaining = self.total_contribution - self.payed - self.planned
         termijnen_betaald = self.payments.filter(status__include=True).count()
@@ -491,6 +500,7 @@ class Contribution(models.Model):
         self.factuur_adres = self.member.adres_machtiging
         self.factuur_postcode = self.member.postcode_machtiging
         self.factuur_plaats = self.member.plaats_machtiging
+        self.factuur_email = self.member.email_machtiging
         self.iban = self.member.iban
         self.kortingpercentage = self.member.kortingpercentage
         self.payment_method = self.member.payment_method
@@ -568,6 +578,7 @@ class Machtiging(models.Model):
     geboortedatum = models.DateField()
     naam_machtiging = models.CharField(max_length=50)
     plaats_machtiging = models.CharField(max_length=30)
+    email_machtiging = models.EmailField(blank=True, null=True)
     iban = models.CharField(max_length=34, blank=True)
     
     class Meta:
@@ -726,16 +737,6 @@ class Payment(models.Model):
     withdrawndate = models.DateField(blank=True, null=True)
     withdrawnmaildate = models.DateField(blank=True, null=True)
     huygensmaildate = models.DateField(blank=True, null=True)
-    
-    class Meta:
-        verbose_name = _("payment")
-        verbose_name_plural = _("payments")
-        ordering = ['seizoen',
-                    'contribution__member__achternaam',
-                    'contribution__member__tussenvoegsels',
-                    'contribution__member__roepnaam',
-                    'paymentdate',
-                   ]
 
     objects = PaymentManager()
 
@@ -778,6 +779,12 @@ class Payment(models.Model):
     class Meta:
         verbose_name = _("payment")
         verbose_name_plural = _("payments")
+        ordering = ['seizoen',
+                    'contribution__member__achternaam',
+                    'contribution__member__tussenvoegsels',
+                    'contribution__member__roepnaam',
+                    'paymentdate',
+                   ]
 
     def __str__(self):
         return ("%s %s" % ("{0:.2f}".format(self.amount), self.status.status))
@@ -808,3 +815,20 @@ class Note(models.Model):
     class Meta:
         verbose_name = _("notes")
         verbose_name_plural = _("notes")
+
+class CoronaRestitution(models.Model):
+    contribution = models.OneToOneField(Contribution, null=True, on_delete=models.SET_NULL)
+    s_2021 = models.BooleanField(default=False)
+    s_2122 = models.BooleanField(default=False)
+    applied = models.BooleanField(default=False)
+    amount = models.DecimalField(max_digits=6, decimal_places=2, default=0)
+    payed = models.BooleanField(default=False)
+    
+    class Meta:
+        verbose_name = _("payment")
+        verbose_name_plural = _("payments")
+        ordering = [
+                    'contribution__member__achternaam',
+                    'contribution__member__tussenvoegsels',
+                    'contribution__member__roepnaam',
+                   ]

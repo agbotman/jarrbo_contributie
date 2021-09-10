@@ -1,0 +1,39 @@
+{% extends "jarrbo_contributie/base-2.html" %}
+{% load i18n %}
+
+{% block main_content %}
+  <h3>{% trans 'Restitution overview' %}</h3>
+  <table class="table table-sm table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">{% trans 'Name' %}</th>
+        <th scope="col">{% trans 'Activity' %}</th>
+        <th scope="col">{% trans '2020-2021' %}</th>
+        <th scope="col">{% trans '2021-2022' %}</th>
+        <th scope="col">{% trans 'Applied' %}</th>
+        <th scope="col">{% trans 'Amount' %}</th>
+        <th scope="col">{% trans 'Payed' %}</th>
+      </tr>
+    </thead>
+      <form method="post">
+        {% csrf_token %}
+        {{ formset.management_form }}
+        {% for form in formset %}
+          <tr>
+          <td>{{ form.instance.contribution.member.fullname }}</td>
+          <td>{{ form.instance.contribution.activity }}</td>
+          <td>{{ form.s_2021 }}</td>
+          <td>{{ form.s_2122 }}</td>
+          <td>{{ form.applied }}</td>
+          <td>{{ form.amount }}</td>
+          <td>{{ form.payed }}</td>
+          {{ form.id }}
+          <tr>
+        {% endfor %}
+        <input type="submit" value={% trans "Submit" %} />
+      </form>
+    </table>
+{% include "jarrbo_contributie/paginator.html" %}
+{% endblock %}
+
+

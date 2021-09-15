@@ -819,7 +819,6 @@ class Note(models.Model):
 class CoronaRestitution(models.Model):
     contribution = models.OneToOneField(Contribution, null=True, on_delete=models.SET_NULL)
     s_2021 = models.BooleanField(default=False)
-    s_2122 = models.BooleanField(default=False)
     applied = models.BooleanField(default=False)
     amount = models.DecimalField(max_digits=6, decimal_places=2, default=0)
     payed = models.BooleanField(default=False)

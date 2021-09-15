@@ -528,7 +528,7 @@ class FactuurView(View):
 
 class RestitutionFormSet(ModelFormSetView):
     model = CoronaRestitution
-    fields = ['s_2021', 's_2122', 'applied', 'amount', 'payed']
+    fields = ['s_2021', 'applied', 'amount', 'payed']
     template_name = 'jarrbo_contributie/coronarestitution_formset.html'
     factory_kwargs = {'extra': 0, }
     paginate_by = 18

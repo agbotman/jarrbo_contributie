@@ -23,7 +23,11 @@
           <td>{{ form.instance.contribution.member.fullname }}</td>
           <td>{{ form.instance.contribution.activity }}</td>
           <td>{{ form.s_2021 }}</td>
-          <td>{{ form.s_2122 }}</td>
+          {% if form.instance.contribution.payed %}
+          <td> <input type="checkbox" name="s2122" checked disabled> </td>
+          {% else %}
+          <td> <input type="checkbox" name="s2122" disabled> </td>
+          {% endif %}
           <td>{{ form.applied }}</td>
           <td>{{ form.amount }}</td>
           <td>{{ form.payed }}</td>

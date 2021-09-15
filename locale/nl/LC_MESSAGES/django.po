@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-09 15:02+0200\n"
+"POT-Creation-Date: 2021-09-15 16:41+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -462,6 +462,11 @@ msgstr "Exporteer betalingen"
 msgid "New member"
 msgstr "Nieuw lid"
 
+#: templates/jarrbo_contributie/base-2.html:48
+#| msgid "Contribution"
+msgid "Corona restitutions"
+msgstr "Corona restituties"
+
 #: templates/jarrbo_contributie/contribution_form.html:7
 msgid "Contribution information"
 msgstr "Contributie informatie"
@@ -517,7 +522,6 @@ msgid "Payment overview"
 msgstr "Betalingsoverzicht"
 
 #: templates/jarrbo_contributie/coronarestitution_formset.html:5
-#| msgid "Payment overview"
 msgid "Restitution overview"
 msgstr "Overzicht Corona restituties"
 

@@ -22,12 +22,12 @@
         <!-- "nearby pages" are also shown -->
         {% elif i > page_obj.number|add:'-5' and i < page_obj.number|add:'5' %}
             <li>
-              <a class="page-link" href="?page={{ i }}">
+              <a class="page-link" href="?{% param_replace page=i %}">
                 {{ i }}
               </a>
             </li>
         {% else %}
-              <a href="?page={{ i }}">
+              <a href="?{% param_replace page=i %}">
                 &bull;
               </a>         
         {% endif %}
@@ -35,7 +35,7 @@
     <!-- link to the last page -->
     {% if page_obj.number < page_obj.paginator.num_pages|add:'-4' %}
             <li>
-              <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">
+              <a class="page-link" href="?{% param_replace page=page_obj.paginator.num_pages %}">
                 {{ page_obj.paginator.num_pages }}
               </a>
             </li>

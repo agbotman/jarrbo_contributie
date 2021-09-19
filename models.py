@@ -796,6 +796,7 @@ class PaymentstatusChange(models.Model):
     statusafter = models.ForeignKey(Paymentstatus, null=True, on_delete=models.SET_NULL,
                                     related_name='statusafter')
     standard = models.BooleanField(default=True)
+    recovery = models.BooleanField(default=False)
 
     class Meta:
         unique_together = [['paymenttype', 'statusbefore', 'statusafter']]

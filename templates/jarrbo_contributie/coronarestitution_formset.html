@@ -12,6 +12,8 @@
         <th scope="col">{% trans '2021-2022' %}</th>
         <th scope="col">{% trans 'Applied' %}</th>
         <th scope="col">{% trans 'Amount' %}</th>
+        <th scope="col">{% trans 'IBAN' %}</th>
+        <th scope="col">{% trans 'Ascription' %}</th>
         <th scope="col">{% trans 'Payed' %}</th>
       </tr>
     </thead>
@@ -30,6 +32,8 @@
           {% endif %}
           <td>{{ form.applied }}</td>
           <td>{{ form.amount }}</td>
+          <td>{{ form.instance.contribution.iban }}</td>
+          <td>{{ form.instance.contribution.factuur_naam }}</td>
           <td>{{ form.payed }}</td>
           {{ form.id }}
           <tr>

@@ -95,7 +95,7 @@
           {% endif %}
       </td>
       {% for newstatus in view.paymentstatus %}
-        {% if payment|status_valid:newstatus %}
+        {% if payment|status_valid:newstatus and not payment|recovery_change:newstatus %}
           <td>
             <form 
               method="POST"

@@ -45,7 +45,21 @@ def status_valid(payment, newstatus):
     
 @register.filter
 def standard_change(payment, newstatus):
-    return PaymentstatusChange.objects.get(paymenttype=payment.method.type,
+    try:
+        pc = PaymentstatusChange.objects.get(paymenttype=payment.method.type,
                                         statusbefore=payment.status,
-                                        statusafter=newstatus).standard
+                                        statusafter=newstatus)
+    except PaymentstatusChange.DoesNotExist:
+        return False
+    return pc.standard
+    
+@register.filter
+def recovery_change(payment, newstatus):
+    try:
+        pc = PaymentstatusChange.objects.get(paymenttype=payment.method.type,
+                                        statusbefore=payment.status,
+                                        statusafter=newstatus)
+    except PaymentstatusChange.DoesNotExist:
+        return False
+    return pc.recovery
 

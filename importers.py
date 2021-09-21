@@ -201,8 +201,8 @@ def newmember(r):
               )
     if valid_iban(m.iban):
         m.machtiging = True
-    s = Memberstatus.objects.get(status='Spelend')
-    m.status = s
+    a = Memberstatus.objects.get(status='Aangemeld')
+    m.status = a
     m.save()
     i = getInschrijving(m.roepnaam, m.achternaam, m.postcode, m.geboortedatum)
     if i:

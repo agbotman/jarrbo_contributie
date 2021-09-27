@@ -787,6 +787,7 @@ class Payment(models.Model):
                     'contribution__member__achternaam',
                     'contribution__member__tussenvoegsels',
                     'contribution__member__roepnaam',
+                    'paymentbatch__datum',
                     'paymentdate',
                    ]
 

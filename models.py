@@ -692,7 +692,8 @@ class Paymentbatch(models.Model):
         ws['C4'] = self.datum
         row = 12
         klfnds = ' (dit is incl. bijdrage kledingfonds)'
-        for payment in self.payments.all():
+        # to be sure include ony the payments that has Incasso as method
+        for payment in self.payments.filter(method__description='Incasso'):
             tenaamstellingref = ws.cell(row=row, column=2)
             tenaamstellingref.value = unidecode(payment.contribution.factuur_naam)
             ibanref = ws.cell(row=row, column=3)

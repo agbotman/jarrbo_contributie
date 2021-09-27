@@ -819,6 +819,10 @@ class Note(models.Model):
     class Meta:
         verbose_name = _("notes")
         verbose_name_plural = _("notes")
+        ordering = ['-datetime', ]
+
+    def __str__(self):
+        return self.description
 
 class CoronaRestitution(models.Model):
     contribution = models.OneToOneField(Contribution, null=True, on_delete=models.SET_NULL)

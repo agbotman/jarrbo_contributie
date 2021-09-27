@@ -546,4 +546,10 @@ class RestitutionFormSet(ModelFormSetView):
         kwargs["queryset"] = page_object
         return kwargs
         
-        
+class FailedListView(LoginRequiredMixin, ListView):
+    template_name = 'jarrbo_contributie/failed_payments.html'
+    paginate_by = 18
+
+    def get_queryset(self):
+        month = int(self.kwargs['pk'])
+        return Payment.objects.filter(paymentbatch__datum__month=month, status__status='Teruggeboekt')

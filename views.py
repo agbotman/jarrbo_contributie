@@ -552,4 +552,7 @@ class FailedListView(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         month = int(self.kwargs['pk'])
+        if month == 0:
+             pb = Paymentbatch.objects.filter(status__status='Uitgevoerd').order_by('-datum')[0]
+             month = pb.datum.month
         return Payment.objects.filter(paymentbatch__datum__month=month, status__status='Teruggeboekt')

@@ -179,7 +179,8 @@ class Member(models.Model):
     mobiel = models.CharField(max_length=15, blank=True)
     email = models.EmailField(blank=True)
     aanmeldingsdatum = models.DateField(blank=True, null=True)
-    inschrijvingsdatum = models.DateField(null=True)
+    inschrijvingsdatum = models.DateField(blank=True, null=True)
+    machtigingsdatum = models.DateField(blank=True, null=True)
     activities = models.ManyToManyField(Activity)
     inschrijving = models.OneToOneField(Inschrijving, on_delete=models.SET_NULL, null=True)
     naam_machtiging = models.CharField(max_length=50, blank=True)
@@ -199,6 +200,13 @@ class Member(models.Model):
     status = models.ForeignKey(Memberstatus, on_delete=models.SET_NULL, blank=True, null=True)
     # calculated fields
     lc = models.ForeignKey(Leeftijdscategory, on_delete=models.SET_NULL, blank=True, null=True)
+
+    @ property
+    def formalname(self):
+        if self.tussenvoegsels:
+            return '%s %s %s' % ((self.voorletters or self.roepnaam[0]), self.tussenvoegsels, self.achternaam)
+        else:
+            return '%s %s' % ((self.voorletters or self.roepnaam[0]), self.achternaam)
 
     @ property
     def fullname(self):
@@ -695,7 +703,10 @@ class Paymentbatch(models.Model):
         # to be sure include ony the payments that has Incasso as method
         for payment in self.payments.filter(method__description='Incasso'):
             tenaamstellingref = ws.cell(row=row, column=2)
-            tenaamstellingref.value = unidecode(payment.contribution.factuur_naam)
+            if payment.contribution.factuur_naam:
+                tenaamstellingref.value = unidecode(payment.contribution.factuur_naam)
+            else:
+                tenaamstellingref.value = unidecode(payment.contribution.member.formalname)
             ibanref = ws.cell(row=row, column=3)
             ibanref.value = payment.contribution.iban
             kenmerkref = ws.cell(row=row, column=4)
@@ -705,10 +716,9 @@ class Paymentbatch(models.Model):
             omschrijvingref = ws.cell(row=row, column=6)
             omschrijvingref.value = unidecode(payment.remark)
             machtigingdatumref = ws.cell(row=row, column=7)
-            if payment.contribution.member.inschrijvingsdatum:
-                machtigingdatumref.value = payment.contribution.member.inschrijvingsdatum
-            else:
-                machtigingdatumref.value = payment.contribution.member.aanmeldingsdatum
+            machtigingdatumref.value = payment.contribution.member.machtigingsdatum or \
+                                        payment.contribution.member.inschrijvingsdatum or \
+                                        payment.contribution.member.aanmeldingsdatum
             row += 1
         return wb
     

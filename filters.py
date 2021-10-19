@@ -9,6 +9,7 @@ class MemberFilter(django_filters.FilterSet):
             'relatiecode': ['exact'],
             'achternaam': ['icontains'],
             'lc': ['exact'],
+            'status': ['exact'],
         }
 
     def __init__(self, *args, **kwargs):

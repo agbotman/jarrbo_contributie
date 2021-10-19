@@ -50,7 +50,7 @@ class UpdateMemberForm(forms.ModelForm):
                   'machtiging', 'huygenspas', 'iban', 'kortingpercentage', 
                   'machtiging_withdrawn', 'naam_machtiging', 'adres_machtiging', 
                   'postcode_machtiging', 'plaats_machtiging', 'email_machtiging',
-                  'status', 'payment_method',
+                  'status', 'payment_method', 'machtigingsdatum',
                   ]
         labels = {
                   'machtiging': _('Authority'),
@@ -63,6 +63,7 @@ class UpdateMemberForm(forms.ModelForm):
                   'machtiging_withdrawn': _('Withdrawn'),
                   'payment_method': _('Payment method'),
                   'status': _('state'),
+                  'machtigingsdatum': _('Authority date'),
                  }
 
     def clean_iban(self):
@@ -83,6 +84,7 @@ class UpdateMemberForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(UpdateMemberForm, self).__init__(*args, **kwargs)
+        self.fields['machtigingsdatum'].widget = forms.TextInput(attrs={'type': 'date'})
         self.helper = FormHelper()
         self.helper.form_method = 'post'
         self.helper.layout = Layout(
@@ -105,6 +107,10 @@ class UpdateMemberForm(forms.ModelForm):
                     Column('adres_machtiging', css_class='form-group col-lg-6 mb-0'),
                     Column('postcode_machtiging', css_class='form-group col-lg-2 mb-0'),
                     Column('plaats_machtiging', css_class='form-group col-lg-4 mb-0'),
+                    css_class='form-row'
+                ),
+                Row(
+                    Column('machtigingsdatum', css_class='form-group col-lg-6 mb-0'),
                     css_class='form-row'
                 ),
                 )

@@ -1,6 +1,6 @@
 from django.views.generic import FormView, DetailView, TemplateView, ListView, View
 from django.views.generic.edit import UpdateView, CreateView
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django_filters.views import FilterView
 from django.urls import reverse_lazy, reverse
 from django.shortcuts import render, redirect
@@ -17,7 +17,16 @@ from .filters import MemberFilter, PaymentFilter
 from .importers import *
 from .tools import send_contributiemail
 
-class DashboardView(LoginRequiredMixin, TemplateView):
+class TestSuperuser(UserPassesTestMixin):
+    def test_func(self):
+        return self.request.user.is_superuser
+
+class TestContributieAdmin(UserPassesTestMixin):
+    def test_func(self):
+        return self.request.user.is_superuser or \
+                self.request.user.groups.filter(name='Contributie_admin').exists()
+
+class DashboardView(TestContributieAdmin, TemplateView):
     template_name = 'jarrbo_contributie/dashboard.html'
     title = 'Dashboard'
     
@@ -73,7 +82,7 @@ class DashboardView(LoginRequiredMixin, TemplateView):
                                 tot=Sum('amount'))['tot']
         return totals
 
-class ImportMemberView(LoginRequiredMixin, FormView):
+class ImportMemberView(TestSuperuser, FormView):
     form_class = ImportMemberForm
     template_name = 'jarrbo_contributie/import_members.html'
     
@@ -93,11 +102,11 @@ class ImportMemberView(LoginRequiredMixin, FormView):
         else:
             return self.form_invalid(form)
             
-class ImportMemberDetail(LoginRequiredMixin, DetailView):
+class ImportMemberDetail(TestSuperuser, DetailView):
     model = MemberImport
     template_name = 'jarrbo_contributie/import_member_detail.html'
 
-class ImportRddataView(LoginRequiredMixin, FormView):
+class ImportRddataView(TestSuperuser, FormView):
     form_class = ImportRddataForm
     template_name = 'jarrbo_contributie/import_rddata.html'
     
@@ -112,10 +121,10 @@ class ImportRddataView(LoginRequiredMixin, FormView):
         else:
             return self.form_invalid(form)
             
-class ImportRddataDetail(LoginRequiredMixin, TemplateView):
+class ImportRddataDetail(TestSuperuser, TemplateView):
     template_name = 'jarrbo_contributie/import_rddata_detail.html'
 
-class ImportInschrijvingenView(LoginRequiredMixin, FormView):
+class ImportInschrijvingenView(TestSuperuser, FormView):
     form_class = ImportInschrijvingenForm
     template_name = 'jarrbo_contributie/import_inschrijvingen.html'
     
@@ -130,10 +139,10 @@ class ImportInschrijvingenView(LoginRequiredMixin, FormView):
         else:
             return self.form_invalid(form)
             
-class ImportInschrijvingenDetail(LoginRequiredMixin, TemplateView):
+class ImportInschrijvingenDetail(TestSuperuser, TemplateView):
     template_name = 'jarrbo_contributie/import_inschrijvingen_detail.html'
 
-class ImportMachtigingenView(LoginRequiredMixin, FormView):
+class ImportMachtigingenView(TestSuperuser, FormView):
     form_class = ImportMachtigingenForm
     template_name = 'jarrbo_contributie/import_machtigingen.html'
     
@@ -148,15 +157,15 @@ class ImportMachtigingenView(LoginRequiredMixin, FormView):
         else:
             return self.form_invalid(form)
             
-class ImportMachtigingenDetail(LoginRequiredMixin, TemplateView):
+class ImportMachtigingenDetail(TestSuperuser, TemplateView):
     template_name = 'jarrbo_contributie/import_machtigingen_detail.html'
     
-class MemberListView(LoginRequiredMixin, FilterView):
+class MemberListView(TestContributieAdmin, FilterView):
     model = Member
     paginate_by = 18
     filterset_class = MemberFilter
     
-class PaymentListView(LoginRequiredMixin, FilterView):
+class PaymentListView(TestContributieAdmin, FilterView):
     model = Payment
     paginate_by = 18
     filterset_class = PaymentFilter
@@ -165,10 +174,10 @@ class PaymentListView(LoginRequiredMixin, FilterView):
     def paymentstatus(self):
         return Paymentstatus.objects.all()
     
-class PaymentbatchListView(LoginRequiredMixin, ListView):
+class PaymentbatchListView(TestContributieAdmin, ListView):
     model = Paymentbatch
 
-class MemberUpdateView(LoginRequiredMixin, UpdateView):
+class MemberUpdateView(TestContributieAdmin, UpdateView):
     model = Member
     form_class = UpdateMemberForm
 
@@ -183,7 +192,7 @@ class MemberUpdateView(LoginRequiredMixin, UpdateView):
                 c.update_memberdata()
         return redirect_url
 
-class ContributionUpdateView(LoginRequiredMixin, UpdateView):
+class ContributionUpdateView(TestContributieAdmin, UpdateView):
     model = Contribution
     form_class = UpdateContributionForm
 
@@ -197,7 +206,7 @@ class ContributionUpdateView(LoginRequiredMixin, UpdateView):
             self.object.recreate_payments()
         return redirect_url
 
-class PaymentUpdateView(LoginRequiredMixin, UpdateView):
+class PaymentUpdateView(TestContributieAdmin, UpdateView):
     model = Payment
     form_class = UpdatePaymentForm
 
@@ -214,7 +223,7 @@ class PaymentUpdateView(LoginRequiredMixin, UpdateView):
         return redirect_url
 
                             
-class PaymentbatchSubmitView(LoginRequiredMixin, View):
+class PaymentbatchSubmitView(TestContributieAdmin, View):
     http_method_names = ['post'] 
     
     def post(self, request, pk):
@@ -233,7 +242,7 @@ class PaymentbatchSubmitView(LoginRequiredMixin, View):
         redirect_url = reverse('jarrbo_contributie:incasso')
         return redirect(redirect_url)
                             
-class PaymentbatchCreateView(LoginRequiredMixin, View):
+class PaymentbatchCreateView(TestContributieAdmin, View):
     http_method_names = ['get'] 
     
     def get(self, request, pk):
@@ -250,7 +259,7 @@ class PaymentbatchCreateView(LoginRequiredMixin, View):
         return response
 
                             
-class PaymentbatchExecuteView(LoginRequiredMixin, View):
+class PaymentbatchExecuteView(TestContributieAdmin, View):
     http_method_names = ['post'] 
     
     def post(self, request, pk):
@@ -266,7 +275,7 @@ class PaymentbatchExecuteView(LoginRequiredMixin, View):
         redirect_url = reverse('jarrbo_contributie:incasso')
         return redirect(redirect_url)
                             
-class PaymentbatchPlanView(LoginRequiredMixin, View):
+class PaymentbatchPlanView(TestContributieAdmin, View):
     http_method_names = ['post'] 
     
     def post(self, request, pk):
@@ -282,7 +291,7 @@ class PaymentbatchPlanView(LoginRequiredMixin, View):
         redirect_url = reverse('jarrbo_contributie:incasso')
         return redirect(redirect_url)
         
-class PaymentMovenextView(LoginRequiredMixin, View):
+class PaymentMovenextView(TestContributieAdmin, View):
     http_method_names = ['post']
     
     def post(self, request, pk):
@@ -300,7 +309,7 @@ class PaymentMovenextView(LoginRequiredMixin, View):
         redirect_url = request.META.get('HTTP_REFERER')
         return redirect(redirect_url)
 
-class PaymentStatusupdateView(LoginRequiredMixin, View):
+class PaymentStatusupdateView(TestContributieAdmin, View):
     http_method_names = ['post']
     
     def post(self, request, pk, newstatuspk):
@@ -334,7 +343,7 @@ class PaymentStatusupdateView(LoginRequiredMixin, View):
         redirect_url = request.META.get('HTTP_REFERER')
         return redirect(redirect_url)
 
-class NoteCreateView(LoginRequiredMixin, CreateView):
+class NoteCreateView(TestContributieAdmin, CreateView):
     model = Note
     form_class = CreateNoteForm
 
@@ -349,7 +358,7 @@ class NoteCreateView(LoginRequiredMixin, CreateView):
                 reverse_lazy('jarrbo_contributie:member_detail',
                             kwargs={'pk': self.object.member.pk})
 
-class NoteUpdateView(LoginRequiredMixin, UpdateView):
+class NoteUpdateView(TestContributieAdmin, UpdateView):
     model = Note
     form_class = CreateNoteForm
 
@@ -358,7 +367,7 @@ class NoteUpdateView(LoginRequiredMixin, UpdateView):
                 reverse_lazy('jarrbo_contributie:member_detail',
                             kwargs={'pk': self.object.member.pk})
 
-class PaymentMailView(LoginRequiredMixin, View):
+class PaymentMailView(TestContributieAdmin, View):
     http_method_names = ['post']
     
     def post(self, request, pk):
@@ -391,7 +400,7 @@ class PaymentMailView(LoginRequiredMixin, View):
         return redirect(redirect_url)
         
 
-class MemberCreateView(LoginRequiredMixin, CreateView):
+class MemberCreateView(TestContributieAdmin, CreateView):
     model = Member
     form_class = MemberCreateForm
     template_name_suffix = '_create_form'
@@ -546,7 +555,7 @@ class RestitutionFormSet(ModelFormSetView):
         kwargs["queryset"] = page_object
         return kwargs
         
-class FailedListView(LoginRequiredMixin, ListView):
+class FailedListView(TestContributieAdmin, ListView):
     template_name = 'jarrbo_contributie/failed_payments.html'
     paginate_by = 18
 

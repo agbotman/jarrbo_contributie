@@ -1,6 +1,7 @@
 {% extends "djangocms/base.html" %}
 {% load i18n %}
 {% load cms_tags menu_tags %}
+{% load my_tags %}
 
 {% block title %}{% page_attribute "page_title" %}{% endblock title %}
 
@@ -17,6 +18,7 @@
                 <li class="nav-item">
                   <a class="nav-link" href="{% url "jarrbo_auth:profile" %}">{% trans 'Profile' %}</a>
                 </li>
+            {% if request.user|has_group:"Contributie_admin" or request.user.is_superuser %} 
                 <li class="nav-item">
                   <a class="nav-link" href="{% url "jarrbo_contributie:dashboard" %}">{% trans 'Dashboard' %}</a>
                 </li>
@@ -30,6 +32,17 @@
                   <a class="nav-link" href="{% url "jarrbo_contributie:incasso" %}">{% trans 'Collection batches' %}</a>
                 </li>
                 <li class="nav-item">
+                  <a class="nav-link" href="{% url "jarrbo_contributie:payment_export" %}">{% trans 'Payment export' %}</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url "jarrbo_contributie:member_create" %}">{% trans 'New member' %}</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url "jarrbo_contributie:failed" 0 %}">{% trans 'Withdrawn payments' %}</a>
+                </li>
+            {% endif %}
+            {% if request.user.is_superuser %}
+                <li class="nav-item">
                   <a class="nav-link" href="{% url "jarrbo_contributie:importmember" %}">{% trans 'Member import' %}</a>
                 </li>
                 <li class="nav-item">
@@ -41,15 +54,7 @@
                 <li class="nav-item">
                   <a class="nav-link" href="{% url "jarrbo_contributie:importrddata" %}">{% trans 'Rddata import' %}</a>
                 </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="{% url "jarrbo_contributie:payment_export" %}">{% trans 'Payment export' %}</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="{% url "jarrbo_contributie:member_create" %}">{% trans 'New member' %}</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="{% url "jarrbo_contributie:failed" 0 %}">{% trans 'Withdrawn payments' %}</a>
-                </li>
+            {% endif %}
               </ul>
 			{% endblock left_content %}
             </div>

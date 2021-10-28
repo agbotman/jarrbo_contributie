@@ -188,6 +188,7 @@ class Member(models.Model):
     postcode_machtiging = models.CharField(max_length=7, blank=True)
     plaats_machtiging = models.CharField(max_length=30, blank=True)
     email_machtiging = models.EmailField(blank=True, null=True)
+    kenmerk_machtiging = models.CharField(max_length=50, blank=True)
     # korting percentage blijft behouden, ook in nieuwe seizoen
     # termijnbetalingen moet ieder seizoen opnieuw afgesproken worden, dus niet in deze tabel
     kortingpercentage = models.PositiveIntegerField(default=0)
@@ -710,7 +711,8 @@ class Paymentbatch(models.Model):
             ibanref = ws.cell(row=row, column=3)
             ibanref.value = payment.contribution.iban
             kenmerkref = ws.cell(row=row, column=4)
-            kenmerkref.value = payment.contribution.member.relatiecode
+            kenmerkref.value = payment.contribution.member.kenmerk_machtiging or \
+                                payment.contribution.member.relatiecode
             bedragref = ws.cell(row=row, column=5)
             bedragref.value = payment.amount
             omschrijvingref = ws.cell(row=row, column=6)
@@ -730,7 +732,7 @@ class Paymentbatch(models.Model):
     objects = PaymentbatchManager()
 
     def __str__(self):
-        return ("%s" % (self.datum.strftime('%B'),))
+        return ("%s" % (self.datum.strftime('%B %-d'),))
 
 class PaymentManager(models.Manager):
     def get_queryset(self):

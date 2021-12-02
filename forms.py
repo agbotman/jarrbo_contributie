@@ -191,7 +191,7 @@ class UpdatePaymentForm(forms.ModelForm):
     class Meta:
         model = Payment
         fields = ['amount', 'paymentbatch', 'method',  'paymentdate',
-                  'aanvraagnummer',
+                  'aanvraagnummer', 'status',
                  ]
         labels = {
                   'amount': _('Amount'),
@@ -199,6 +199,7 @@ class UpdatePaymentForm(forms.ModelForm):
                   'method': _('Payment method'),
                   'paymentdate': _('Payment date'),
                   'aanvraagnummer': _('Request number'),
+                  'status': _('Status'),
                  }
         
     def batchfilter(self):
@@ -212,7 +213,8 @@ class UpdatePaymentForm(forms.ModelForm):
     def clean_amount(self):
         amount = self.cleaned_data['amount']
         betaaldverzonden = Payment.objects.filter(contribution__member=self.instance.contribution.member,
-                                         status__include=True).aggregate(Sum('amount'))['amount__sum'] or 0
+                                         status__include=True).exclude(id=self.instance.id).\
+                                         aggregate(Sum('amount'))['amount__sum'] or 0
         toplan = self.instance.contribution.tc - betaaldverzonden
         if amount > toplan:
             raise forms.ValidationError(_('Amount too high'))
@@ -239,6 +241,7 @@ class UpdatePaymentForm(forms.ModelForm):
                 ),
                 Row(
                     Column('aanvraagnummer', css_class='form-group col-lg-6 mb-0'),
+                    Column('status', css_class='form-group col-lg-6 mb-0'),
                 ),
                 )
         self.helper.add_input(Submit('update', _('Update')))

@@ -409,7 +409,7 @@ class Contribution(models.Model):
         if self.sponsored:
             return decimal.Decimal(0.00)
         if self.kortingdatum > 0:
-            return round(((self.base_contribution - self.korting) * self.kortingpercentage) / 100, 2)
+            return round(((self.base_contribution - self.korting) * self.kortingdatum) / 100, 2)
         else:
             return decimal.Decimal(0.00)
     

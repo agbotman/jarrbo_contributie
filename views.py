@@ -482,17 +482,14 @@ class FactuurView(View):
         else:
             kortingregel='Korting'
             korting = ("€    %s" % ('{0:n}'.format(c.total_korting),))
-        extra = ''
-        if m.leeftijdscategorie.description == 'Senioren':
-            extra = ("%s %s %s %s %s %s %s %s" % (
-                'Seniorenleden zijn vorig seizoen extra getroffen door de Coronamaatregelen.', 
-                'Daarom hebben zij recht op een teruggave van € 70,-.', 
-                'Op korte termijn kunnen zij hiervoor een verzoek indienen via', 
-                'een webformulier op de site.',
-                'Voorwaarde is dat van de seizoenen 2019-2020 en 2020-2021',
-                'de contributie volledig betaald is.',
-                'Vanwege administratieve redenen kan dit niet gecombineerd',
-                'worden met de betaling van de contributie.',))
+        extra1 = ("%s %s %s" % (
+            'Het is ook mogelijk om met de Huygenspas te betalen. ', 
+            'Dit kan op zaterdagmorgen tussen 9:00 en 12:00 uur ', 
+            'bij de webshop. Vraag naar Peter de Boer.',))
+        extra2 = ("%s %s %s" % (
+            'Indien de contributie niet voor 6 januari voldaan is ', 
+            'wordt er conform het contributiereglement een spelersverbod ', 
+            'opgelegd.',))
         merge_dict = {
                       'fullname': m.naam_machtiging,
                       'geboortedatum': m.geboortedatum.strftime('%d-%m-%Y'),
@@ -512,7 +509,8 @@ class FactuurView(View):
                       'betaaldatum': betaaldatum.strftime('%d %B %Y'),
                       'kortingregel': kortingregel,
                       'korting': korting,
-                      'extra': extra,
+                      'extra1': extra1,
+                      'extra2': extra2,
                       'aanvraagnummer': payment.aanvraagnummer,
                       'factuurnummer': 'C' + str(payment.factuurnummer),
         }
@@ -525,7 +523,7 @@ class FactuurView(View):
         document = MailMerge(path)
         document.merge(**merge_dict)
             
-        filename = ("factuur_%s.docx" % (m.relatiecode,))
+        filename = ("factuur_%s_%s.docx" % (m.relatiecode, m.fullname,))
 
         response = HttpResponse(
             content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document',

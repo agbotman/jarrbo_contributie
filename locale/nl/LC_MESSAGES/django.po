@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-27 17:01+0200\n"
+"POT-Creation-Date: 2021-12-02 12:04+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -59,7 +59,7 @@ msgstr "Tenaamstelling machtiging"
 msgid "Authority addresss"
 msgstr "Adres machtiging"
 
-#: forms.py:60 forms.py:282
+#: forms.py:60 forms.py:285
 msgid "Postal code"
 msgstr "Postcode"
 
@@ -88,7 +88,6 @@ msgid "Authority date"
 msgstr "Machtigingsdatum"
 
 #: forms.py:67
-#| msgid "Authority date"
 msgid "Authority feature"
 msgstr "Kenmerk machtiging"
 
@@ -96,11 +95,11 @@ msgstr "Kenmerk machtiging"
 msgid "Invalid IBAN number"
 msgstr "Ongeldig IBAN nummer"
 
-#: forms.py:83 forms.py:158 forms.py:292
+#: forms.py:83 forms.py:158 forms.py:295
 msgid "Invalid postal code"
 msgstr "Ongeldige postcode"
 
-#: forms.py:119 forms.py:187 forms.py:244 forms.py:263 forms.py:320
+#: forms.py:119 forms.py:187 forms.py:247 forms.py:266 forms.py:323
 msgid "Update"
 msgstr "Bijwerken"
 
@@ -167,59 +166,64 @@ msgstr "Betalingsdatum"
 msgid "Request number"
 msgstr "Aanvraagnummer"
 
-#: forms.py:218
+#: forms.py:202
+#| msgid "State"
+msgid "Status"
+msgstr "Status"
+
+#: forms.py:220
 msgid "Amount too high"
 msgstr "Bedrag te hoog"
 
-#: forms.py:253
+#: forms.py:256
 msgid "Member"
 msgstr "Lid"
 
-#: forms.py:254 templates/jarrbo_contributie/payment_form.html:27
+#: forms.py:257 templates/jarrbo_contributie/payment_form.html:27
 msgid "Description"
 msgstr "Beschrijving"
 
-#: forms.py:255
+#: forms.py:258
 msgid "Note"
 msgstr "Notitie"
 
-#: forms.py:274 templates/jarrbo_contributie/member_filter.html:10
+#: forms.py:277 templates/jarrbo_contributie/member_filter.html:10
 msgid "Relationcode"
 msgstr "Relatiecode"
 
-#: forms.py:275
+#: forms.py:278
 msgid "First name"
 msgstr "Roepnaam"
 
-#: forms.py:276
+#: forms.py:279
 msgid "Initials"
 msgstr "Voorletters"
 
-#: forms.py:277
+#: forms.py:280
 msgid "Infixes"
 msgstr "Voorvoegsels"
 
-#: forms.py:278
+#: forms.py:281
 msgid "Family name"
 msgstr "Achternaam"
 
-#: forms.py:279
+#: forms.py:282
 msgid "Street"
 msgstr "Straat"
 
-#: forms.py:280
+#: forms.py:283
 msgid "House number"
 msgstr "Huisnummer"
 
-#: forms.py:281
+#: forms.py:284
 msgid "Addition"
 msgstr "Toevoeging"
 
-#: forms.py:283
+#: forms.py:286
 msgid "City"
 msgstr "Plaats"
 
-#: forms.py:284
+#: forms.py:287
 msgid "Activities"
 msgstr "Activiteiten"
 
@@ -687,18 +691,28 @@ msgid "E-mail address"
 msgstr "E-mailadres"
 
 #: templates/jarrbo_contributie/member_form.html:23
+#| msgid "Discount (sign up date)"
+msgid "Sign up date"
+msgstr "Aanmeldingsdatum"
+
+#: templates/jarrbo_contributie/member_form.html:27
 msgid "Phone number"
 msgstr "Telefoonnummer"
 
-#: templates/jarrbo_contributie/member_form.html:28
+#: templates/jarrbo_contributie/member_form.html:29
+#| msgid "House number"
+msgid "Mobile number"
+msgstr "Mobiel"
+
+#: templates/jarrbo_contributie/member_form.html:34
 msgid "Contribution"
 msgstr "Contributie"
 
-#: templates/jarrbo_contributie/member_form.html:30
+#: templates/jarrbo_contributie/member_form.html:36
 msgid "Already payed"
 msgstr "Reeds betaald"
 
-#: templates/jarrbo_contributie/member_form.html:40
+#: templates/jarrbo_contributie/member_form.html:46
 msgid "New note"
 msgstr "Nieuwe notitie"
 

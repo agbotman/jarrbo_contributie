@@ -31,7 +31,6 @@
       <td>{{ payment.contribution.activity }}</td>
       <td>{{ payment.method }}</td>
       <td>
-        {% if payment.method.description == 'Factuur' or payment.method.description == 'Jeugdsportfonds' %}
           <form 
             method="POST"
             action="{% url 'jarrbo_contributie:factuur' pk=payment.pk %}">
@@ -40,7 +39,6 @@
               {% trans 'Print' %}
             </button>
           </form>
-        {% endif %}
       </td>
       <td>
         <a 

@@ -50,7 +50,8 @@ class UpdateMemberForm(forms.ModelForm):
                   'machtiging', 'huygenspas', 'iban', 'kortingpercentage', 
                   'machtiging_withdrawn', 'naam_machtiging', 'adres_machtiging', 
                   'postcode_machtiging', 'plaats_machtiging', 'email_machtiging',
-                  'status', 'payment_method', 'machtigingsdatum', 'kenmerk_machtiging',
+                  'status', 'payment_method', 
+                  'machtigingsdatum', 'aanmeldingsdatum', 'kenmerk_machtiging',
                   ]
         labels = {
                   'machtiging': _('Authority'),
@@ -64,6 +65,7 @@ class UpdateMemberForm(forms.ModelForm):
                   'payment_method': _('Payment method'),
                   'status': _('state'),
                   'machtigingsdatum': _('Authority date'),
+                  'aanmeldingsdatum': _('Sign up date'),
                   'kenmerk_machtiging': _('Authority feature'),
                  }
 
@@ -111,8 +113,9 @@ class UpdateMemberForm(forms.ModelForm):
                     css_class='form-row'
                 ),
                 Row(
-                    Column('kenmerk_machtiging', css_class='form-group col-lg-6 mb-0'),
-                    Column('machtigingsdatum', css_class='form-group col-lg-6 mb-0'),
+                    Column('kenmerk_machtiging', css_class='form-group col-lg-4 mb-0'),
+                    Column('machtigingsdatum', css_class='form-group col-lg-4 mb-0'),
+                    Column('aanmeldingsdatum', css_class='form-group col-lg-4 mb-0'),
                     css_class='form-row'
                 ),
                 )

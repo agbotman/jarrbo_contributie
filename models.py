@@ -695,7 +695,7 @@ class Paymentbatch(models.Model):
         from openpyxl import load_workbook
         from django.conf import settings
         from unidecode import unidecode
-        path = '/'.join((settings.MEDIA_ROOT,'jarrbo_contributie','Incassobatch_template_v1.0.xlsx'))
+        path = '/'.join((settings.MEDIA_ROOT,'jarrbo_contributie','Incassobatch_template_v1.1.xlsx'))
         wb = load_workbook(path)
         ws = wb.active
         ws['C4'] = self.datum

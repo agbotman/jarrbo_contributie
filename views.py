@@ -475,27 +475,28 @@ class FactuurView(View):
             betreft="Contributie SVW'27"
         datum = date.today()
         machtigingdatum = datum + timedelta(weeks=2)
-        betaaldatum = datum + timedelta(weeks=4)
+        betaaldatum = datum + timedelta(weeks=2)
         if c.total_korting == 0:
             kortingregel = ''
             korting = ''
         else:
             kortingregel='Korting'
             korting = ("€    %s" % ('{0:n}'.format(c.total_korting),))
-        extra1 = ("%s %s %s" % (
+        extra1 = ("%s %s %s %s" % (
             'Het is ook mogelijk om met de Huygenspas te betalen. ', 
             'Dit kan op zaterdagmorgen tussen 9:00 en 12:00 uur ', 
+            'of dinsdagavond tussen 19:00 en 20:00 uur ', 
             'bij de webshop. Vraag naar Peter de Boer.',))
         extra2 = ("%s %s %s" % (
-            'Indien de contributie niet voor 6 januari voldaan is ', 
+            'Indien de contributie niet tijdig voldaan is ', 
             'wordt er conform het contributiereglement een spelersverbod ', 
             'opgelegd.',))
         merge_dict = {
-                      'fullname': m.naam_machtiging,
+                      'fullname': m.naam_machtiging or m.fullname,
                       'geboortedatum': m.geboortedatum.strftime('%d-%m-%Y'),
-                      'adres': m.adres_machtiging,
-                      'postcode': m.postcode_machtiging,
-                      'plaats': m.plaats_machtiging,
+                      'adres': m.adres_machtiging or m.shortaddress,
+                      'postcode': m.postcode_machtiging or m.postcode,
+                      'plaats': m.plaats_machtiging or m.plaats,
                       'relatiecode': m.relatiecode,
                       'factuurdatum': datum.strftime('%d %B %Y'),
                       'seizoen': str(c.seizoen),

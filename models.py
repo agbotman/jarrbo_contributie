@@ -349,6 +349,8 @@ class Contribution(models.Model):
     ks = models.DecimalField(max_digits=6, decimal_places=2, default=0)
     # totaal contributiebedrag
     tc = models.DecimalField(max_digits=6, decimal_places=2, default=0)
+    # totaal ontvangen
+    received = models.DecimalField(max_digits=6, decimal_places=2, default=0)
 
     @ property
     def kortingdatum(self):
@@ -485,27 +487,32 @@ class Contribution(models.Model):
         batches = batches.order_by('datum')
         if termijnen_left > batches.count():
             termijnen_left = batches.count()
-        i = termijnen_left
-        for batch in batches[:i]:
-            amount = round(remaining / termijnen_left, 2)
-            remaining = remaining - amount
-            if self.payment_method.description == 'Incasso':
-                paymentbatch = batch
-                paymentdate = batch.datum
-            else:
-                paymentbatch = None
-                paymentdate = batch.datum
-            p = Payment(seizoen = self.seizoen,
-                        contribution = self,
-                        paymentbatch = paymentbatch,
-                        method = self.payment_method,
-                        amount = amount,
-                        paymentdate = paymentdate,
-                        status = Paymentstatus.objects.get(status='Gepland'),
-                        createdate = datetime.today(),
-                        )
-            termijnen_left = termijnen_left - 1
-            p.save()
+        if termijnen_left < 1:
+            i = 1
+        else:
+            i = termijnen_left
+        if len(batches) > 0:
+            for batch in batches[:i]:
+                amount = round(remaining / i, 2)
+                remaining = remaining - amount
+                if self.payment_method.description == 'Incasso':
+                    paymentbatch = batch
+                    paymentdate = batch.datum
+                else:
+                    paymentbatch = None
+                    paymentdate = batch.datum
+                p = Payment(seizoen = self.seizoen,
+                            contribution = self,
+                            paymentbatch = paymentbatch,
+                            method = self.payment_method,
+                            amount = amount,
+                            paymentdate = paymentdate,
+                            status = Paymentstatus.objects.get(status='Gepland'),
+                            createdate = datetime.today(),
+                            )
+                i = i - 1
+                p.save()
+                
 
     def update_memberdata(self):
         self.factuur_naam = self.member.naam_machtiging
@@ -538,6 +545,10 @@ class Contribution(models.Model):
         else:
             self.tc = self.bc + self.aanmaningskosten + self.ak + self.kf \
                       - self.kortingopadres - self.kd - self.ks
+        payments = Payment.objects.filter(contribution=self,status__status='Betaald')
+        p = payments.aggregate(total=Sum('amount'))['total']
+        self.received = p or decimal.Decimal(0.00)
+
     
     class Meta:
         verbose_name = _("contribution")

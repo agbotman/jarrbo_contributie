@@ -430,7 +430,7 @@ def PaymentExport(request):
 
     now = datetime.now()
     dt_string = now.strftime("%Y%m%d%H%M%S")
-    filename=("Payments_%s.xlsx" % (dt_string,))
+    filename=("Payments_%s.csv" % (dt_string,))
     response = HttpResponse(
         content_type='text/csv',
     )
@@ -447,6 +447,32 @@ def PaymentExport(request):
         writer.writerow([p.contribution.member, p.contribution.activity,
                          p.contribution.member.lc, p.method, '{0:n}'.format(p.amount),
                          p.status])
+    return response
+        
+def NotPayedExport(request):
+    from django.db.models import F
+    import csv
+    # set nl language code so that decimal point will be comma
+    import locale
+    locale.setlocale(locale.LC_ALL,'nl_NL.utf8')
+
+    now = datetime.now()
+    dt_string = now.strftime("%Y%m%d%H%M%S")
+    filename=("NotPayed_%s.csv" % (dt_string,))
+    response = HttpResponse(
+        content_type='text/csv',
+    )
+    response['Content-Disposition'] = 'attachment; filename="%s"' % filename
+    
+    # Create a csv witer that writes to the response object
+    writer = csv.writer(response, delimiter=";")
+    # Write a first row with header information
+    writer.writerow(['relatiecode', 'naam', 'leeftijdscategorie', 'contributie',
+                     'betaald'])
+    
+    for c in Contribution.objects.filter(tc__gt=F('received')):
+        writer.writerow([c.member.relatiecode, c.member.fullname, c.member.lc,
+                         c.tc, c.received])
     return response
         
 class FactuurView(View):

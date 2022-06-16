@@ -456,7 +456,7 @@ class Contribution(models.Model):
 
     def recreate_payments(self, fromdate=None):
         # Do not create payments when status of member is aangemeld (not playing yet)
-        if self.member.status.description == 'Aangemeld':
+        if not self.member.status or self.member.status.description == 'Aangemeld':
             return
         # first remove all open payments of current contribution
         payments = self.payments.filter(status__status='Gepland')

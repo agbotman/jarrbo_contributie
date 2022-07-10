@@ -80,6 +80,19 @@ def import_Memberfile(memberfile):
     imp.unsubscribed_members = Member.objects.filter(last_import=last).count()
     imp.changed_members = result["changed"]
     imp.save()
+    
+    # All member not found in this import will get the status afgemeld
+    afgemeld = Memberstatus.objects.get(status='Afgemeld')
+    for mbr in Member.objects.exclude(last_import=imp):
+        mbr.status = afgemeld
+        mbr.save()
+
+    # All member in this import with status afgemeld will get the status aangemeld 
+    aangemeld = Memberstatus.objects.get(status='Afgemeld')        
+    for mbr in Member.objects.filter(last_import=imp,status=afgemeld):
+        mbr.status = aangemeld
+        mbr.save()
+        
     return imp.id
     
 def check_headers(dict, fields):

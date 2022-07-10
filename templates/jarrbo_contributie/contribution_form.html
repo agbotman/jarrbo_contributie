@@ -29,7 +29,7 @@
             <div class="col-lg-3">€ {{ object.administratiekosten|floatformat:2 }}</div>
             <div class="col-lg-4">{% trans 'Discount (sign up date)' %}:</div>
             <div class="col-lg-2">€ {{ object.kortingopdatum|floatformat:2 }}
-                {% if object.kortingdatum != 0 %} ({{ object.kortingopdatum }} %) {% endif %}</div>
+                {% if object.kortingdatum != 0 %} ({{ object.kortingdatum }} %) {% endif %}</div>
         </div>
         <div class="row">
             <div class="col-lg-3">{% trans 'Reminder costs' %}:</div>

@@ -553,7 +553,7 @@ class Contribution(models.Model):
     class Meta:
         verbose_name = _("contribution")
         verbose_name_plural = _("contributions")
-        unique_together = [['member', 'activity']]
+        unique_together = [['member', 'seizoen', 'activity']]
         ordering = ['member', 'activity']
         
     objects = ContributionManager()

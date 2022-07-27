@@ -31,19 +31,19 @@ class DashboardView(TestContributieAdmin, TemplateView):
     title = 'Dashboard'
     
     def generictotals(self):
-        generictotals = Contribution.objects.all().aggregate(
+        generictotals = Contribution.seizoen_objects.all().aggregate(
                                 basiscontributie=Sum('bc'), 
                                 kledingfonds=Sum('kf'),
                                 toeslagen=Sum(F('ak') + F('aanmaningskosten')),
                                 kortingen=Sum(F('kd') + F('kortingopadres') + F('ks')),
                                 totalcontribution=Sum('tc')
                                 )
-        generictotals['betaald'] = Payment.objects.filter(status__status='Betaald').aggregate(
+        generictotals['betaald'] = Payment.seizoen_objects.filter(status__status='Betaald').aggregate(
                                 tot=Sum('amount'))['tot']
         return generictotals
 
     def activitytotals(self):
-        totals = Contribution.objects.order_by('activity').values('activity__description').annotate(
+        totals = Contribution.seizoen_objects.order_by('activity').values('activity__description').annotate(
                                 basiscontributie=Sum('bc'), 
                                 kledingfonds=Sum('kf'),
                                 administratiekosten=Sum('ak'),
@@ -56,14 +56,14 @@ class DashboardView(TestContributieAdmin, TemplateView):
         for d in totals:
             d['toeslagen'] = d['administratiekosten'] + d['aanmaningskosten']
             d['kortingen'] = d['kortingopdatum'] + d['gezinskorting'] + d['kortingspeciaal']
-            d['betaald'] = Payment.objects.filter(
+            d['betaald'] = Payment.seizoen_objects.filter(
                             contribution__activity__description=d['activity__description'],
                             status__status='Betaald').aggregate(
                                 tot=Sum('amount'))['tot']
         return totals
 
     def categorytotals(self):
-        totals = Contribution.objects.order_by('member__lc').values('member__lc__description').annotate(
+        totals = Contribution.seizoen_objects.order_by('member__lc').values('member__lc__description').annotate(
                                 basiscontributie=Sum('bc'), 
                                 kledingfonds=Sum('kf'),
                                 administratiekosten=Sum('ak'),
@@ -76,7 +76,7 @@ class DashboardView(TestContributieAdmin, TemplateView):
         for d in totals:
             d['toeslagen'] = d['administratiekosten'] + d['aanmaningskosten']
             d['kortingen'] = d['kortingopdatum'] + d['gezinskorting'] + d['kortingspeciaal']
-            d['betaald'] = Payment.objects.filter(
+            d['betaald'] = Payment.seizoen_objects.filter(
                             contribution__member__lc__description=d['member__lc__description'],
                             status__status='Betaald').aggregate(
                                 tot=Sum('amount'))['tot']
@@ -232,10 +232,10 @@ class PaymentbatchSubmitView(TestContributieAdmin, View):
         paymentgepland = Paymentstatus.objects.get(status='Gepland')
         paymentverzonden = Paymentstatus.objects.get(status='Verzonden')
         try:
-            paymentbatch = Paymentbatch.objects.get(pk=pk)
+            paymentbatch = Paymentbatch.seizoen_objects.get(pk=pk)
             paymentbatch.status = batchverzonden
             paymentbatch.save()
-            Payment.objects.filter(paymentbatch=paymentbatch,
+            Payment.seizoen_objects.filter(paymentbatch=paymentbatch,
                                    status=paymentgepland).update(status=paymentverzonden)
         except:
             pass
@@ -246,7 +246,7 @@ class PaymentbatchCreateView(TestContributieAdmin, View):
     http_method_names = ['get'] 
     
     def get(self, request, pk):
-        paymentbatch = Paymentbatch.objects.get(pk=pk)
+        paymentbatch = Paymentbatch.seizoen_objects.get(pk=pk)
         wb = paymentbatch.createIncassobatch()
         now = datetime.now()
         dt_string = now.strftime("%Y%m%d%H%M%S")
@@ -267,10 +267,10 @@ class PaymentbatchExecuteView(TestContributieAdmin, View):
         batchuitgevoerd = PaymentbatchStatus.objects.get(status='Uitgevoerd')
         paymentverzonden = Paymentstatus.objects.get(status='Verzonden')
         paymentbetaald = Paymentstatus.objects.get(status='Betaald')
-        paymentbatch = Paymentbatch.objects.get(pk=pk)
+        paymentbatch = Paymentbatch.seizoen_objects.get(pk=pk)
         paymentbatch.status = batchuitgevoerd
         paymentbatch.save()
-        Payment.objects.filter(paymentbatch=paymentbatch,
+        Payment.seizoen_objects.filter(paymentbatch=paymentbatch,
                                status=paymentverzonden).update(status=paymentbetaald)
         redirect_url = reverse('jarrbo_contributie:incasso')
         return redirect(redirect_url)
@@ -283,10 +283,10 @@ class PaymentbatchPlanView(TestContributieAdmin, View):
         batchgepland = PaymentbatchStatus.objects.get(status='Gepland')
         paymentbetaald = Paymentstatus.objects.get(status='Betaald')
         paymentgepland = Paymentstatus.objects.get(status='Gepland')
-        paymentbatch = Paymentbatch.objects.get(pk=pk)
+        paymentbatch = Paymentbatch.seizoen_objects.get(pk=pk)
         paymentbatch.status = batchgepland
         paymentbatch.save()
-        Payment.objects.filter(paymentbatch=paymentbatch,
+        Payment.seizoen_objects.filter(paymentbatch=paymentbatch,
                                status=paymentbetaald).update(status=paymentgepland)
         redirect_url = reverse('jarrbo_contributie:incasso')
         return redirect(redirect_url)
@@ -295,12 +295,12 @@ class PaymentMovenextView(TestContributieAdmin, View):
     http_method_names = ['post']
     
     def post(self, request, pk):
-        payment = Payment.objects.get(pk=pk)
+        payment = Payment.seizoen_objects.get(pk=pk)
         paymentgepland = Paymentstatus.objects.get(status='Gepland')
         batchgepland = PaymentbatchStatus.objects.get(status='Gepland')
         incasso = Paymentmethod.objects.get(description='Incasso')
         if payment.status == paymentgepland and payment.method == incasso:
-            batchlist = list(Paymentbatch.objects.filter(status=batchgepland))
+            batchlist = list(Paymentbatch.seizoen_objects.filter(status=batchgepland))
             currentpos = batchlist.index(payment.paymentbatch)
             if currentpos < len(batchlist) - 1:
                 nextbatch = batchlist[currentpos + 1]
@@ -313,7 +313,7 @@ class PaymentStatusupdateView(TestContributieAdmin, View):
     http_method_names = ['post']
     
     def post(self, request, pk, newstatuspk):
-        payment = Payment.objects.get(pk=pk)
+        payment = Payment.seizoen_objects.get(pk=pk)
         currentstatus = payment.status
         newstatus = Paymentstatus.objects.get(pk=newstatuspk)
         method = payment.method
@@ -330,7 +330,7 @@ class PaymentStatusupdateView(TestContributieAdmin, View):
         if currentstatus.regular and not newstatus.regular:
             if payment.method == Paymentmethod.objects.get(description='Incasso'):
                 st = PaymentbatchStatus.objects.get(status='Gepland')
-                nextbatch = Paymentbatch.objects.filter(seizoen=payment.seizoen,status=st)[0]
+                nextbatch = Paymentbatch.seizoen_objects.filter(status=st)[0]
                 newpayment = Payment()
                 newpayment.seizoen = payment.seizoen
                 newpayment.contribution = payment.contribution
@@ -371,13 +371,13 @@ class PaymentMailView(TestContributieAdmin, View):
     http_method_names = ['post']
     
     def post(self, request, pk):
-        payment = Payment.objects.get(pk=pk)
+        payment = Payment.seizoen_objects.get(pk=pk)
         if payment.status.status == 'Teruggeboekt' or payment.status.status == 'Geensaldo':
             if not payment.withdrawnmaildate:
                 template = get_template('jarrbo_contributie/stornering-1.txt')
                 
                 ctx = {'payment': payment,
-                       'nextbatch': Paymentbatch.objects.nextbatch(),
+                       'nextbatch': Paymentbatch.seizoen_objects.nextbatch(),
                       }
                 subject = ("Incasso contributie %s niet geslaagd" % (payment.contribution.member.fullname,))
                 body = template.render(ctx)
@@ -417,7 +417,7 @@ class MemberCreateView(TestContributieAdmin, CreateView):
             self.object.paymentmethod = Paymentmethod.objects.get(description='Factuur')
         self.object.save()
         for activity in self.object.activities.all():
-            c = Contribution.objects.create_contribution(member=self.object, 
+            c = Contribution.seizoen_objects.create_contribution(member=self.object, 
                                                 seizoen=config.seizoen, activity=activity)
             c.recreate_payments()
         return redirect_url
@@ -442,7 +442,7 @@ def PaymentExport(request):
     writer.writerow(['naam', 'activiteit', 'categorie',
                      'betaalmethode', 'bedrag', 'status'])
     
-    for p in Payment.objects.all().select_related('contribution__member',
+    for p in Payment.seizoen_objects.all().select_related('contribution__member',
                                                     'contribution__activity'):
         writer.writerow([p.contribution.member, p.contribution.activity,
                          p.contribution.member.lc, p.method, '{0:n}'.format(p.amount),
@@ -470,7 +470,7 @@ def NotPayedExport(request):
     writer.writerow(['relatiecode', 'naam', 'leeftijdscategorie', 'contributie',
                      'betaald'])
     
-    for c in Contribution.objects.filter(tc__gt=F('received')):
+    for c in Contribution.seizoen_objects.filter(tc__gt=F('received')):
         writer.writerow([c.member.relatiecode, c.member.fullname, c.member.lc,
                          c.tc, c.received])
     return response
@@ -484,7 +484,7 @@ class FactuurView(View):
         import locale
         locale.setlocale(locale.LC_ALL,'nl_NL.utf8')
         
-        payment = Payment.objects.get(pk=pk)
+        payment = Payment.seizoen_objects.get(pk=pk)
         c = payment.contribution
         m = payment.contribution.member
         a = payment.contribution.activity
@@ -587,6 +587,6 @@ class FailedListView(TestContributieAdmin, ListView):
     def get_queryset(self):
         month = int(self.kwargs['pk'])
         if month == 0:
-             pb = Paymentbatch.objects.filter(status__status='Uitgevoerd').order_by('-datum')[0]
+             pb = Paymentbatch.seizoen_objects.filter(status__status='Uitgevoerd').order_by('-datum')[0]
              month = pb.datum.month
-        return Payment.objects.filter(paymentbatch__datum__month=month, status__status='Teruggeboekt')
+        return Payment.seizoen_objects.filter(paymentbatch__datum__month=month, status__status='Teruggeboekt')

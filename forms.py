@@ -209,13 +209,13 @@ class UpdatePaymentForm(forms.ModelForm):
         if self.instance.method != Paymentmethod.objects.get(description='Incasso'):
             return None
         if self.instance.status == Paymentstatus.objects.get(status='Gepland'):
-            return Paymentbatch.objects.filter(status__status='Gepland')
+            return Paymentbatch.seizoen_objects.filter(status__status='Gepland')
         else:
             return None
 
     def clean_amount(self):
         amount = self.cleaned_data['amount']
-        betaaldverzonden = Payment.objects.filter(contribution__member=self.instance.contribution.member,
+        betaaldverzonden = Payment.seizoen_objects.filter(contribution__member=self.instance.contribution.member,
                                          status__include=True).exclude(id=self.instance.id).\
                                          aggregate(Sum('amount'))['amount__sum'] or 0
         toplan = self.instance.contribution.tc - betaaldverzonden

@@ -372,7 +372,7 @@ class Contribution(models.Model):
     def base_contribution(self):
         if self.sponsored:
             return decimal.Decimal(0.00)
-        ct = ContributionTable.objects.get(activity=self.activity,
+        ct = ContributionTable.seizoen_objects.get(activity=self.activity,
                                        leeftijdscategorie=self.member.leeftijdscategorie)
         return ct.base_contribution
 
@@ -380,7 +380,7 @@ class Contribution(models.Model):
     def kledingfonds(self):
         if self.sponsored:
             return decimal.Decimal(0.00)
-        ct = ContributionTable.objects.get(activity=self.activity,
+        ct = ContributionTable.seizoen_objects.get(activity=self.activity,
                                        leeftijdscategorie=self.member.leeftijdscategorie)
         return ct.kledingfonds
 
@@ -402,7 +402,7 @@ class Contribution(models.Model):
         if self.sponsored:
             return decimal.Decimal(0.00)
         if self.kortingpercentage > 0:
-            return round(((self.base_contribution - 30) * self.kortingpercentage) / 100, 2)
+            return round((self.base_contribution * self.kortingpercentage) / 100, 2)
         else:
             return self.kortingvast
 
@@ -444,13 +444,13 @@ class Contribution(models.Model):
 
     @ property
     def payed(self):
-        payments = Payment.objects.filter(contribution=self,status__include=True)
+        payments = Payment.seizoen_objects.filter(contribution=self,status__include=True)
         p = payments.aggregate(total=Sum('amount'))['total']
         return p or decimal.Decimal(0.00)
 
     @ property
     def planned(self):
-        payments = Payment.objects.filter(contribution=self,status__status='Gepland')
+        payments = Payment.seizoen_objects.filter(contribution=self,status__status='Gepland')
         p = payments.aggregate(total=Sum('amount'))['total']
         return p or decimal.Decimal(0.00)
 
@@ -481,7 +481,7 @@ class Contribution(models.Model):
         if remaining and termijnen_left == 0:
             termijnen_left = 1
         st = PaymentbatchStatus.objects.get(status='Gepland')
-        batches = Paymentbatch.objects.filter(seizoen=self.seizoen,status=st)
+        batches = Paymentbatch.seizoen_objects.filter(status=st)
         if fromdate:
             batches = batches.filter(datum__gt=fromdate)
         batches = batches.order_by('datum')
@@ -545,7 +545,7 @@ class Contribution(models.Model):
         else:
             self.tc = self.bc + self.aanmaningskosten + self.ak + self.kf \
                       - self.kortingopadres - self.kd - self.ks
-        payments = Payment.objects.filter(contribution=self,status__status='Betaald')
+        payments = Payment.seizoen_objects.filter(contribution=self,status__status='Betaald')
         p = payments.aggregate(total=Sum('amount'))['total']
         self.received = p or decimal.Decimal(0.00)
 
@@ -556,7 +556,8 @@ class Contribution(models.Model):
         unique_together = [['member', 'seizoen', 'activity']]
         ordering = ['member', 'activity']
         
-    objects = ContributionManager()
+    seizoen_objects = ContributionManager()
+    all_objects = models.Manager()
 
     def get_absolute_url(self):
         return reverse('jarrbo_contributie:contribution_detail', kwargs={'pk': self.pk})
@@ -631,7 +632,8 @@ class ContributionTable(models.Model):
         ordering = ['seizoen', 'activity', 'leeftijdscategorie']
         unique_together = [['seizoen', 'activity', 'leeftijdscategorie']]
 
-    objects = ContributionTableManager()
+    all_objects = models.Manager()
+    seizoen_objects = ContributionTableManager()
 
     def __str__(self):
         return ("%s: %s %s" % (self.seizoen.description, self.leeftijdscategorie. description, \
@@ -740,7 +742,8 @@ class Paymentbatch(models.Model):
         verbose_name_plural = _("payment batches")
         ordering = ['seizoen', 'datum']
 
-    objects = PaymentbatchManager()
+    all_objects = models.Manager()
+    seizoen_objects = PaymentbatchManager()
 
     def __str__(self):
         return ("%s" % (self.datum.strftime('%B %-d'),))
@@ -765,7 +768,8 @@ class Payment(models.Model):
     withdrawnmaildate = models.DateField(blank=True, null=True)
     huygensmaildate = models.DateField(blank=True, null=True)
 
-    objects = PaymentManager()
+    all_objects = models.Manager()
+    seizoen_objects = PaymentManager()
 
     @ property
     def remark(self):

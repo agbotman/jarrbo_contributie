@@ -119,23 +119,23 @@ def import_member(r, imp):
                 if not vr30 in m.activities.all():
                     m.activities.add(vr30)
                 try:
-                    c = Contribution.objects.get(member=m, seizoen=config.seizoen, activity=vr30)
+                    c = Contribution.seizoen_objects.get(member=m, activity=vr30)
                 except:
-                    c = Contribution.objects.create_contribution(member=m, seizoen=config.seizoen, activity=vr30)
+                    c = Contribution.seizoen_objects.create_contribution(member=m, activity=vr30)
             else:
                 if not veld in m.activities.all():
                     m.activities.add(veld)
                 try:
-                    c = Contribution.objects.get(member=m, seizoen=config.seizoen, activity=veld)
+                    c = Contribution.seizoen_objects.get(member=m, activity=veld)
                 except:
-                    c = Contribution.objects.create_contribution(member=m, seizoen=config.seizoen, activity=veld)
+                    c = Contribution.seizoen_objects.create_contribution(member=m, activity=veld)
         if "Zaal" in r['Bondssporten']:
             if not zaal in m.activities.all():
                 m.activities.add(zaal)
             try:
-                c = Contribution.objects.get(member=m, seizoen=config.seizoen, activity=zaal)
+                c = Contribution.seizoen_objects.get(member=m, seizoen=config.seizoen, activity=zaal)
             except:
-                c = Contribution.objects.create_contribution(member=m, seizoen=config.seizoen, activity=zaal)
+                c = Contribution.seizoen_objects.create_contribution(member=m, seizoen=config.seizoen, activity=zaal)
         m.last_import = imp
         m.save()
         

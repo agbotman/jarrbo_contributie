@@ -125,6 +125,7 @@ class UpdateContributionForm(forms.ModelForm):
 
     class Meta:
         model = Contribution
+        queryset = Contribution.seizoen_objects.all()
         fields = [
                   'kortingpercentage', 'kortingvast', 'termijnen', 'kortingopadres', 
                   'payment_method', 'iban', 'factuur_naam', 'factuur_adres', 
@@ -193,6 +194,7 @@ class UpdatePaymentForm(forms.ModelForm):
 
     class Meta:
         model = Payment
+        queryset = Payment.seizoen_objects.all()
         fields = ['amount', 'paymentbatch', 'method',  'paymentdate',
                   'aanvraagnummer', 'status',
                  ]

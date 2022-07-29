@@ -167,6 +167,7 @@ class MemberListView(TestContributieAdmin, FilterView):
     
 class PaymentListView(TestContributieAdmin, FilterView):
     model = Payment
+    queryset = Payment.seizoen_objects.all()
     paginate_by = 18
     filterset_class = PaymentFilter
 
@@ -176,6 +177,7 @@ class PaymentListView(TestContributieAdmin, FilterView):
     
 class PaymentbatchListView(TestContributieAdmin, ListView):
     model = Paymentbatch
+    queryset = Paymentbatch.seizoen_objects.all()
 
 class MemberUpdateView(TestContributieAdmin, UpdateView):
     model = Member
@@ -194,6 +196,7 @@ class MemberUpdateView(TestContributieAdmin, UpdateView):
 
 class ContributionUpdateView(TestContributieAdmin, UpdateView):
     model = Contribution
+    queryset = Contribution.seizoen_objects.all()
     form_class = UpdateContributionForm
 
     def get_success_url(self):
@@ -208,6 +211,7 @@ class ContributionUpdateView(TestContributieAdmin, UpdateView):
 
 class PaymentUpdateView(TestContributieAdmin, UpdateView):
     model = Payment
+    queryset = Payment.seizoen_objects.all()
     form_class = UpdatePaymentForm
 
     def get_success_url(self):

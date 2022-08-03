@@ -638,7 +638,7 @@ class ContributionTable(models.Model):
     def __str__(self):
         return ("%s: %s %s" % (self.seizoen.description, self.leeftijdscategorie. description, \
                                 self.activity.description))
-                                
+                               
 class Paymentstatus(models.Model):
     status = models.CharField(max_length=15, unique=True)
     include = models.BooleanField(default=False)
@@ -653,6 +653,21 @@ class Paymentstatus(models.Model):
 
     def __str__(self):
         return self.description
+
+class PaymentStatusCode(models.Model):
+    paymentstatus = models.ForeignKey(Paymentstatus, null=True, on_delete=models.PROTECT, 
+                                        related_name='codes')
+    status_code = models.CharField(max_length=4, unique=True)
+    description = models.CharField(max_length=60)
+    long_description = models.TextField(null=True, blank=True)
+    
+    class Meta:
+        verbose_name = _("payment status code")
+        verbose_name_plural = _("payment status codes")
+        ordering = ['status_code', ]
+
+    def __str__(self):
+        return ("%s-%s-%s" % (self.paymentstatus, self.status_code, self.description,))
 
 class PaymentbatchStatus(models.Model):
     status = models.CharField(max_length=15, unique=True)
@@ -767,6 +782,7 @@ class Payment(models.Model):
     withdrawndate = models.DateField(blank=True, null=True)
     withdrawnmaildate = models.DateField(blank=True, null=True)
     huygensmaildate = models.DateField(blank=True, null=True)
+    paymentstatuscode = models.ForeignKey(PaymentStatusCode, blank=True, null = True, on_delete=models.SET_NULL)
 
     all_objects = models.Manager()
     seizoen_objects = PaymentManager()

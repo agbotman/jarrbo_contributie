@@ -94,20 +94,51 @@
       </td>
       {% for newstatus in view.paymentstatus %}
         {% if payment|status_valid:newstatus and not payment|recovery_change:newstatus %}
-          <td>
-            <form 
-              method="POST"
-              action="{% url 'jarrbo_contributie:payment_statusupdate' pk=payment.pk newstatuspk=newstatus.pk %}">
-              {% csrf_token %}
-              <button type="submit" class="btn 
-                    {% if payment|standard_change:newstatus %} btn-success 
-                    {% else %} btn-danger
-                    {% endif %}
-                    btn-xs">
+          {% if newstatus.codes.count %}
+            <td>
+              <button class="btn
+                            {% if payment|standard_change:newstatus %} btn-success 
+                            {% else %} btn-danger
+                            {% endif %}
+                             btn-xs dropdown-toggle" type="button" data-toggle="dropdown">
                 {{ newstatus.actie }}
+                <span class="caret"></span>
               </button>
-            </form>
-          </td>
+              <ul class="dropdown-menu">
+                {% for code in newstatus.codes.all %}
+                  <li>
+                    <form 
+                      method="POST"
+                      action="{% url 'jarrbo_contributie:payment_statusupdate' pk=payment.pk newstatuspk=newstatus.pk statuscodepk=code.pk %}">
+                      {% csrf_token %}
+                      <button type="submit" class="btn 
+                            {% if payment|standard_change:newstatus %} btn-success 
+                            {% else %} btn-danger
+                            {% endif %}
+                            btn-xs">
+                        {{ code.description }}
+                      </button>
+                    </form>
+                  </li>
+                {% endfor %}
+              </ul>
+            </td>
+          {% else %}
+            <td>
+              <form 
+                method="POST"
+                action="{% url 'jarrbo_contributie:payment_statusupdate' pk=payment.pk newstatuspk=newstatus.pk %}">
+                {% csrf_token %}
+                <button type="submit" class="btn 
+                      {% if payment|standard_change:newstatus %} btn-success 
+                      {% else %} btn-danger
+                      {% endif %}
+                      btn-xs">
+                  {{ newstatus.actie }}
+                </button>
+              </form>
+            </td>
+          {% endif %}
         {% endif %}
       {% endfor %}
     {% endfor %}

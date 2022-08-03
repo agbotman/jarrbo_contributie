@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-02 12:04+0100\n"
+"POT-Creation-Date: 2022-08-01 20:23+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -43,187 +43,190 @@ msgstr "Relatiecode"
 msgid "Import"
 msgstr "Importeren"
 
-#: forms.py:56
+#: forms.py:57
 msgid "Authority"
 msgstr "Machtiging"
 
-#: forms.py:57
+#: forms.py:58
 msgid "Discount"
 msgstr "Korting"
 
-#: forms.py:58
+#: forms.py:59
 msgid "Authority ascription"
 msgstr "Tenaamstelling machtiging"
 
-#: forms.py:59
+#: forms.py:60
 msgid "Authority addresss"
 msgstr "Adres machtiging"
 
-#: forms.py:60 forms.py:285
+#: forms.py:61 forms.py:290
 msgid "Postal code"
 msgstr "Postcode"
 
-#: forms.py:61
+#: forms.py:62
 msgid "Authority city"
 msgstr "Plaats machtiging"
 
-#: forms.py:62
+#: forms.py:63
 msgid "Authority e-mail"
 msgstr "E-mail machtiging"
 
-#: forms.py:63
+#: forms.py:64
 msgid "Withdrawn"
 msgstr "Ingetrokken"
 
-#: forms.py:64 forms.py:135 forms.py:199
+#: forms.py:65 forms.py:139 forms.py:204
 msgid "Payment method"
 msgstr "Betalingsmethode"
 
-#: forms.py:65
+#: forms.py:66
 msgid "state"
 msgstr "Status"
 
-#: forms.py:66
+#: forms.py:67
 msgid "Authority date"
 msgstr "Machtigingsdatum"
 
-#: forms.py:67
+#: forms.py:68
+msgid "Sign up date"
+msgstr "Aanmeldingsdatum"
+
+#: forms.py:69
 msgid "Authority feature"
 msgstr "Kenmerk machtiging"
 
-#: forms.py:75 forms.py:150
+#: forms.py:77 forms.py:154
 msgid "Invalid IBAN number"
 msgstr "Ongeldig IBAN nummer"
 
-#: forms.py:83 forms.py:158 forms.py:295
+#: forms.py:85 forms.py:162 forms.py:300
 msgid "Invalid postal code"
 msgstr "Ongeldige postcode"
 
-#: forms.py:119 forms.py:187 forms.py:247 forms.py:266 forms.py:323
+#: forms.py:122 forms.py:191 forms.py:252 forms.py:271 forms.py:328
 msgid "Update"
 msgstr "Bijwerken"
 
-#: forms.py:131
+#: forms.py:135
 msgid "Discount percentage"
 msgstr "Kortingspercentage"
 
-#: forms.py:132
+#: forms.py:136
 msgid "Fixed discount"
 msgstr "Vaste korting"
 
-#: forms.py:133
+#: forms.py:137
 msgid "Terms"
 msgstr "Termijnen"
 
-#: forms.py:134 templates/jarrbo_contributie/contribution_form.html:37
+#: forms.py:138 templates/jarrbo_contributie/contribution_form.html:37
 msgid "Family discount"
 msgstr "Gezinskorting"
 
-#: forms.py:136
+#: forms.py:140
 msgid "IBAN number"
 msgstr "IBAN nummer"
 
-#: forms.py:137
+#: forms.py:141
 msgid "Invoice name"
 msgstr "Tenaamstelling factuur"
 
-#: forms.py:138
+#: forms.py:142
 msgid "Invoice address"
 msgstr "Adres factuur"
 
-#: forms.py:139
+#: forms.py:143
 msgid "Invoice postal code"
 msgstr "Postcode factuur"
 
-#: forms.py:140
+#: forms.py:144
 msgid "Invoice city"
 msgstr "Plaats factuur"
 
-#: forms.py:141
+#: forms.py:145
 msgid "Invoice e-mail address"
 msgstr "E-mailadres factuur"
 
-#: forms.py:142
+#: forms.py:146
 msgid "Sponsored"
 msgstr "Gesponsord"
 
-#: forms.py:197 templates/jarrbo_contributie/coronarestitution_formset.html:14
+#: forms.py:202 templates/jarrbo_contributie/coronarestitution_formset.html:14
 #: templates/jarrbo_contributie/failed_payments.html:15
 #: templates/jarrbo_contributie/payment_filter.html:17
 #: templates/jarrbo_contributie/payment_form.html:21
 msgid "Amount"
 msgstr "Bedrag"
 
-#: forms.py:198
+#: forms.py:203
 msgid "Paymentbatch"
 msgstr "Incassobatch"
 
-#: forms.py:200
+#: forms.py:205
 msgid "Payment date"
 msgstr "Betalingsdatum"
 
-#: forms.py:201
+#: forms.py:206
 msgid "Request number"
 msgstr "Aanvraagnummer"
 
-#: forms.py:202
-#| msgid "State"
+#: forms.py:207
 msgid "Status"
 msgstr "Status"
 
-#: forms.py:220
+#: forms.py:225
 msgid "Amount too high"
 msgstr "Bedrag te hoog"
 
-#: forms.py:256
+#: forms.py:261
 msgid "Member"
 msgstr "Lid"
 
-#: forms.py:257 templates/jarrbo_contributie/payment_form.html:27
+#: forms.py:262 templates/jarrbo_contributie/payment_form.html:27
 msgid "Description"
 msgstr "Beschrijving"
 
-#: forms.py:258
+#: forms.py:263
 msgid "Note"
 msgstr "Notitie"
 
-#: forms.py:277 templates/jarrbo_contributie/member_filter.html:10
+#: forms.py:282 templates/jarrbo_contributie/member_filter.html:10
 msgid "Relationcode"
 msgstr "Relatiecode"
 
-#: forms.py:278
+#: forms.py:283
 msgid "First name"
 msgstr "Roepnaam"
 
-#: forms.py:279
+#: forms.py:284
 msgid "Initials"
 msgstr "Voorletters"
 
-#: forms.py:280
+#: forms.py:285
 msgid "Infixes"
 msgstr "Voorvoegsels"
 
-#: forms.py:281
+#: forms.py:286
 msgid "Family name"
 msgstr "Achternaam"
 
-#: forms.py:282
+#: forms.py:287
 msgid "Street"
 msgstr "Straat"
 
-#: forms.py:283
+#: forms.py:288
 msgid "House number"
 msgstr "Huisnummer"
 
-#: forms.py:284
+#: forms.py:289
 msgid "Addition"
 msgstr "Toevoeging"
 
-#: forms.py:286
+#: forms.py:291
 msgid "City"
 msgstr "Plaats"
 
-#: forms.py:287
+#: forms.py:292
 msgid "Activities"
 msgstr "Activiteiten"
 
@@ -304,7 +307,7 @@ msgstr "betalingsmethode"
 msgid "payment methods"
 msgstr "betalingsmethoden"
 
-#: models.py:111 models.py:829
+#: models.py:111 models.py:858
 msgid "timestamp"
 msgstr "tijdstip"
 
@@ -360,71 +363,79 @@ msgstr "lid"
 msgid "members"
 msgstr "leden"
 
-#: models.py:543
+#: models.py:554
 msgid "contribution"
 msgstr "contributie"
 
-#: models.py:544
+#: models.py:555
 msgid "contributions"
 msgstr "contributies"
 
-#: models.py:600
+#: models.py:612
 msgid "authority"
 msgstr "machtiging"
 
-#: models.py:601
+#: models.py:613
 msgid "authorities"
 msgstr "machtigingen"
 
-#: models.py:618
+#: models.py:630
 msgid "contribution amount"
 msgstr "contributiebedrag"
 
-#: models.py:619
+#: models.py:631
 msgid "contribution amounts"
 msgstr "contributiebedragen"
 
-#: models.py:638
+#: models.py:648
+msgid "errorcode reversal"
+msgstr "Foutcode incassotransactie"
+
+#: models.py:649
+msgid "errorcode reversals"
+msgstr "Foutcodes incassotransacties"
+
+#: models.py:664
 msgid "payment status"
 msgstr "betalingsstatus"
 
-#: models.py:639
+#: models.py:665
 msgid "payment statuses"
 msgstr "betalingsstatus"
 
-#: models.py:648
+#: models.py:674
 msgid "paymentbatch status"
 msgstr "incassobatch status"
 
-#: models.py:649
+#: models.py:675
 msgid "paymentbatch statuses"
 msgstr "incassobatch status"
 
-#: models.py:728
+#: models.py:754
 msgid "payment batch"
 msgstr "incassobatch"
 
-#: models.py:729
+#: models.py:755
 msgid "payment batches"
 msgstr "incassobatches"
 
-#: models.py:796 models.py:849
+#: models.py:825 models.py:878
 msgid "payment"
 msgstr "betaling"
 
-#: models.py:797 models.py:850
+#: models.py:826 models.py:879
 msgid "payments"
 msgstr "betalingen"
 
-#: models.py:820
+#: models.py:849
 msgid "payment status change"
 msgstr "betalingsstatus wijziging"
 
-#: models.py:821
+#: models.py:850
 msgid "payment status changes"
 msgstr "betalingsstatus wijzigingen"
 
-#: models.py:834 models.py:835
+#: models.py:863 models.py:864
 msgid "notes"
 msgstr "notities"
 
@@ -462,26 +473,32 @@ msgid "Payment export"
 msgstr "Exporteer betalingen"
 
 #: templates/jarrbo_contributie/base-2.html:38
+#, fuzzy
+#| msgid "Payment export"
+msgid "Not Payed export"
+msgstr "Exporteer betalingen"
+
+#: templates/jarrbo_contributie/base-2.html:41
 msgid "New member"
 msgstr "Nieuw lid"
 
-#: templates/jarrbo_contributie/base-2.html:41
+#: templates/jarrbo_contributie/base-2.html:44
 msgid "Withdrawn payments"
 msgstr "Mislukte incasso's"
 
-#: templates/jarrbo_contributie/base-2.html:46
+#: templates/jarrbo_contributie/base-2.html:49
 msgid "Member import"
 msgstr "Ledenverwerking"
 
-#: templates/jarrbo_contributie/base-2.html:49
+#: templates/jarrbo_contributie/base-2.html:52
 msgid "Subscription import"
 msgstr "Inschrijvingen import"
 
-#: templates/jarrbo_contributie/base-2.html:52
+#: templates/jarrbo_contributie/base-2.html:55
 msgid "Authority import"
 msgstr "Machtigingen import"
 
-#: templates/jarrbo_contributie/base-2.html:55
+#: templates/jarrbo_contributie/base-2.html:58
 msgid "Rddata import"
 msgstr "Rddata import"
 
@@ -601,14 +618,14 @@ msgstr "Algemeen"
 #: templates/jarrbo_contributie/failed_payments.html:13
 #: templates/jarrbo_contributie/failed_payments.html:33
 #: templates/jarrbo_contributie/payment_filter.html:15
-#: templates/jarrbo_contributie/payment_filter.html:50
+#: templates/jarrbo_contributie/payment_filter.html:48
 msgid "Details"
 msgstr "Details"
 
 #: templates/jarrbo_contributie/failed_payments.html:14
 #: templates/jarrbo_contributie/failed_payments.html:42
 #: templates/jarrbo_contributie/payment_filter.html:16
-#: templates/jarrbo_contributie/payment_filter.html:59
+#: templates/jarrbo_contributie/payment_filter.html:57
 msgid "All"
 msgstr "Allemaal"
 
@@ -623,18 +640,18 @@ msgid "Last note"
 msgstr "Laatste notitie"
 
 #: templates/jarrbo_contributie/failed_payments.html:56
-#: templates/jarrbo_contributie/payment_filter.html:79
+#: templates/jarrbo_contributie/payment_filter.html:77
 msgid "Mail"
 msgstr "Mailen"
 
 #: templates/jarrbo_contributie/failed_payments.html:68
-#: templates/jarrbo_contributie/payment_filter.html:91
+#: templates/jarrbo_contributie/payment_filter.html:89
 msgid "Huygensmail"
 msgstr "Huygensmail"
 
 #: templates/jarrbo_contributie/failed_payments.html:80
 #: templates/jarrbo_contributie/member_filter.html:31
-#: templates/jarrbo_contributie/payment_filter.html:120
+#: templates/jarrbo_contributie/payment_filter.html:118
 msgid "Selections"
 msgstr "Selecties"
 
@@ -690,17 +707,11 @@ msgstr "Geboortedatum"
 msgid "E-mail address"
 msgstr "E-mailadres"
 
-#: templates/jarrbo_contributie/member_form.html:23
-#| msgid "Discount (sign up date)"
-msgid "Sign up date"
-msgstr "Aanmeldingsdatum"
-
 #: templates/jarrbo_contributie/member_form.html:27
 msgid "Phone number"
 msgstr "Telefoonnummer"
 
 #: templates/jarrbo_contributie/member_form.html:29
-#| msgid "House number"
 msgid "Mobile number"
 msgstr "Mobiel"
 
@@ -738,7 +749,7 @@ msgstr "Status"
 msgid "New state"
 msgstr "Nieuwe status"
 
-#: templates/jarrbo_contributie/payment_filter.html:40
+#: templates/jarrbo_contributie/payment_filter.html:39
 msgid "Print"
 msgstr "Afdrukken"
 

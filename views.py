@@ -316,10 +316,15 @@ class PaymentMovenextView(TestContributieAdmin, View):
 class PaymentStatusupdateView(TestContributieAdmin, View):
     http_method_names = ['post']
     
-    def post(self, request, pk, newstatuspk):
+    def post(self, request, pk, newstatuspk, statuscodepk=''):
         payment = Payment.seizoen_objects.get(pk=pk)
         currentstatus = payment.status
         newstatus = Paymentstatus.objects.get(pk=newstatuspk)
+        if statuscodepk:
+            try:
+                newstatuscode = PaymentStatusCode.objects.get(pk=statuscodepk)
+            except:
+                newstatuscode = ''
         method = payment.method
         valid = True
         try:
@@ -330,6 +335,8 @@ class PaymentStatusupdateView(TestContributieAdmin, View):
             valid = False
         if valid:
             payment.status = newstatus
+            if statuscodepk:
+                payment.paymentstatuscode = newstatuscode
             payment.save()
         if currentstatus.regular and not newstatus.regular:
             if payment.method == Paymentmethod.objects.get(description='Incasso'):

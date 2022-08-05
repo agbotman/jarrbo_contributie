@@ -475,6 +475,8 @@ class Contribution(models.Model):
                 p.save()
             return
         remaining = self.total_contribution - self.payed - self.planned
+        if not remaining:
+            return
         termijnen_betaald = self.payments.filter(status__include=True).count()
         termijnen_planned = self.payments.filter(status__status='Gepland').count()
         termijnen_left = self.termijnen - termijnen_betaald - termijnen_planned

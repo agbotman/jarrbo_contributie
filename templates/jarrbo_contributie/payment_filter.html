@@ -109,7 +109,7 @@
                   <li>
                     <form 
                       method="POST"
-                      action="{% url 'jarrbo_contributie:payment_statusupdate' pk=payment.pk newstatuspk=newstatus.pk statuscodepk=code.pk %}">
+                      action="{% url 'jarrbo_contributie:payment_statusupdate2' pk=payment.pk newstatuspk=newstatus.pk statuscodepk=code.pk %}">
                       {% csrf_token %}
                       <button type="submit" class="btn 
                             {% if payment|standard_change:newstatus %} btn-success 

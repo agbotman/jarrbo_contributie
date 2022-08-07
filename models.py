@@ -763,7 +763,7 @@ class Paymentbatch(models.Model):
     seizoen_objects = PaymentbatchManager()
 
     def __str__(self):
-        return ("%s" % (self.datum.strftime('%B %-d'),))
+        return ("%s" % (self.datum.strftime('%d %b'),))
 
 class PaymentManager(models.Manager):
     def get_queryset(self):

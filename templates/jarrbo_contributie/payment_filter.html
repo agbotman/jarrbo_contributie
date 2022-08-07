@@ -61,9 +61,9 @@
       </td>
       <td>€ {{ payment.amount }}</td>
         {% if payment.paymentbatch %}
-      <td>{{ payment.paymentbatch }}</td>
+      <td>{{ payment.paymentbatch.datum|date:"d M" }}</td>
         {% else %}
-      <td>{{ payment.paymentdate }}</td>
+      <td>{{ payment.paymentdate|date:"d M" }}</td>
         {% endif %}
       <td>
         {{ payment.status }}

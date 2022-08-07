@@ -65,7 +65,12 @@
         {% else %}
       <td>{{ payment.paymentdate }}</td>
         {% endif %}
-      <td>{{ payment.status }}</td>
+      <td>
+        {{ payment.status }}
+        {% if payment.paymentstatuscode %}
+          {{ payment.paymentstatuscode.description }}
+        {% endif %}
+      </td>
       <td>
           {% if payment.status.status == 'Teruggeboekt' or payment.status.status == 'Geensaldo' %}
             {% if not payment.withdrawnmaildate %}
@@ -94,7 +99,7 @@
       </td>
       {% for newstatus in view.paymentstatus %}
         {% if payment|status_valid:newstatus and not payment|recovery_change:newstatus %}
-          {% if newstatus.codes.count %}
+          {% if newstatus.codes.count > 0 %}
             <td>
               <button class="btn
                             {% if payment|standard_change:newstatus %} btn-success 

@@ -128,12 +128,12 @@ def import_member(r, imp):
                 try:
                     c = Contribution.seizoen_objects.get(member=m, activity=veld)
                 except:
-                    c = Contribution.seizoen_objects.create_contribution(member=m, activity=veld)
+                    c = Contribution.seizoen_objects.create_contribution(member=m, seizoen=config.seizoen, activity=veld)
         if "Zaal" in r['Bondssporten']:
             if not zaal in m.activities.all():
                 m.activities.add(zaal)
             try:
-                c = Contribution.seizoen_objects.get(member=m, seizoen=config.seizoen, activity=zaal)
+                c = Contribution.seizoen_objects.get(member=m, activity=zaal)
             except:
                 c = Contribution.seizoen_objects.create_contribution(member=m, seizoen=config.seizoen, activity=zaal)
         m.last_import = imp
@@ -164,7 +164,7 @@ def memberchanged(m,r):
         return True
     if not (m.telefoon == r['Telefoon']):
         return True
-    if not (m.mobiel == r['Mobiel']):
+    if not (m.mobiel == r['Mobiel'].replace(" ", "")):
         return True
     if not (m.email == r['E-mail']):
         return True
@@ -185,7 +185,7 @@ def updatemember(m,r):
     m.postcode = r['Postcode']
     m.plaats = r['Plaats']
     m.telefoon = r['Telefoon']
-    m.mobiel = r['Mobiel']
+    m.mobiel = r['Mobiel'].replace(" ", "")
     m.email = r['E-mail']
     m.iban = r['Bankrekeningnummer']
     if valid_iban(m.iban):
@@ -207,7 +207,7 @@ def newmember(r):
                postcode=r['Postcode'],
                plaats=r['Plaats'],
                telefoon=r['Telefoon'],
-               mobiel=r['Mobiel'],
+               mobiel=r['Mobiel'].replace(" ", ""),
                email=r['E-mail'],
                iban=r['Bankrekeningnummer'],
                aanmeldingsdatum=datetime.strptime(r['Lid sinds'],"%d-%m-%Y").date(),

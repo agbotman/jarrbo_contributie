@@ -320,7 +320,7 @@ class ContributionManager(models.Manager):
 class Contribution(models.Model):
     member = models.ForeignKey(Member, on_delete=models.PROTECT, related_name='contributions')
     seizoen = models.ForeignKey(Seizoen, on_delete=models.PROTECT, null=True)
-    activity = models.ForeignKey(Activity, on_delete=models.PROTECT)
+    activity = models.ForeignKey(Activity, on_delete=models.PROTECT, related_name='contributions')
     kortingopadres = models.DecimalField(max_digits=6, decimal_places=2, default=0)
     kortingpercentage = models.PositiveIntegerField(default=0)
     kortingvast = models.DecimalField(max_digits=6, decimal_places=2, default=0)
@@ -559,7 +559,7 @@ class Contribution(models.Model):
         ordering = ['member', 'activity']
         
     seizoen_objects = ContributionManager()
-    all_objects = models.Manager()
+    objects = models.Manager()
 
     def get_absolute_url(self):
         return reverse('jarrbo_contributie:contribution_detail', kwargs={'pk': self.pk})
@@ -634,8 +634,8 @@ class ContributionTable(models.Model):
         ordering = ['seizoen', 'activity', 'leeftijdscategorie']
         unique_together = [['seizoen', 'activity', 'leeftijdscategorie']]
 
-    all_objects = models.Manager()
     seizoen_objects = ContributionTableManager()
+    objects = models.Manager()
 
     def __str__(self):
         return ("%s: %s %s" % (self.seizoen.description, self.leeftijdscategorie. description, \
@@ -741,8 +741,11 @@ class Paymentbatch(models.Model):
             ibanref = ws.cell(row=row, column=3)
             ibanref.value = payment.contribution.iban
             kenmerkref = ws.cell(row=row, column=4)
-            kenmerkref.value = payment.contribution.member.kenmerk_machtiging or \
-                                payment.contribution.member.relatiecode
+#            16-08-2022 change kenmerk to solve issues with ongeldige banktransactie code
+#            kenmerkref.value = payment.contribution.member.kenmerk_machtiging or \
+#                                payment.contribution.member.relatiecode
+            kenmerkref.value = ("%s-%s" % (payment.contribution.member.relatiecode,
+                                      payment.contribution.activity.description[0:1]))
             bedragref = ws.cell(row=row, column=5)
             bedragref.value = payment.amount
             omschrijvingref = ws.cell(row=row, column=6)
@@ -759,8 +762,8 @@ class Paymentbatch(models.Model):
         verbose_name_plural = _("payment batches")
         ordering = ['seizoen', 'datum']
 
-    all_objects = models.Manager()
     seizoen_objects = PaymentbatchManager()
+    objects = models.Manager()
 
     def __str__(self):
         return ("%s" % (self.datum.strftime('%d %b'),))
@@ -786,8 +789,8 @@ class Payment(models.Model):
     huygensmaildate = models.DateField(blank=True, null=True)
     paymentstatuscode = models.ForeignKey(PaymentStatusCode, blank=True, null = True, on_delete=models.SET_NULL)
 
-    all_objects = models.Manager()
     seizoen_objects = PaymentManager()
+    objects = models.Manager()
 
     @ property
     def remark(self):

@@ -507,9 +507,11 @@ class FactuurView(View):
                 payment.save()
                 config.save()
         if a.description == 'Donateur':
-            betreft="Bijdrage donateur SVW'27"
+            betreft = "Bijdrage donateur SVW'27"
+            geb_datum = None
         else:
-            betreft="Contributie SVW'27"
+            betreft = "Contributie SVW'27"
+            geb_datum = m.geboortedatum.strftime('%d-%m-%Y')
         datum = date.today()
         machtigingdatum = datum + timedelta(weeks=2)
         betaaldatum = datum + timedelta(weeks=2)
@@ -530,7 +532,7 @@ class FactuurView(View):
             'opgelegd.',))
         merge_dict = {
                       'fullname': m.naam_machtiging or m.fullname,
-                      'geboortedatum': m.geboortedatum.strftime('%d-%m-%Y'),
+                      'geboortedatum': geb_datum,
                       'adres': m.adres_machtiging or m.shortaddress,
                       'postcode': m.postcode_machtiging or m.postcode,
                       'plaats': m.plaats_machtiging or m.plaats,

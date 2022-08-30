@@ -31,6 +31,7 @@ class PaymentFilter(django_filters.FilterSet):
             'method': ['exact'],
             'paymentbatch': ['exact'],
             'status': ['exact'],
+            'paymentstatuscode': ['exact'],
             'contribution__member__relatiecode': ['exact'],
         }
 

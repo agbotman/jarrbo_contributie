@@ -535,7 +535,7 @@ class Contribution(models.Model):
         self.kf = self.kledingfonds
         self.ak = self.administratiekosten
         if self.kortingpercentage > 0:
-            self.ks = round(((self.bc - 30) * self.kortingpercentage) / 100, 2)
+            self.ks = round((self.bc * self.kortingpercentage) / 100, 2)
         else:
             self.ks = self.kortingvast
         if self.kdp > 0:

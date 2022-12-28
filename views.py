@@ -383,9 +383,16 @@ class PaymentMailView(TestContributieAdmin, View):
     
     def post(self, request, pk):
         payment = Payment.seizoen_objects.get(pk=pk)
-        if payment.status.status == 'Teruggeboekt' or payment.status.status == 'Geensaldo':
+        if payment.paymentstatuscode and \
+            payment.paymentstatuscode.status_code in ['AC01', #Rekeningnummer incorrect
+                                                     'AC04', #Rekeningnummer opgeheven
+                                                     'AC06', #Rekeningnummer geblokkeerd
+                                                     'AG01', #Rekeningnummer niet toegestaan
+                                                     'MD01', #Geen machtiging
+                                                     'MD02', #Machtigingsgegevens onjuist of onvolledig
+                                                            ]: 
             if not payment.withdrawnmaildate:
-                template = get_template('jarrbo_contributie/stornering-1.txt')
+                template = get_template('jarrbo_contributie/incorrectnr.txt')
                 
                 ctx = {'payment': payment,
                        'nextbatch': Paymentbatch.seizoen_objects.nextbatch(),
@@ -396,9 +403,27 @@ class PaymentMailView(TestContributieAdmin, View):
                 send_contributiemail(subject, body, to_mail)
                 payment.withdrawnmaildate = date.today()
                 payment.save()
-        if payment.method.description == 'Huygenspas' and not payment.huygensmaildate:
+        if payment.paymentstatuscode and \
+            payment.paymentstatuscode.status_code in ['AM04', #Onvoldoende saldo
+                                                     'FT01', #Handmatig teruggeboekt
+                                                     'MD06', #Terugboeking op verzoek klant
+                                                     'SL01', #Specifieke dienstverlening bank
+                                                            ]: 
+            if not payment.withdrawnmaildate:
+                template = get_template('jarrbo_contributie/storneringen.txt')
+                
+                ctx = {'payment': payment,
+                       'nextbatch': Paymentbatch.seizoen_objects.nextbatch(),
+                      }
+                subject = ("Incasso contributie %s niet geslaagd" % (payment.contribution.member.fullname,))
+                body = template.render(ctx)
+                to_mail = payment.contribution.member.email
+                send_contributiemail(subject, body, to_mail)
+                payment.withdrawnmaildate = date.today()
+                payment.save()
+        if payment.method.description == 'Huygenspas':
             template = get_template('jarrbo_contributie/huygens.txt')
-            
+
             ctx = {'payment': payment,
                   }
             subject = "Betalen contributie SVW'27 met Huygenspas"

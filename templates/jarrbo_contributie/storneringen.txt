@@ -1,0 +1,26 @@
+Goedendag {{payment.contribution.member.roepnaam}},
+
+Wij hebben een aantal keer geprobeerd om de contributie {{payment.contribution.activity}}voetbal voor het seizoen {{payment.contribution.seizoen}} te incasseren van IBAN {{payment.contribution.member.iban}}.
+Deze incasso's zijn steeds teruggeboekt waardoor de contributie nog niet is betaald.
+
+Het totale contributiebedrag is € {{payment.amount}}. Dit is inclusief € {{payment.contribution.kf}} voor het kledingfonds.
+
+Wil je deze mail beantwoorden en in je antwoord aangeven hoe je wilt betalen?
+Mogelijkheden zijn:
+- Automatische incasso eind januari op het bij ons bekende rekeningnummer
+- Automatische incasso eind januari op een nieuw rekeningnummer dat je in je antwoord aan ons doorgeeft
+- Overschrijving of onze contributierekening NL36INGB0000019063 onder vermelding van je naam en team
+
+Voor eventuele verdere vragen of alternatieve regelingen kun je contact opnemen met de penningmeester.
+Dat kan via e-mail adres penningmeester@svw27.nl of telefoonnummer 06-51479006
+
+Voor de hervatting van de competitie na de winterstop moet de contributie geregeld zijn, anders volgt er een speelverbod.
+
+
+Met vriendelijke groeten.
+-- 
+Contributie administratie SVW'27
+contributie@svw27.nl
+
+
+

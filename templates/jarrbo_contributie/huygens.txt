@@ -1,27 +1,22 @@
-Beste ouder/verzorger en/of lid,
+Beste ouder/verzorger van {{payment.contribution.member.fullname}},
 
-De SVW'27 contributie voor het nieuwe seizoen {{ payment.seizoen }} dient dit jaar voor 24 september te worden voldaan.
+Volgens onze administratie heeft {{payment.contribution.member.roepnaam}} de contributie voor het seizoen {{ payment.seizoen }} nog niet voldaan.
 
-U heeft het afgelopen seizoen gebruik gemaakt van de Huygenpas om de contributie van uw zoon/dochter/uzelf te betalen.
-Als u dat voor het nieuwe seizoen ook weer wilt doen kan dat op de volgende manier :
+In het voorgaande seizoen is deze contributie betaald met de Huygenspas.
+De Huygenspas wordt per 1 januari 2023 vervangen door de DijkenWaard pas. 
 
-Op de dinsdagavond tussen 19:15 en 20:30 uur of op zaterdagochtend kunt u in de kantine langskomen om met de Huygenspas te betalen.
-Hier kunt u uw pas laten scannen om het verschuldigde bedrag afboeken van uw pas.
+Als u de contributie wilt betalen met een openstaand bedrag op de Huygenspas dan moet u dit jaar nog doen.
+U kunt contact opnemen met de penningmeester om dit alsnog te regelen.
+Ook als u de contributie op een andere manier wilt betalen kunt u contact opnemen met de penningmeester.
 
-Noteer het alvast in uw agenda !
+Het e-mail adres van de penningmeester is penningmeester@svw27.nl
+U kunt ook bellen naar nummer 06-51479006
 
-Komt dit niet gelegen, dan kunt u altijd contact met mij opnemen voor een aparte afspraak.
-Stuur dan een reactie naar dit e-mailadres contributie@svw27.nl
+Het totale contributiebedrag is € {{payment.amount}}. Dit is inclusief € {{payment.contribution.kf}} voor het kledingfonds en € 7,50 administratiekosten.
+Als u de contributie tijdig regelt dan wordt de € 7,50 administratiekosten niet in rekening gebracht.
 
-Wilt u alstublieft, als u geen gebruik maakt van de Huygenpas, mij dit per omgaande even mailen?
-Ik zal de contributie dan, als u een machtiging heeft verstrekt, via automatische incasso van uw rekening afschrijven.
-Als u een machtiging verstrekt dan hoeft u geen € 7,50 administratiekosten te betalen.
+Voor de hervatting van de competitie na de winterstop moet de contributie geregeld zijn, anders volgt er een speelverbod.
 
-Wanneer er geen machtiging verstrekt is zal ik u een factuur opsturen.
-
-U mag de contributie eventueel ook in 2 of 3 termijnen betalen.
-
-Alvast bedankt voor de medewerking
 Met vriendelijke groeten.
 
 -- 

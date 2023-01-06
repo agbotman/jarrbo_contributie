@@ -362,10 +362,13 @@ class Contribution(models.Model):
         if self.member.aanmeldingsdatum.year == startjaar and self.member.aanmeldingsdatum.month >= 11:
             return 20
         if self.member.aanmeldingsdatum.year == eindjaar:
-            if self.member.aanmeldingsdatum.month < 4:
-                return 40
+            if self.member.aanmeldingsdatum.month < 3:
+                return 50
             else:
-                return 60
+                if self.member.aanmeldingsdatum.month < 4:
+                    return 60
+                else:
+                    return 70
         return 0
 
     @ property

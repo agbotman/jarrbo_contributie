@@ -54,7 +54,7 @@
               class="btn btn-primary btn-xs"
               href="{% url 'jarrbo_contributie:note_update' pk=note.pk %}?next={{ member.get_absolute_url }}"
               role="button">
-              {{ note.datetime|date:"j b" }}
+              {{ note.datetime|date:"j-b-y" }}
             </a>
           </div>         
           <div class="col-lg-10">{{ note.description }}</div>

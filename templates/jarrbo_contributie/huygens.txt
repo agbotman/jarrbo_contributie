@@ -1,21 +1,18 @@
 Beste ouder/verzorger van {{payment.contribution.member.fullname}},
 
-Volgens onze administratie heeft {{payment.contribution.member.roepnaam}} de contributie voor het seizoen {{ payment.seizoen }} nog niet voldaan.
+Volgens onze administratie is {{payment.contribution.member.roepnaam}} aangemeld bij SVW'27.
 
-In het voorgaande seizoen is deze contributie betaald met de Huygenspas.
-De Huygenspas wordt per 1 januari 2023 vervangen door de DijkenWaard pas. 
+Bij de aanmelding is er aangegeven dat u wilt betalen met de Huygenspas.
+De Huygenspas is per 1 januari 2023 vervangen door de DijkenWaard pas. 
 
-Als u de contributie wilt betalen met een openstaand bedrag op de Huygenspas dan moet u dit jaar nog doen.
-U kunt contact opnemen met de penningmeester om dit alsnog te regelen.
-Ook als u de contributie op een andere manier wilt betalen kunt u contact opnemen met de penningmeester.
-
+U  kunt contact opnemen met de penningmeester om de betaling te regelen. 
 Het e-mail adres van de penningmeester is penningmeester@svw27.nl
-U kunt ook bellen naar nummer 06-51479006
+U kunt ook bellen naar nummer 06-51479006.
+
+Eventueel kunt u ook langskomen bij de vereniging op de dinsdagavond 19:00 - 20:00 uur of de zaterdagochtend.
+De betaling met de DijkenWaard pas kun u dan doen bij Peter de Boer van de kledingshop.
 
 Het totale contributiebedrag is € {{payment.amount}}. Dit is inclusief € {{payment.contribution.kf}} voor het kledingfonds en € 7,50 administratiekosten.
-Als u de contributie tijdig regelt dan wordt de € 7,50 administratiekosten niet in rekening gebracht.
-
-Voor de hervatting van de competitie na de winterstop moet de contributie geregeld zijn, anders volgt er een speelverbod.
 
 Met vriendelijke groeten.
 

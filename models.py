@@ -447,7 +447,13 @@ class Contribution(models.Model):
 
     @ property
     def payed(self):
-        payments = Payment.seizoen_objects.filter(contribution=self,status__include=True)
+        payments = Payment.seizoen_objects.filter(contribution=self,status__status='Betaald')
+        p = payments.aggregate(total=Sum('amount'))['total']
+        return p or decimal.Decimal(0.00)
+
+    @ property
+    def sent(self):
+        payments = Payment.seizoen_objects.filter(contribution=self,status__status='Verzonden')
         p = payments.aggregate(total=Sum('amount'))['total']
         return p or decimal.Decimal(0.00)
 
@@ -467,17 +473,17 @@ class Contribution(models.Model):
             payments = payments.filter(paymentdate__gt=fromdate)
         payments.filter(status__status='Gepland').delete()
         if self.sponsored:
-            if self.payed > 0:
+            if self.payed + self.sent > 0:
                 p = Payment(seizoen = self.seizoen,
                             contribution = self,
                             method = Paymentmethod.objects.get(description='Overboeking'),
-                            amount = - (self.payed),
+                            amount = - (self.payed + self.sent),
                             status = Paymentstatus.objects.get(status='Gepland'),
                             createdate = datetime.today(),
                             )
                 p.save()
             return
-        remaining = self.total_contribution - self.payed - self.planned
+        remaining = self.total_contribution - self.payed - self.sent - self.planned
         if not remaining:
             return
         termijnen_betaald = self.payments.filter(status__include=True).count()

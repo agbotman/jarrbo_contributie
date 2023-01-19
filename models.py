@@ -5,7 +5,7 @@ from django.db.models import Min, Max, Sum
 import decimal
 from datetime import date
 from solo.models import SingletonModel
-from .tools import *
+from .tools import valid_iban
 
 class Seizoen(models.Model):
     startjaar = models.PositiveIntegerField(unique=True)

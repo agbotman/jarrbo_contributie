@@ -3,7 +3,7 @@ from django.db import models
 from django.urls import reverse
 from django.db.models import Min, Max, Sum
 import decimal
-from datetime import date
+from datetime import datetime
 from solo.models import SingletonModel
 from .tools import valid_iban
 

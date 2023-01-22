@@ -1,6 +1,10 @@
 from django.contrib import admin
 from solo.admin import SingletonModelAdmin
-from .models import *
+from .models import Configuration, MemberImport, ContributionTable, Seizoen, \
+                    Activity, Leeftijdscategory, Longcategory, Paymentstatus, \
+                    Paymentmethod, Paymentbatch, PaymentbatchStatus, Payment, \
+                    Memberstatus, Member, Contribution, Rddata, PaymentstatusChange, \
+                    PaymentType, PaymentStatusCode
 
 admin.site.register(Configuration, SingletonModelAdmin)
 admin.site.register(MemberImport)

@@ -1,7 +1,15 @@
 from django.conf.urls import url
 from django_filters.views import FilterView
 from .filters import MemberFilter, PaymentFilter
-from .views import *
+from .views import ImportMemberView, ImportMemberDetail, ImportRddataView, \
+                    ImportRddataDetail, ImportInschrijvingenView, ImportInschrijvingenDetail, \
+                    ImportMachtigingenView, ImportMachtigingenDetail, MemberListView, \
+                    MemberUpdateView, ContributionUpdateView, PaymentUpdateView, PaymentListView, \
+                    DashboardView, PaymentbatchListView, PaymentbatchSubmitView, PaymentbatchExecuteView, \
+                    PaymentbatchCreateView, PaymentbatchPlanView, PaymentMovenextView, \
+                    PaymentStatusupdateView, NoteCreateView, NoteUpdateView, PaymentMailView, \
+                    MemberCreateView, FactuurView, FailedListView
+from .views import PaymentExport, NotPayedExport, RestitutionFormSet
 
 app_name = 'jarrbo_contributie'
 urlpatterns = [

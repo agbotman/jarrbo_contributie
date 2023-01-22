@@ -4,17 +4,23 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django_filters.views import FilterView
 from django.urls import reverse_lazy, reverse
 from django.shortcuts import render, redirect
-from django.db.models import F
-from datetime import datetime, timedelta
+from django.db.models import F, Sum
+from datetime import datetime, timedelta, date
 from django.http import HttpResponse
 from django.template.loader import get_template
 
 from extra_views import ModelFormSetView
 
-from .forms import *
-from .models import MemberImport, Member, Contribution, Activity, Paymentbatch, Note, CoronaRestitution
+from .forms import ImportMemberForm, ImportRddataForm, ImportInschrijvingenForm, \
+        ImportMachtigingenForm, UpdateMemberForm, UpdateContributionForm, UpdatePaymentForm, \
+        CreateNoteForm, MemberCreateForm
+from .models import MemberImport, Member, Contribution, Activity, \
+        Paymentbatch, Note, CoronaRestitution, Payment, PaymentbatchStatus, \
+        Paymentstatus, PaymentStatusCode, Paymentmethod, PaymentstatusChange, \
+        Configuration
 from .filters import MemberFilter, PaymentFilter
-from .importers import *
+from .importers import import_Memberfile, import_Rddatafile, import_Machtigingenfile, \
+        import_Inschrijvingenfile, MissingHeaderException, InvalidFileFormatException
 from .tools import send_contributiemail
 
 class TestSuperuser(UserPassesTestMixin):
@@ -442,6 +448,7 @@ class MemberCreateView(TestContributieAdmin, CreateView):
     template_name_suffix = '_create_form'
 
     def form_valid(self, form):
+        config = Configuration.objects.get()
         redirect_url = super(MemberCreateView,self).form_valid(form)
         self.object.naam_machtiging = self.object.fullname
         self.object.adres_machtiging = self.object.shortaddress

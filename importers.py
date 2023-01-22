@@ -1,10 +1,13 @@
 from django.utils.translation import ugettext as _
 import csv, codecs
-from .models import *
+from .models import Configuration, Activity, Member, MemberImport, \
+                    Memberstatus, Contribution, Rddata, Inschrijving, \
+                    Machtiging, Paymentmethod
 from datetime import datetime, date
 import pytz
 from django.db.models import Max, Min
-from .tools import *
+from .tools import valid_iban, clean_iban, valid_postcode, clean_postcode, \
+                    clean_date
 import string
 
 config = Configuration.objects.get()

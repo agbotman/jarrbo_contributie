@@ -26,7 +26,6 @@ class Seizoen(models.Model):
     def __str__(self):
         return self.description
 
-
 class Configuration(SingletonModel):
     last_memberimport = models.DateField(_("last member import"), null=True)
     refresh_all = models.BooleanField(_("refresh all"), default=False)
@@ -38,11 +37,11 @@ class Configuration(SingletonModel):
     mail_from = models.CharField(max_length=25, null=True)
     mail_use_tls = models.BooleanField(default=True)
     last_factuurnummer = models.PositiveIntegerField(default=0)
+    contributie_iban = models.CharField(max_length=34, null=True, blank=True)
     
     class Meta:
         verbose_name = _("configuration")
         verbose_name_plural = _("configurations")
-
 
 class Activity(models.Model):
     description = models.CharField(max_length=15, unique=True)
@@ -90,7 +89,6 @@ class PaymentType(models.Model):
 
     def __str__(self):
         return self.type
-        
         
 class Paymentmethod(models.Model):
     description = models.CharField(max_length=25, unique=True)
@@ -160,7 +158,6 @@ class Memberstatus(models.Model):
     
     def __str__(self):
         return self.status
-
 
 class Member(models.Model):
     relatiecode = models.CharField(max_length=7, unique=True)
@@ -843,7 +840,6 @@ class PaymentstatusChange(models.Model):
 
     def __str__(self):
         return ("%s-%s-%s" % (self.paymenttype, self.statusbefore, self.statusafter))
-
         
 class Note(models.Model):
     member = models.ForeignKey(Member, null=True, on_delete=models.SET_NULL, related_name='notes')

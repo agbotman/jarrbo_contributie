@@ -88,6 +88,8 @@ class DashboardView(TestContributieAdmin, TemplateView):
                                 tot=Sum('amount'))['tot']
         return totals
 
+    config = Configuration.objects.get()
+
 class ImportMemberView(TestSuperuser, FormView):
     form_class = ImportMemberForm
     template_name = 'jarrbo_contributie/import_members.html'
@@ -213,7 +215,6 @@ class PaymentUpdateView(TestContributieAdmin, UpdateView):
                 fromdate = self.object.paymentdate
                 self.object.contribution.recreate_payments(fromdate)
         return redirect_url
-
                             
 class PaymentbatchSubmitView(TestContributieAdmin, View):
     http_method_names = ['post'] 
@@ -249,7 +250,6 @@ class PaymentbatchCreateView(TestContributieAdmin, View):
         response['Content-Disposition'] = 'attachment; filename="%s"' % filename
         wb.save(response)
         return response
-
                             
 class PaymentbatchExecuteView(TestContributieAdmin, View):
     http_method_names = ['post'] 
@@ -422,7 +422,6 @@ class PaymentMailView(TestContributieAdmin, View):
             payment.save()
         redirect_url = request.META.get('HTTP_REFERER')
         return redirect(redirect_url)
-        
 
 class MemberCreateView(TestContributieAdmin, CreateView):
     model = Member

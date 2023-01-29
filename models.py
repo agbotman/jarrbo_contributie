@@ -316,7 +316,6 @@ class ContributionManager(models.Manager):
         c.save()
         return c
 
-        
 class Contribution(models.Model):
     member = models.ForeignKey(Member, on_delete=models.PROTECT, related_name='contributions')
     seizoen = models.ForeignKey(Seizoen, on_delete=models.PROTECT, null=True)
@@ -579,29 +578,6 @@ class Contribution(models.Model):
 
     def __str__(self):
         return ("%s, %s" % (self.member.fullname, self.activity.description))
-        
-class Rddata(models.Model):
-    lidnr = models.IntegerField()
-    activity = models.ForeignKey(Activity, on_delete=models.PROTECT, null=True)
-    tenaamstelling = models.CharField(max_length=50)
-    achternaam = models.CharField(max_length=50, blank=True)
-    vrvg = models.CharField(max_length=10, blank=True)
-    vrls = models.CharField(max_length=10, blank=True)
-    voornaam = models.CharField(max_length=25)
-    adres = models.CharField(max_length=50)
-    postcd = models.CharField(max_length=7)
-    woonpl = models.CharField(max_length=30)
-    reknr = models.CharField(max_length=18, blank=True)
-    gebdat = models.DateField()
-    insdat = models.DateField(null=True)
-    huygens = models.BooleanField(default=False)
-    kortingpercentage = models.PositiveIntegerField(default=0)
-    
-    class Meta:
-        unique_together = [['lidnr', 'activity']]
-        indexes = [
-            models.Index(fields=['gebdat', 'postcd']),
-        ]
 
 class Machtiging(models.Model):        
     datumtijd = models.DateTimeField(unique=True)

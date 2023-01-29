@@ -1,7 +1,7 @@
 from django.utils.translation import ugettext as _
 import csv, codecs
 from .models import Configuration, Activity, Member, MemberImport, \
-                    Memberstatus, Contribution, Rddata, Inschrijving, \
+                    Memberstatus, Contribution, Inschrijving, \
                     Machtiging, Paymentmethod
 from datetime import datetime, date
 import pytz
@@ -230,105 +230,6 @@ def newmember(r):
     if i:
         m.matchInschrijving(i)
     return m
-
-def import_Rddatafile(rddatafile):
-    # utf-8-sig removes the BYTE ORDER MARK in the first row
-    csvfile = codecs.iterdecode(rddatafile, 'utf-8-sig')
-    reader = csv.DictReader(csvfile, delimiter=';')
-    veld = Activity.objects.get(description='Veld')
-    zaal = Activity.objects.get(description='Zaal')
-    for row in reader:
-        if row['lidno']:
-            r = Rddata()
-            r.lidnr = int(row['lidno'])
-            if row['cat'] in ['zj', 'hz']:
-                r.activity = zaal
-            else:
-                r.activity = veld
-            r.tenaamstelling = row['tenaamstelling']
-            r.achternaam = row['naam'].strip()
-            r.vrvg = row['vrvg']
-            r.vrls = row['vrls']
-            r.voornaam = row['voornaam'].strip()
-            r.adres = row['adres']
-            cl_postcode = clean_postcode(row['postcd'])
-            if valid_postcode(cl_postcode):
-                r.postcd = cl_postcode
-            else:
-                r.postcd = '9999 XX'
-            r.woonpl = row['woonpl'].strip()
-            if row['reknr']:
-                cl_iban = clean_iban(row['reknr'])
-                if valid_iban(cl_iban):
-                    r.reknr = cl_iban
-                else:
-                    r.reknr = 'INVALID IBAN'
-            else:
-                r.reknr = row['reknr']
-            jr = int(row['gebjr'])
-            if jr < 100:
-                if jr > 25:
-                    jr = jr + 1900
-                else:
-                    jr = jr + 2000
-            mn = int(row['gebmd'])
-            dg = int(row['gebdg'])
-            r.gebdat = date(jr,mn,dg)
-            jr = int(row['insjr'])
-            if jr < 100:
-                if jr > 25:
-                    jr = jr + 1900
-                else:
-                    jr = jr + 2000
-            mn = int(row['insmd'])
-            dg = int(row['insdg'])
-            r.insdat = date(jr,mn,dg)
-            if row['bet-dat2'] == "HP-app":
-                r.huygens = True
-            else:
-                r.huygens = False
-            if "50%" in row['k-oms']:
-                r.kortingpercentage = 50
-            if "25%" in row['k-oms']:
-                r.kortingpercentage = 75
-            r.save()
-            m = getMember(r.voornaam, r.achternaam, r.postcd, r.gebdat)
-            if m:    
-                if not m.inschrijving:
-                    i = Inschrijving()
-                    i.datumtijd = r.insdat
-                    i.roepnaam = r.voornaam
-                    i.achternaam = r.achternaam
-                    i.adres = r.adres
-                    i.woonplaats = r.woonpl
-                    i.postcode = r.postcd
-                    i.geboortedatum = r.gebdat
-                    i.machtiging = False
-                    i.naam_machtiging = r.tenaamstelling
-                    i.adres_machtiging = r.adres
-                    i.postcode_machtiging = r.postcd
-                    i.plaats_machtiging = r.woonpl
-                    if valid_iban(r.reknr):
-                        i.iban = r.reknr
-                        i.machtiging = True
-                    i.privacy_policy = False
-                    i.webform = False
-                    i.save()
-                    m.inschrijving = i
-                    m.matchInschrijving(i)
-                m.naam_machtiging = r.tenaamstelling
-                m.adres_machtiging = r.adres
-                m.postcode_machtiging = r.postcd
-                m.plaats_machtiging = r.woonpl
-                m.iban = r.reknr
-                if r.reknr:
-                    m.machtiging = True
-                if r.reknr == 'INVALID IBAN':
-                    m.machtiging = False
-                m.huygenspas = r.huygens
-                m.kortingpercentage = r.kortingpercentage
-                m.save()
-    return
 
 def import_Inschrijvingenfile(inschrijvingenfile):
     # utf-8-sig removes the BYTE ORDER MARK in the first row

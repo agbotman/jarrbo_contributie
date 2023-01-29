@@ -3,7 +3,7 @@ from solo.admin import SingletonModelAdmin
 from .models import Configuration, MemberImport, ContributionTable, Seizoen, \
                     Activity, Leeftijdscategory, Longcategory, Paymentstatus, \
                     Paymentmethod, Paymentbatch, PaymentbatchStatus, Payment, \
-                    Memberstatus, Member, Contribution, Rddata, PaymentstatusChange, \
+                    Memberstatus, Member, Contribution, PaymentstatusChange, \
                     PaymentType, PaymentStatusCode
 
 admin.site.register(Configuration, SingletonModelAdmin)
@@ -21,7 +21,6 @@ admin.site.register(Payment)
 admin.site.register(Memberstatus)
 admin.site.register(Member)
 admin.site.register(Contribution)
-admin.site.register(Rddata)
 admin.site.register(PaymentstatusChange)
 admin.site.register(PaymentType)
 admin.site.register(PaymentStatusCode)

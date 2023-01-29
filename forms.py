@@ -20,14 +20,6 @@ class ImportMemberForm(forms.Form):
         self.helper.form_method = 'post'
         self.helper.add_input(Submit('import', _('Import')))
 
-class ImportRddataForm(forms.Form):
-    file = forms.FileField()
-    def __init__(self, *args, **kwargs):
-        super(ImportRddataForm, self).__init__(*args, **kwargs)
-        self.helper = JarrboFormHelper()
-        self.helper.form_method = 'post'
-        self.helper.add_input(Submit('import', _('Import')))
-
 class ImportInschrijvingenForm(forms.Form):
     file = forms.FileField()
     def __init__(self, *args, **kwargs):

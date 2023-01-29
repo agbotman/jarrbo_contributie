@@ -11,7 +11,7 @@ from django.template.loader import get_template
 
 from extra_views import ModelFormSetView
 
-from .forms import ImportMemberForm, ImportRddataForm, ImportInschrijvingenForm, \
+from .forms import ImportMemberForm, ImportInschrijvingenForm, \
         ImportMachtigingenForm, UpdateMemberForm, UpdateContributionForm, UpdatePaymentForm, \
         CreateNoteForm, MemberCreateForm
 from .models import MemberImport, Member, Contribution, Activity, \
@@ -19,7 +19,7 @@ from .models import MemberImport, Member, Contribution, Activity, \
         Paymentstatus, PaymentStatusCode, Paymentmethod, PaymentstatusChange, \
         Configuration
 from .filters import MemberFilter, PaymentFilter
-from .importers import import_Memberfile, import_Rddatafile, import_Machtigingenfile, \
+from .importers import import_Memberfile, import_Machtigingenfile, \
         import_Inschrijvingenfile, MissingHeaderException, InvalidFileFormatException
 from .tools import send_contributiemail
 
@@ -111,25 +111,7 @@ class ImportMemberView(TestSuperuser, FormView):
 class ImportMemberDetail(TestSuperuser, DetailView):
     model = MemberImport
     template_name = 'jarrbo_contributie/import_member_detail.html'
-
-class ImportRddataView(TestSuperuser, FormView):
-    form_class = ImportRddataForm
-    template_name = 'jarrbo_contributie/import_rddata.html'
-    
-    def get_success_url(self):
-        return reverse_lazy('jarrbo_contributie:importrddata_detail')
-
-    def post(self, request, *args, **kwargs):
-        form = self.get_form()
-        if form.is_valid():
-            import_Rddatafile(request.FILES['file'])
-            return self.form_valid(form)
-        else:
-            return self.form_invalid(form)
             
-class ImportRddataDetail(TestSuperuser, TemplateView):
-    template_name = 'jarrbo_contributie/import_rddata_detail.html'
-
 class ImportInschrijvingenView(TestSuperuser, FormView):
     form_class = ImportInschrijvingenForm
     template_name = 'jarrbo_contributie/import_inschrijvingen.html'

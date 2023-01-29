@@ -599,7 +599,7 @@ class Machtiging(models.Model):
     def __str__(self):
         return ("%s %s" % (self.voornaam, self.achternaam))
 
-# class ContributionTableManager(models.Manager):
+class ContributionTableManager(models.Manager):
 #    def get_queryset(self):
 #        return super().get_queryset().filter(seizoen=Configuration.objects.get().seizoen)
 
@@ -616,7 +616,7 @@ class ContributionTable(models.Model):
         ordering = ['seizoen', 'activity', 'leeftijdscategorie']
         unique_together = [['seizoen', 'activity', 'leeftijdscategorie']]
 
-#    seizoen_objects = ContributionTableManager()
+    seizoen_objects = ContributionTableManager()
     objects = models.Manager()
 
     def __str__(self):
@@ -750,7 +750,7 @@ class Paymentbatch(models.Model):
     def __str__(self):
         return ("%s" % (self.datum.strftime('%d %b'),))
 
-# class PaymentManager(models.Manager):
+class PaymentManager(models.Manager):
 #    def get_queryset(self):
 #        return super().get_queryset().filter(seizoen=Configuration.objects.get().seizoen)
 
@@ -771,7 +771,7 @@ class Payment(models.Model):
     huygensmaildate = models.DateField(blank=True, null=True)
     paymentstatuscode = models.ForeignKey(PaymentStatusCode, blank=True, null = True, on_delete=models.SET_NULL)
 
-#    seizoen_objects = PaymentManager()
+    seizoen_objects = PaymentManager()
     objects = models.Manager()
 
     @ property

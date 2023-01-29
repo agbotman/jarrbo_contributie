@@ -563,7 +563,7 @@ class Contribution(models.Model):
         unique_together = [['member', 'seizoen', 'activity']]
         ordering = ['member', 'activity']
         
-#    seizoen_objects = ContributionManager()
+    seizoen_objects = ContributionManager()
     objects = models.Manager()
 
     def get_absolute_url(self):
@@ -600,7 +600,8 @@ class Machtiging(models.Model):
         return ("%s %s" % (self.voornaam, self.achternaam))
 
 class ContributionTableManager(models.Manager):
-#    def get_queryset(self):
+    def get_queryset(self):
+        return super().get_queryset()
 #        return super().get_queryset().filter(seizoen=Configuration.objects.get().seizoen)
 
 class ContributionTable(models.Model):
@@ -751,7 +752,8 @@ class Paymentbatch(models.Model):
         return ("%s" % (self.datum.strftime('%d %b'),))
 
 class PaymentManager(models.Manager):
-#    def get_queryset(self):
+    def get_queryset(self):
+        return super().get_queryset()
 #        return super().get_queryset().filter(seizoen=Configuration.objects.get().seizoen)
 
 class Payment(models.Model):

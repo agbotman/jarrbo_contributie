@@ -297,8 +297,8 @@ class Member(models.Model):
         return self.fullname
 
 class ContributionManager(models.Manager):
-    def get_queryset(self):
-        return super().get_queryset().filter(seizoen=Configuration.objects.get().seizoen)
+#    def get_queryset(self):
+#        return super().get_queryset().filter(seizoen=Configuration.objects.get().seizoen)
 
     def create_contribution(self, member, seizoen, activity):
         c = self.create(member=member, seizoen=seizoen, activity=activity)
@@ -563,7 +563,7 @@ class Contribution(models.Model):
         unique_together = [['member', 'seizoen', 'activity']]
         ordering = ['member', 'activity']
         
-    seizoen_objects = ContributionManager()
+#    seizoen_objects = ContributionManager()
     objects = models.Manager()
 
     def get_absolute_url(self):
@@ -599,9 +599,9 @@ class Machtiging(models.Model):
     def __str__(self):
         return ("%s %s" % (self.voornaam, self.achternaam))
 
-class ContributionTableManager(models.Manager):
-    def get_queryset(self):
-        return super().get_queryset().filter(seizoen=Configuration.objects.get().seizoen)
+# class ContributionTableManager(models.Manager):
+#    def get_queryset(self):
+#        return super().get_queryset().filter(seizoen=Configuration.objects.get().seizoen)
 
 class ContributionTable(models.Model):
     seizoen = models.ForeignKey(Seizoen, on_delete=models.PROTECT)
@@ -616,7 +616,7 @@ class ContributionTable(models.Model):
         ordering = ['seizoen', 'activity', 'leeftijdscategorie']
         unique_together = [['seizoen', 'activity', 'leeftijdscategorie']]
 
-    seizoen_objects = ContributionTableManager()
+#    seizoen_objects = ContributionTableManager()
     objects = models.Manager()
 
     def __str__(self):
@@ -664,8 +664,8 @@ class PaymentbatchStatus(models.Model):
         return self.status
 
 class PaymentbatchManager(models.Manager):
-    def get_queryset(self):
-        return super().get_queryset().filter(seizoen=Configuration.objects.get().seizoen)
+#    def get_queryset(self):
+#        return super().get_queryset().filter(seizoen=Configuration.objects.get().seizoen)
         
     def nextbatch(self):
         planned = self.filter(status__status='Gepland')
@@ -750,9 +750,9 @@ class Paymentbatch(models.Model):
     def __str__(self):
         return ("%s" % (self.datum.strftime('%d %b'),))
 
-class PaymentManager(models.Manager):
-    def get_queryset(self):
-        return super().get_queryset().filter(seizoen=Configuration.objects.get().seizoen)
+# class PaymentManager(models.Manager):
+#    def get_queryset(self):
+#        return super().get_queryset().filter(seizoen=Configuration.objects.get().seizoen)
 
 class Payment(models.Model):
     seizoen = models.ForeignKey(Seizoen, on_delete=models.PROTECT)
@@ -771,7 +771,7 @@ class Payment(models.Model):
     huygensmaildate = models.DateField(blank=True, null=True)
     paymentstatuscode = models.ForeignKey(PaymentStatusCode, blank=True, null = True, on_delete=models.SET_NULL)
 
-    seizoen_objects = PaymentManager()
+#    seizoen_objects = PaymentManager()
     objects = models.Manager()
 
     @ property

@@ -10,7 +10,7 @@ from .tools import valid_iban, clean_iban, valid_postcode, clean_postcode, \
                     clean_date
 import string
 
-config = Configuration.objects.get()
+# config = Configuration.objects.get()
 
 result = {
     "active": 0,

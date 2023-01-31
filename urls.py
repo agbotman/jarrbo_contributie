@@ -1,6 +1,4 @@
 from django.conf.urls import url
-# from django_filters.views import FilterView
-# from .filters import MemberFilter, PaymentFilter
 from .views import ImportMemberView, ImportMemberDetail, \
                     ImportInschrijvingenView, ImportInschrijvingenDetail, \
                     ImportMachtigingenView, ImportMachtigingenDetail, MemberListView, \

@@ -429,7 +429,7 @@ class MemberCreateView(TestContributieAdmin, CreateView):
     template_name_suffix = '_create_form'
 
     def form_valid(self, form):
-#        config = Configuration.objects.get()
+        config = Configuration.objects.get()
         redirect_url = super(MemberCreateView,self).form_valid(form)
         self.object.naam_machtiging = self.object.fullname
         self.object.adres_machtiging = self.object.shortaddress
@@ -514,7 +514,7 @@ class FactuurView(View):
         a = payment.contribution.activity
         if payment.method.description == 'Jeugdsportfonds':
             if not payment.factuurnummer:
-#                config = Configuration.objects.get()
+                config = Configuration.objects.get()
                 payment.factuurnummer = config.last_factuurnummer + 1
                 config.last_factuurnummer = payment.factuurnummer
                 payment.save()

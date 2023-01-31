@@ -3,11 +3,13 @@
 {% load i18n %}
 {% load l10n %}
 {% load crispy_forms_tags %}
+{% load solo_tags %}
 
 {% block main_content %}
 {% language 'nl' %}
+{% get_solo 'jarrbo_contributie.Configuration' as contributie_config %}
     <h3>{% trans 'Dashboard' %}</h3>
-    <div class="row">{{ view.config.contributie_iban }}</div>
+    <div class="row">{{ contributie_config.contributie_iban }}</div>
     <div class="row">
         <table class="table table-sm">
             <thead>

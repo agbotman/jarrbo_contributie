@@ -1,6 +1,6 @@
 from django.conf.urls import url
-from django_filters.views import FilterView
-from .filters import MemberFilter, PaymentFilter
+# from django_filters.views import FilterView
+# from .filters import MemberFilter, PaymentFilter
 from .views import ImportMemberView, ImportMemberDetail, \
                     ImportInschrijvingenView, ImportInschrijvingenDetail, \
                     ImportMachtigingenView, ImportMachtigingenDetail, MemberListView, \
@@ -16,7 +16,7 @@ urlpatterns = [
     url(r'^import/member/$', ImportMemberView.as_view(), name='importmember'),
     url(r'^import/member/success/(?P<pk>\d+)/$', ImportMemberDetail.as_view(),
                                                 name='importmember_detail'),
-   url(r'^import/inschrijvingen/$', ImportInschrijvingenView.as_view(), name='importinschrijvingen'),
+    url(r'^import/inschrijvingen/$', ImportInschrijvingenView.as_view(), name='importinschrijvingen'),
     url(r'^import/inschrijvingen/success/$', ImportInschrijvingenDetail.as_view(),
                                                 name='importinschrijvingen_detail'),
     url(r'^import/machtigingen/$', ImportMachtigingenView.as_view(), name='importmachtigingen'),

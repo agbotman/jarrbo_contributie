@@ -38,6 +38,7 @@ class Configuration(SingletonModel):
     mail_use_tls = models.BooleanField(default=True)
     last_factuurnummer = models.PositiveIntegerField(default=0)
     contributie_iban = models.CharField(max_length=34, null=True, blank=True)
+    tenaamstelling = models.CharField(max_length=100, null=True, blank=True)
     
     class Meta:
         verbose_name = _("configuration")

@@ -299,8 +299,8 @@ class Member(models.Model):
 
 class ContributionManager(models.Manager):
     def get_queryset(self):
-#        return super().get_queryset()
-        return super().get_queryset().filter(seizoen=Configuration.objects.get().seizoen)
+        return super().get_queryset()
+#        return super().get_queryset().filter(seizoen=Configuration.objects.get().seizoen)
 
     def create_contribution(self, member, seizoen, activity):
         c = self.create(member=member, seizoen=seizoen, activity=activity)
@@ -603,8 +603,8 @@ class Machtiging(models.Model):
 
 class ContributionTableManager(models.Manager):
     def get_queryset(self):
-#        return super().get_queryset()
-        return super().get_queryset().filter(seizoen=Configuration.objects.get().seizoen)
+        return super().get_queryset()
+#        return super().get_queryset().filter(seizoen=Configuration.objects.get().seizoen)
 
 class ContributionTable(models.Model):
     seizoen = models.ForeignKey(Seizoen, on_delete=models.PROTECT)
@@ -668,8 +668,8 @@ class PaymentbatchStatus(models.Model):
 
 class PaymentbatchManager(models.Manager):
     def get_queryset(self):
-#        return super().get_queryset()
-        return super().get_queryset().filter(seizoen=Configuration.objects.get().seizoen)
+        return super().get_queryset()
+#        return super().get_queryset().filter(seizoen=Configuration.objects.get().seizoen)
         
     def nextbatch(self):
         planned = self.filter(status__status='Gepland')
@@ -756,8 +756,8 @@ class Paymentbatch(models.Model):
 
 class PaymentManager(models.Manager):
     def get_queryset(self):
-#        return super().get_queryset()
-        return super().get_queryset().filter(seizoen=Configuration.objects.get().seizoen)
+        return super().get_queryset()
+#        return super().get_queryset().filter(seizoen=Configuration.objects.get().seizoen)
 
 class Payment(models.Model):
     seizoen = models.ForeignKey(Seizoen, on_delete=models.PROTECT)

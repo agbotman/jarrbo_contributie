@@ -28,6 +28,19 @@ class Seizoen(models.Model):
     def __str__(self):
         return self.description
 
+    def save(self, *args, **kwargs):
+        "Ensure that only one seizoen is current"
+        if self.current:
+            # select all other current items
+            qs = type(self).objects.filter(current=True)
+            # except self (if self already exists)
+            if self.pk:
+                qs = qs.exclude(pk=self.pk)
+            # and deactive them
+            qs.updatecurrent=False) 
+
+        super(Seizoen, self).save(*args, **kwargs)
+
 class Configuration(SingletonModel):
 # when adding fields to this model the --skip-checks option must be added 
 # in both the makemigrations and the migrate commands

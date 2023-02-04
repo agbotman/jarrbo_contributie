@@ -10,6 +10,7 @@ from .tools import valid_iban
 
 class Seizoen(models.Model):
     startjaar = models.PositiveIntegerField(unique=True)
+    current = models.BooleanField(default=False)
 
     @ property
     def eindjaar(self):
@@ -28,6 +29,13 @@ class Seizoen(models.Model):
         return self.description
 
 class Configuration(SingletonModel):
+# when adding fields to this model the --skip-checks option must be added 
+# in both the makemigrations and the migrate commands
+# e.g.
+#
+# python manage.py makemigrations --skip-checks
+# python manage.py migrate --skip-checks
+
     last_memberimport = models.DateField(_("last member import"), null=True)
     refresh_all = models.BooleanField(_("refresh all"), default=False)
     seizoen = models.ForeignKey(Seizoen, on_delete=models.PROTECT, null=True)
@@ -301,7 +309,6 @@ class Member(models.Model):
 
 class ContributionManager(models.Manager):
     def get_queryset(self):
-#        return super().get_queryset()
         return super().get_queryset().filter(seizoen=config.seizoen)
 
     def create_contribution(self, member, seizoen, activity):
@@ -604,7 +611,6 @@ class Machtiging(models.Model):
 
 class ContributionTableManager(models.Manager):
     def get_queryset(self):
-#        return super().get_queryset()
         return super().get_queryset().filter(seizoen=config.seizoen)
 
 class ContributionTable(models.Model):
@@ -669,7 +675,6 @@ class PaymentbatchStatus(models.Model):
 
 class PaymentbatchManager(models.Manager):
     def get_queryset(self):
-#        return super().get_queryset()
         return super().get_queryset().filter(seizoen=config.seizoen)
         
     def nextbatch(self):
@@ -757,7 +762,6 @@ class Paymentbatch(models.Model):
 
 class PaymentManager(models.Manager):
     def get_queryset(self):
-#        return super().get_queryset()
         return super().get_queryset().filter(seizoen=config.seizoen)
 
 class Payment(models.Model):

@@ -3,15 +3,12 @@ from django import forms
 from .models import Member, Contribution, Payment, Paymentmethod, Paymentstatus, \
                     Paymentbatch, Note, Configuration
 from django.db.models import Sum
-from django.utils.functional import SimpleLazyObject
 from .tools import valid_iban, clean_iban, valid_postcode, clean_postcode
 from jarrbo_theme.forms import JarrboFormHelper
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit, Layout, Field, Row, Column
 from crispy_forms.bootstrap import AppendedText, PrependedText, FormActions
 import datetime
-
-config = SimpleLazyObject(Configuration.objects.get)
 
 class ImportMemberForm(forms.Form):
     filedate = forms.DateField(initial=datetime.date.today,
@@ -122,7 +119,7 @@ class UpdateContributionForm(forms.ModelForm):
 
     class Meta:
         model = Contribution
-        queryset = Contribution.objects.filter(seizoen=config.seizoen)
+        queryset = Contribution.seizoen_objects.all()
         fields = [
                   'kortingpercentage', 'kortingvast', 'termijnen', 'kortingopadres', 
                   'payment_method', 'iban', 'factuur_naam', 'factuur_adres', 

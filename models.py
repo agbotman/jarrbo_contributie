@@ -2,6 +2,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.db import models
 from django.urls import reverse
 from django.db.models import Min, Max, Sum
+from django.utils.functional import SimpleLazyObject
 import decimal
 from datetime import datetime
 from solo.models import SingletonModel
@@ -38,10 +39,13 @@ class Configuration(SingletonModel):
     mail_use_tls = models.BooleanField(default=True)
     last_factuurnummer = models.PositiveIntegerField(default=0)
     contributie_iban = models.CharField(max_length=34, null=True, blank=True)
+    tenaamstelling = models.CharField(max_length=100, null=True, blank=True)
     
     class Meta:
         verbose_name = _("configuration")
         verbose_name_plural = _("configurations")
+
+config = SimpleLazyObject(Configuration.objects.get)
 
 class Activity(models.Model):
     description = models.CharField(max_length=15, unique=True)
@@ -225,7 +229,6 @@ class Member(models.Model):
     def leeftijdscategorie(self):
         if not self.geboortedatum:
             return Leeftijdscategory.objects.get(category='Sen')
-        config = Configuration.objects.get()
         startleeftijd = config.seizoen.startjaar - self.geboortedatum.year
         if startleeftijd > 18:
             categorie = Leeftijdscategory.objects.get(category='Sen')
@@ -299,7 +302,7 @@ class Member(models.Model):
 class ContributionManager(models.Manager):
     def get_queryset(self):
 #        return super().get_queryset()
-        return super().get_queryset().filter(seizoen=Configuration.objects.get().seizoen)
+        return super().get_queryset().filter(seizoen=config.seizoen)
 
     def create_contribution(self, member, seizoen, activity):
         c = self.create(member=member, seizoen=seizoen, activity=activity)
@@ -353,7 +356,6 @@ class Contribution(models.Model):
     def kortingdatum(self):
         if not self.member.aanmeldingsdatum:
             return 0
-        config = Configuration.objects.get()
         startjaar = config.seizoen.startjaar
         eindjaar = config.seizoen.eindjaar
         if self.member.aanmeldingsdatum.year == startjaar and self.member.aanmeldingsdatum.month >= 11:
@@ -603,7 +605,7 @@ class Machtiging(models.Model):
 class ContributionTableManager(models.Manager):
     def get_queryset(self):
 #        return super().get_queryset()
-        return super().get_queryset().filter(seizoen=Configuration.objects.get().seizoen)
+        return super().get_queryset().filter(seizoen=config.seizoen)
 
 class ContributionTable(models.Model):
     seizoen = models.ForeignKey(Seizoen, on_delete=models.PROTECT)
@@ -668,7 +670,7 @@ class PaymentbatchStatus(models.Model):
 class PaymentbatchManager(models.Manager):
     def get_queryset(self):
 #        return super().get_queryset()
-        return super().get_queryset().filter(seizoen=Configuration.objects.get().seizoen)
+        return super().get_queryset().filter(seizoen=config.seizoen)
         
     def nextbatch(self):
         planned = self.filter(status__status='Gepland')
@@ -756,7 +758,7 @@ class Paymentbatch(models.Model):
 class PaymentManager(models.Manager):
     def get_queryset(self):
 #        return super().get_queryset()
-        return super().get_queryset().filter(seizoen=Configuration.objects.get().seizoen)
+        return super().get_queryset().filter(seizoen=config.seizoen)
 
 class Payment(models.Model):
     seizoen = models.ForeignKey(Seizoen, on_delete=models.PROTECT)

@@ -37,7 +37,7 @@ class Seizoen(models.Model):
             if self.pk:
                 qs = qs.exclude(pk=self.pk)
             # and deactive them
-            qs.updatecurrent=False) 
+            qs.update(current=False)
 
         super(Seizoen, self).save(*args, **kwargs)
 

@@ -792,6 +792,7 @@ class Payment(models.Model):
     withdrawndate = models.DateField(blank=True, null=True)
     withdrawnmaildate = models.DateField(blank=True, null=True)
     huygensmaildate = models.DateField(blank=True, null=True)
+    duedate = models.DateField(blank=True, null=True)
     paymentstatuscode = models.ForeignKey(PaymentStatusCode, blank=True, null = True, on_delete=models.SET_NULL)
 
     seizoen_objects = PaymentManager()

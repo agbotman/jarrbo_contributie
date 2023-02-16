@@ -845,6 +845,10 @@ class Payment(models.Model):
                     'paymentdate',
                    ]
 
+    def save(self, *args, **kwargs):
+        self.contribution.save()
+        super(Payment, self).save(*args, **kwargs)
+
     def __str__(self):
         return ("%s %s" % ("{0:.2f}".format(self.amount), self.status.status))
         

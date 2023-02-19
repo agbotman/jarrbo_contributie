@@ -531,7 +531,6 @@ class Contribution(models.Model):
                     paymentdate = batch.datum
                 else:
                     paymentbatch = None
-                    paymentdate = batch.datum
                 p = Payment(seizoen = self.seizoen,
                             contribution = self,
                             paymentbatch = paymentbatch,

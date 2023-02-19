@@ -116,6 +116,7 @@ class PaymentType(models.Model):
         return self.type
         
 class Paymentmethod(models.Model):
+    sh = models.CharField(max_length=1, blank=True)
     description = models.CharField(max_length=25, unique=True)
     type = models.ForeignKey(PaymentType, on_delete=models.SET_NULL, null=True)
     

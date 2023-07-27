@@ -484,6 +484,9 @@ class Contribution(models.Model):
         return p or decimal.Decimal(0.00)
 
     def recreate_payments(self, fromdate=None):
+        # Do not create when no payment method is defined
+        if not self.payment_method:
+            return
         # Do not create payments when status of member is aangemeld (not playing yet)
         if not self.member.status or self.member.status.description == 'Aangemeld':
             return

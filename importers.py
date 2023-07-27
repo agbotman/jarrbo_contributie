@@ -196,7 +196,8 @@ def updatemember(m,r):
     m.telefoon = r['Telefoon']
     m.mobiel = r['Mobiel'].replace(" ", "")
     m.email = r['E-mail']
-    m.iban = r['Bankrekeningnummer']
+    if valid_iban(r['Bankrekeningnummer']):
+        m.iban = r['Bankrekeningnummer']
     if valid_iban(m.iban):
         m.machtiging = True
     m.save()

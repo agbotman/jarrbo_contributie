@@ -198,7 +198,6 @@ def updatemember(m,r):
     m.email = r['E-mail']
     if valid_iban(r['Bankrekeningnummer']):
         m.iban = r['Bankrekeningnummer']
-    if valid_iban(m.iban):
         m.machtiging = True
     m.save()
     return 

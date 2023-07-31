@@ -83,7 +83,7 @@ class UpdateMemberForm(forms.ModelForm):
         super(UpdateMemberForm, self).__init__(*args, **kwargs)
         self.fields['machtigingsdatum'].widget = forms.TextInput(attrs={'type': 'date'})
         # 2023-07-31 date widget for field aanmeldingsdatum
-        self.fields['aanmeldingsdatumdatum'].widget = forms.TextInput(attrs={'type': 'date'})
+        self.fields['aanmeldingsdatum'].widget = forms.TextInput(attrs={'type': 'date'})
         self.helper = FormHelper()
         self.helper.form_method = 'post'
         self.helper.layout = Layout(

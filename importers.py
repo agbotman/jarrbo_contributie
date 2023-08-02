@@ -226,10 +226,11 @@ def newmember(r):
     a = Memberstatus.objects.get(status='Aangemeld')
     m.status = a
     m.save()
-    i = getInschrijving(m.roepnaam, m.achternaam, m.postcode, m.geboortedatum)
-    if i:
-        m.matchInschrijving(i)
-    return m
+    # 2023-08-02 001 Inschrijvingen bestand wordt niet meer gebruikt bij ledenverwerking
+    # i = getInschrijving(m.roepnaam, m.achternaam, m.postcode, m.geboortedatum)
+    # if i:
+    #     m.matchInschrijving(i)
+    # return m
 
 def import_Inschrijvingenfile(inschrijvingenfile):
     # utf-8-sig removes the BYTE ORDER MARK in the first row

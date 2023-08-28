@@ -1,5 +1,5 @@
 from .models import Member, Payment, Activity
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 import django_filters
 
 class MemberFilter(django_filters.FilterSet):

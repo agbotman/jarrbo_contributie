@@ -1,4 +1,4 @@
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 import csv, codecs
 from .models import Configuration, Activity, Member, MemberImport, \
                     Memberstatus, Contribution, Inschrijving, \

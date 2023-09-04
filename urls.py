@@ -7,7 +7,7 @@ from .views import ImportMemberView, ImportMemberDetail, \
                     PaymentbatchCreateView, PaymentbatchPlanView, PaymentMovenextView, \
                     PaymentStatusupdateView, NoteCreateView, NoteUpdateView, PaymentMailView, \
                     MemberCreateView, FactuurView, FailedListView
-from .views import PaymentExport, NotPayedExport, RestitutionFormSet
+from .views import PaymentExport, NotPayedExport
 
 app_name = 'jarrbo_contributie'
 urlpatterns = [

@@ -43,6 +43,5 @@ urlpatterns = [
     re_path(r'^payments/export/$', PaymentExport, name='payment_export'),
     re_path(r'^notpayed/$', NotPayedExport, name='notpayed_export'),
     re_path(r'^factuur/(?P<pk>\d+)/$', FactuurView.as_view(), name='factuur'),
-    re_path(r'^restitutions/$', RestitutionFormSet.as_view(), name='restitutions'),
     re_path(r'^failed/(?P<pk>\d+)/$', FailedListView.as_view(), name='failed'),
 ]

@@ -15,7 +15,7 @@ from .forms import ImportMemberForm, ImportInschrijvingenForm, \
         ImportMachtigingenForm, UpdateMemberForm, UpdateContributionForm, UpdatePaymentForm, \
         CreateNoteForm, MemberCreateForm
 from .models import MemberImport, Member, Contribution, Activity, \
-        Paymentbatch, Note, CoronaRestitution, Payment, PaymentbatchStatus, \
+        Paymentbatch, Note, Payment, PaymentbatchStatus, \
         Paymentstatus, PaymentStatusCode, Paymentmethod, PaymentstatusChange, \
         Configuration
 from .filters import MemberFilter, PaymentFilter
@@ -585,26 +585,6 @@ class FactuurView(View):
         document.write(response)
         
         return response
-
-class RestitutionFormSet(ModelFormSetView):
-    model = CoronaRestitution
-    fields = ['s_2021', 'applied', 'amount', 'payed']
-    template_name = 'jarrbo_contributie/coronarestitution_formset.html'
-    factory_kwargs = {'extra': 0, }
-    paginate_by = 18
-    
-    # For instantiation of the formset we use the page_object iso of the full model query
-    def get_formset_kwargs(self):
-        from django.core.paginator import Paginator
-        kwargs = super().get_formset_kwargs()
-        qs = kwargs["queryset"]
-        paginator = Paginator(qs, self.paginate_by)
-        page_kwarg = self.page_kwarg
-        page_number = self.kwargs.get(page_kwarg) or self.request.GET.get(page_kwarg) or 1
-        page_object = paginator.get_page(page_number)
-        page_object.ordered = True
-        kwargs["queryset"] = page_object
-        return kwargs
         
 class FailedListView(TestContributieAdmin, ListView):
     template_name = 'jarrbo_contributie/failed_payments.html'

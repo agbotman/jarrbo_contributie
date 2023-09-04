@@ -887,18 +887,3 @@ class Note(models.Model):
     def __str__(self):
         return self.description
 
-class CoronaRestitution(models.Model):
-    contribution = models.OneToOneField(Contribution, null=True, on_delete=models.SET_NULL)
-    s_2021 = models.BooleanField(default=False)
-    applied = models.BooleanField(default=False)
-    amount = models.DecimalField(max_digits=6, decimal_places=2, default=0)
-    payed = models.BooleanField(default=False)
-    
-    class Meta:
-        verbose_name = _("payment")
-        verbose_name_plural = _("payments")
-        ordering = [
-                    'contribution__member__achternaam',
-                    'contribution__member__tussenvoegsels',
-                    'contribution__member__roepnaam',
-                   ]

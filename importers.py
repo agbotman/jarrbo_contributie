@@ -4,13 +4,15 @@ from .models import Configuration, Activity, Member, MemberImport, \
                     Memberstatus, Contribution, Inschrijving, \
                     Machtiging, Paymentmethod
 from datetime import datetime, date
+from django.utils.functional import SimpleLazyObject
 import pytz
 from django.db.models import Max, Min
 from .tools import valid_iban, clean_iban, valid_postcode, clean_postcode, \
                     clean_date
 import string
 
-config = Configuration.objects.get()
+# config = Configuration.objects.get()
+config = SimpleLazyObject(Configuration.objects.get)
 
 result = {
     "active": 0,
@@ -19,9 +21,12 @@ result = {
     "changed": 0
         }
         
-zaal = Activity.objects.get(description='Zaal')
-veld = Activity.objects.get(description='Veld')
-vr30 = Activity.objects.get(description='Vr7x7')
+# zaal = Activity.objects.get(description='Zaal')
+zaal = None
+# veld = Activity.objects.get(description='Veld')
+veld = None
+# vr30 = Activity.objects.get(description='Vr7x7')
+vr30 = None
 curyear = datetime.now().year
 
 class MissingHeaderException(Exception):
@@ -117,8 +122,12 @@ def import_member(r, imp):
             m = newmember(r)
             result["new"] += 1
         if "Veld" in r['Bondssporten']:
+            if not veld:
+                veld = Activity.objects.get(description='Veld')
             if r['Leeftijdscategorie'] == 'Senioren Vrouwen' and \
                 (curyear - m.geboortedatum.year) > 29:
+                if not vr30:
+                    vr30 = Activity.objects.get(description='Vr7x7')
                 if not vr30 in m.activities.all():
                     m.activities.add(vr30)
                 try:
@@ -137,6 +146,8 @@ def import_member(r, imp):
                                                                          seizoen=config.seizoen,
                                                                          activity=veld)
         if "Zaal" in r['Bondssporten']:
+            if not zaal:
+                zaal = Activity.objects.get(description='Zaal')
             if not zaal in m.activities.all():
                 m.activities.add(zaal)
             try:

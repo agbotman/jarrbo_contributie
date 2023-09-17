@@ -111,6 +111,15 @@ def check_headers(dict, fields):
     return missingheaders
     
 def import_member(r, imp):
+    global veld
+    global zaal
+    global vr30
+    if not veld:
+        veld = Activity.objects.get(description='Veld')
+    if not zaal:
+        zaal = Activity.objects.get(description='Zaal')
+    if not vr30:
+        vr30 = Activity.objects.get(description='Vr7x7')
     if r['Status'] == "definitief":
         result["active"] += 1
         try:
@@ -122,8 +131,6 @@ def import_member(r, imp):
             m = newmember(r)
             result["new"] += 1
         if "Veld" in r['Bondssporten']:
-            if not veld:
-                veld = Activity.objects.get(description='Veld')
             if r['Leeftijdscategorie'] == 'Senioren Vrouwen' and \
                 (curyear - m.geboortedatum.year) > 29:
                 if not vr30:
@@ -146,8 +153,6 @@ def import_member(r, imp):
                                                                          seizoen=config.seizoen,
                                                                          activity=veld)
         if "Zaal" in r['Bondssporten']:
-            if not zaal:
-                zaal = Activity.objects.get(description='Zaal')
             if not zaal in m.activities.all():
                 m.activities.add(zaal)
             try:

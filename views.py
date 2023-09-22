@@ -554,6 +554,7 @@ class FactuurView(View):
                       'factuurdatum': datum.strftime('%d %B %Y'),
                       'seizoen': str(c.seizoen),
                       'basiscontributie': '{0:n}'.format(c.base_contribution),
+                      'kledingfonds': '{0:n}'.format(c.kledingfonds),
                       'betreft': betreft,
                       'lidnaam': m.fullname,
                       'kosten': '{0:n}'.format(c.total_cost),

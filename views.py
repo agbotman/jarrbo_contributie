@@ -535,7 +535,7 @@ class FactuurView(View):
             kortingregel='Korting'
             korting = ("€    %s" % ('{0:n}'.format(c.total_korting),))
         extra1 = ("%s %s %s %s" % (
-            'Het is ook mogelijk om met de Huygenspas te betalen. ', 
+            'Het is ook mogelijk om met de DijkenWaardpas te betalen. ', 
             'Dit kan op zaterdagmorgen tussen 9:00 en 12:00 uur ', 
             'of dinsdagavond tussen 19:00 en 20:00 uur ', 
             'bij de webshop. Vraag naar Peter de Boer.',))

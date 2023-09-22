@@ -549,6 +549,7 @@ class FactuurView(View):
                       'adres': m.adres_machtiging or m.shortaddress,
                       'postcode': m.postcode_machtiging or m.postcode,
                       'plaats': m.plaats_machtiging or m.plaats,
+                      'email': m.email,
                       'relatiecode': m.relatiecode,
                       'factuurdatum': datum.strftime('%d %B %Y'),
                       'seizoen': str(c.seizoen),

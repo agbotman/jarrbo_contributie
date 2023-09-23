@@ -84,13 +84,13 @@
               </form>
             {% endif %}
           {% endif %}
-          {% if payment.method.description == 'Huygenspas' %}
+          {% if payment.method.description == 'Dijkenwaardpas' %}
               <form 
                 method="POST"
                 action="{% url 'jarrbo_contributie:mail' pk=payment.pk %}">
                 {% csrf_token %}
                 <button type="submit" class="btn btn-primary btn-xs">
-                  {% trans 'Huygensmail' %}
+                  {% trans 'DijkenWaard mail' %}
                 </button>
               </form>
           {% endif %}

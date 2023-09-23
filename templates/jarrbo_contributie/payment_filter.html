@@ -84,7 +84,7 @@
               </form>
             {% endif %}
           {% endif %}
-          {% if payment.method.description == 'Dijkenwaardpas' %}
+          {% if payment.method.description == 'DijkenwaardPas' %}
               <form 
                 method="POST"
                 action="{% url 'jarrbo_contributie:mail' pk=payment.pk %}">

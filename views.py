@@ -409,12 +409,12 @@ class PaymentMailView(TestContributieAdmin, View):
                 send_contributiemail(subject, body, to_mail)
                 payment.withdrawnmaildate = date.today()
                 payment.save()
-        if payment.method.description == 'Huygenspas':
-            template = get_template('jarrbo_contributie/huygens.txt')
+        if payment.method.description == 'DijkenwaardPas':
+            template = get_template('jarrbo_contributie/DijkenWaard.txt')
 
             ctx = {'payment': payment,
                   }
-            subject = "Betalen contributie SVW'27 met Huygenspas"
+            subject = "Betalen contributie SVW'27 met DijkenWaardpas"
             body = template.render(ctx)
             to_mail = payment.contribution.member.email
             send_contributiemail(subject, body, to_mail)

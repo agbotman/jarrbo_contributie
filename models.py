@@ -253,34 +253,12 @@ class Member(models.Model):
             return Leeftijdscategory.objects.get(category='Sen')
         startleeftijd = config.seizoen.startjaar - self.geboortedatum.year
         if startleeftijd > 18:
-            categorie = Leeftijdscategory.objects.get(category='Sen')
-        elif startleeftijd > 17:
-            categorie = Leeftijdscategory.objects.get(category='O19')
-        elif startleeftijd > 16:
-            categorie = Leeftijdscategory.objects.get(category='O18')
-        elif startleeftijd > 15:
-            categorie = Leeftijdscategory.objects.get(category='O17')
-        elif startleeftijd > 14:
-            categorie = Leeftijdscategory.objects.get(category='O16')
-        elif startleeftijd > 13:
-            categorie = Leeftijdscategory.objects.get(category='O15')
-        elif startleeftijd > 12:
-            categorie = Leeftijdscategory.objects.get(category='O14')
-        elif startleeftijd > 11:
-            categorie = Leeftijdscategory.objects.get(category='O13')
-        elif startleeftijd > 10:
-            categorie = Leeftijdscategory.objects.get(category='O12')
-        elif startleeftijd > 9:
-            categorie = Leeftijdscategory.objects.get(category='O11')
-        elif startleeftijd > 8:
-            categorie = Leeftijdscategory.objects.get(category='O10')
-        elif startleeftijd > 7:
-            categorie = Leeftijdscategory.objects.get(category='O9')
-        elif startleeftijd > 6:
-            categorie = Leeftijdscategory.objects.get(category='O8')
-        else:
-            categorie = Leeftijdscategory.objects.get(category='O7')
-        return categorie
+            return Leeftijdscategory.objects.get(category='Sen')
+        if startleeftijd <= 6:
+            return Leeftijdscategory.objects.get(category='O7')
+        eindleeftijd = startleeftijd + 1
+        cat = 'O' + str(eindleeftijd)
+        return Leeftijdscategory.objects.get(category=cat)
 
     def matchInschrijving(self, i):
         self.inschrijving = i

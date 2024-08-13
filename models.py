@@ -473,6 +473,10 @@ class Contribution(models.Model):
         p = payments.aggregate(total=Sum('amount'))['total']
         return p or decimal.Decimal(0.00)
 
+    @ property
+    def outstanding(self):
+        return self.total_contribution - self.payed
+
     def recreate_payments(self, fromdate=None):
         # Do not create when no payment method is defined
         if not self.payment_method:

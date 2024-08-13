@@ -371,44 +371,30 @@ class PaymentMailView(TestContributieAdmin, View):
     
     def post(self, request, pk):
         payment = Payment.seizoen_objects.get(pk=pk)
-        if payment.paymentstatuscode and \
-            payment.paymentstatuscode.status_code in ['AC01', #Rekeningnummer incorrect
-                                                     'AC04', #Rekeningnummer opgeheven
-                                                     'AC06', #Rekeningnummer geblokkeerd
-                                                     'AG01', #Rekeningnummer niet toegestaan
-                                                     'MD01', #Geen machtiging
-                                                     'MD02', #Machtigingsgegevens onjuist of onvolledig
-                                                            ]: 
-            if not payment.withdrawnmaildate:
-                template = get_template('jarrbo_contributie/incorrectnr.txt')
-                
-                ctx = {'payment': payment,
-                       'nextbatch': Paymentbatch.seizoen_objects.nextbatch(),
-                      }
-                subject = ("Incasso contributie %s niet geslaagd" % (payment.contribution.member.fullname,))
-                body = template.render(ctx)
-                to_mail = payment.contribution.member.email
-                send_contributiemail(subject, body, to_mail)
-                payment.withdrawnmaildate = date.today()
-                payment.save()
-        if payment.paymentstatuscode and \
-            payment.paymentstatuscode.status_code in ['AM04', #Onvoldoende saldo
-                                                     'FT01', #Handmatig teruggeboekt
-                                                     'MD06', #Terugboeking op verzoek klant
-                                                     'SL01', #Specifieke dienstverlening bank
-                                                            ]: 
-            if not payment.withdrawnmaildate:
-                template = get_template('jarrbo_contributie/storneringen.txt')
-                
-                ctx = {'payment': payment,
-                       'nextbatch': Paymentbatch.seizoen_objects.nextbatch(),
-                      }
-                subject = ("Incasso contributie %s niet geslaagd" % (payment.contribution.member.fullname,))
-                body = template.render(ctx)
-                to_mail = payment.contribution.member.email
-                send_contributiemail(subject, body, to_mail)
-                payment.withdrawnmaildate = date.today()
-                payment.save()
+        if payment.method.description == "Incasso":
+            templates = {'AC01': 'jarrbo_contributie/rekeningnummer_incorrect.txt',
+                         'AC04': 'jarrbo_contributie/rekeningnummer_opgeheven.txt',
+                         'AC06': 'jarrbo_contributie/rekeningnummer_geblokkeerd.txt',
+                         'AG01': 'jarrbo_contributie/rekeningnummer_niet_toegestaan.txt',
+                         'AM04': 'jarrbo_contributie/onvoldoende_saldo.txt',
+                         'FT01': 'jarrbo_contributie/handmatig_teruggeboekt.txt',
+                         'MD06': 'jarrbo_contributie/terugboeking_klant.txt',
+                         'SL01': 'jarrbo_contributie/dienstverlening_bank.txt',
+                         }
+            if payment.paymentstatuscode:
+                template_name = templates.get(payment.paymentstatuscode.status_code)
+            if template_name:
+                template = get_template(template_name)
+                if not payment.withdrawnmaildate:
+                    ctx = {'payment': payment,
+                        'nextbatch': Paymentbatch.seizoen_objects.nextbatch(),
+                        }
+                    subject = ("Incasso contributie %s niet geslaagd" % (payment.contribution.member.fullname,))
+                    body = template.render(ctx)
+                    to_mail = payment.contribution.member.email
+                    send_contributiemail(subject, body, to_mail)
+                    payment.withdrawnmaildate = date.today()
+                    payment.save()
         if payment.method.description == 'DijkenwaardPas':
             template = get_template('jarrbo_contributie/DijkenWaard.txt')
 

@@ -1,0 +1,18 @@
+Goedendag {{payment.contribution.member.roepnaam}},
+
+Op {{ payment.paymentbatch.datum|date:"d F" }} hebben wij geprobeerd om de contributie {{payment.contribution.activity}}voetbal voor het seizoen {{payment.contribution.seizoen}} te incasseren van IBAN {{payment.contribution.member.iban}}.
+Deze incasso is mislukt vanwege onvoldoende saldo op de rekening op het moment van de incasso.
+
+Het totale contributiebedrag is € {{payment.amount}}. {% if payment.contribution.activity == 'Veld' %} Dit is inclusief € {{payment.contribution.kf}} voor het kledingfonds. {% endif %}
+Op {{ nextbatch.datum|date:"d F" }} zullen wij nogmaals proberen dit bedrag te incasseren.
+
+Indien je de contributie op een andere manier wilt betalen geef dit dan aan in een reactie op deze mail.
+Ook voor overige vragen kan je contact opnemen via de mail (of telefonisch als het heel dringend is).
+
+Met vriendelijke groeten.
+-- 
+Contributie administratie SVW'27
+contributie@svw27.nl
+06-51479006
+
+

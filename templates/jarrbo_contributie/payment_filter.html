@@ -17,6 +17,7 @@
         <th scope="col">{% trans 'Amount' %}</th>
         <th scope="col">{% trans 'Date' %}</th>
         <th scope="col">{% trans 'State' %}</th>
+        <th scope="col">{% trans 'Outstanding' %}</th>
         <th scope="col">{% trans 'Action' %}</th>
         <th scope="col">{% trans 'New state' %}</th>
       </tr>
@@ -70,6 +71,9 @@
         {% if payment.paymentstatuscode %}
           {{ payment.paymentstatuscode.description }}
         {% endif %}
+      </td>
+      <td>
+        € {{ payment.contribution.outstanding }}
       </td>
       <td>
           {% if payment.status.status == 'Teruggeboekt' or payment.status.status == 'Geensaldo' %}

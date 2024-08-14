@@ -339,6 +339,8 @@ class Contribution(models.Model):
     termijnen = models.PositiveIntegerField(default=1)
     payment_method = models.ForeignKey(Paymentmethod, on_delete=models.PROTECT, null=True)
     iban = models.CharField(max_length=34, null=True, blank=True)
+    # to create new machtigingskenmerk in paymentbatch when change of iban
+    iban_volgnr = models.IntegerField(default=0)
     factuur_naam = models.CharField(max_length=50, null=True, blank=True)
     factuur_adres = models.CharField(max_length=50, null=True, blank=True)
     factuur_postcode = models.CharField(max_length=7, null=True, blank=True)
@@ -749,6 +751,8 @@ class Paymentbatch(models.Model):
 #                                payment.contribution.member.relatiecode
             kenmerkref.value = ("%s-%s" % (payment.contribution.member.relatiecode,
                                       payment.contribution.activity.description[0:1]))
+            if payment.iban_volgnr:
+                kenmerkref.value = kenmerkref.value + str(payment.iban_volgnr)
             bedragref = ws.cell(row=row, column=5)
             bedragref.value = payment.amount
             omschrijvingref = ws.cell(row=row, column=6)

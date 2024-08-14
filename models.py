@@ -550,7 +550,9 @@ class Contribution(models.Model):
         self.factuur_postcode = self.member.postcode_machtiging
         self.factuur_plaats = self.member.plaats_machtiging
         self.factuur_email = self.member.email_machtiging
-        self.iban = self.member.iban
+        if self.iban != self.member.iban:
+            self.iban = self.member.iban
+            self.iban_volgnr += 1
         self.kortingpercentage = self.member.kortingpercentage
         self.payment_method = self.member.payment_method
         self.save()

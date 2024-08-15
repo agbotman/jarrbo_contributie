@@ -381,6 +381,8 @@ class PaymentMailView(TestContributieAdmin, View):
                          'AM04': 'jarrbo_contributie/onvoldoende_saldo.txt',
                          'FT01': 'jarrbo_contributie/handmatig_teruggeboekt.txt',
                          'MD06': 'jarrbo_contributie/terugboeking_klant.txt',
+                         'MS02': 'jarrbo_contributie/onbekende_reden_klant.txt',
+                         'MS03': 'jarrbo_contributie/onbekende_reden_bank.txt',
                          'SL01': 'jarrbo_contributie/dienstverlening_bank.txt',
                          }
             if payment.paymentstatuscode:

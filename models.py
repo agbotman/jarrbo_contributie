@@ -577,11 +577,11 @@ class Contribution(models.Model):
         else:
             self.tc = self.bc + self.aanmaningskosten + self.ak + self.kf \
                       - self.kortingopadres - self.kd - self.ks
-        payments = Payment.seizoen_objects.filter(contribution=self,status__status='Betaald')
-        p = payments.aggregate(total=Sum('amount'))['total']
-        self.received = p or decimal.Decimal(0.00)
+#        payments = Payment.seizoen_objects.filter(contribution=self,status__status='Betaald')
+#        p = payments.aggregate(total=Sum('amount'))['total']
+#        self.received = p or decimal.Decimal(0.00)
 
-    
+
     class Meta:
         verbose_name = _("contribution")
         verbose_name_plural = _("contributions")
@@ -753,8 +753,8 @@ class Paymentbatch(models.Model):
 #                                payment.contribution.member.relatiecode
             kenmerkref.value = ("%s-%s" % (payment.contribution.member.relatiecode,
                                       payment.contribution.activity.description[0:1]))
-            if payment.iban_volgnr:
-                kenmerkref.value = kenmerkref.value + str(payment.iban_volgnr)
+            if payment.contribution.iban_volgnr:
+                kenmerkref.value = kenmerkref.value + str(payment.contribution.iban_volgnr)
             bedragref = ws.cell(row=row, column=5)
             bedragref.value = payment.amount
             omschrijvingref = ws.cell(row=row, column=6)

@@ -486,8 +486,8 @@ def NotPayedExport(request):
     
     for c in Contribution.seizoen_objects.all():
         betaald = Payment.seizoen_objects.filter(contribution=c,status__status='Betaald').aggregate(total=Sum('amount'))['total'] or 0
-            if c.total_contribution > betaald:
-                writer.writerow([c.member.relatiecode, c.member.fullname, c.member.lc, c.tc, betaald])
+        if c.total_contribution > betaald:
+            writer.writerow([c.member.relatiecode, c.member.fullname, c.member.lc, c.tc, betaald])
     return response
         
 class FactuurView(View):

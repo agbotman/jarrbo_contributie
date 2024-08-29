@@ -1,10 +1,11 @@
+from django.db.models.query import QuerySet
 from django.views.generic import FormView, DetailView, TemplateView, ListView, View
 from django.views.generic.edit import UpdateView, CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django_filters.views import FilterView
 from django.urls import reverse_lazy, reverse
 from django.shortcuts import render, redirect
-from django.db.models import F, Sum
+from django.db.models import F, Q, Sum, BooleanField, ExpressionWrapper, Case, When, DecimalField
 from datetime import datetime, timedelta, date
 from django.http import HttpResponse
 from django.template.loader import get_template
@@ -18,7 +19,7 @@ from .models import MemberImport, Member, Contribution, Activity, \
         Paymentbatch, Note, Payment, PaymentbatchStatus, \
         Paymentstatus, PaymentStatusCode, Paymentmethod, PaymentstatusChange, \
         Configuration
-from .filters import MemberFilter, PaymentFilter
+from .filters import MemberFilter, PaymentFilter, ContributionFilter
 from .importers import import_Memberfile, import_Machtigingenfile, \
         import_Inschrijvingenfile, MissingHeaderException, InvalidFileFormatException
 from .tools import send_contributiemail
@@ -589,3 +590,14 @@ class FailedListView(TestContributieAdmin, ListView):
              pb = Paymentbatch.seizoen_objects.filter(status__status='Uitgevoerd').order_by('-datum')[0]
              month = pb.datum.month
         return Payment.seizoen_objects.filter(paymentbatch__datum__month=month, status__status='Teruggeboekt')
+    
+class ContributionListView(TestContributieAdmin, FilterView):
+    model = Contribution
+    paginate_by = 18
+    filterset_class = ContributionFilter
+
+    def get_queryset(self):
+        qs = Contribution.seizoen_objects.annotate(betaald=Sum(Case(When(payments__status__description='Betaald', then=F('payments__amount')),
+                                                                     output_field=DecimalField(), default=0)))
+        qs = qs.annotate(voldaan=ExpressionWrapper(Q(tc=F('betaald')),output_field=BooleanField()))
+        return qs.order_by('member__achternaam')

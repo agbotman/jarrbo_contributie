@@ -1,4 +1,4 @@
-from .models import Member, Payment, Activity
+from .models import Member, Payment, Activity, Contribution
 from django.utils.translation import gettext as _
 import django_filters
 
@@ -8,6 +8,7 @@ class MemberFilter(django_filters.FilterSet):
         fields = {
             'relatiecode': ['exact'],
             'achternaam': ['icontains'],
+            'roepnaam': ['icontains'],
             'lc': ['exact'],
             'status': ['exact'],
         }
@@ -23,7 +24,7 @@ class PaymentFilter(django_filters.FilterSet):
         queryset = Activity.objects.all(),
         method = 'activity_filter',
         label = _('Activity')
-        )
+    )
 
     class Meta:
         model = Payment
@@ -41,3 +42,20 @@ class PaymentFilter(django_filters.FilterSet):
     def __init__(self, *args, **kwargs):
         super(PaymentFilter, self).__init__(*args, **kwargs)
         self.filters['contribution__member__relatiecode'].label=_('Relation code')
+
+class ContributionFilter(django_filters.FilterSet):
+    voldaan = django_filters.BooleanFilter(
+        method = 'voldaan_filter',
+        label = _('Voldaan')
+    )
+
+    class Meta:
+        model = Contribution
+        fields = {
+            'payment_method': ['exact'],
+            'sponsored': ['exact'],
+            'member__relatiecode': ['exact'],
+        }
+
+    def voldaan_filter(self, queryset, name, value):
+        return queryset.filter(voldaan=value)

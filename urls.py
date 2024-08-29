@@ -2,7 +2,7 @@ from django.urls import re_path
 from .views import ImportMemberView, ImportMemberDetail, \
                     ImportInschrijvingenView, ImportInschrijvingenDetail, \
                     ImportMachtigingenView, ImportMachtigingenDetail, MemberListView, \
-                    MemberUpdateView, ContributionUpdateView, PaymentUpdateView, PaymentListView, \
+                    MemberUpdateView, ContributionUpdateView, PaymentUpdateView, PaymentListView, ContributionListView, \
                     DashboardView, PaymentbatchListView, PaymentbatchSubmitView, PaymentbatchExecuteView, \
                     PaymentbatchCreateView, PaymentbatchPlanView, PaymentMovenextView, \
                     PaymentStatusupdateView, NoteCreateView, NoteUpdateView, PaymentMailView, \
@@ -23,6 +23,7 @@ urlpatterns = [
     re_path(r'^members/$', MemberListView.as_view(), name='members'),
     re_path(r'^member/(?P<pk>\d+)/$', MemberUpdateView.as_view(), name='member_detail'),
     re_path(r'^contribution/(?P<pk>\d+)/$', ContributionUpdateView.as_view(), name='contribution_detail'),
+    re_path(r'^contributions/$', ContributionListView.as_view(), name='contributions'),
     re_path(r'^payment/(?P<pk>\d+)/$', PaymentUpdateView.as_view(), name='payment_detail'),
     re_path(r'^payments/$', PaymentListView.as_view(), name='payments'),
     re_path(r'^$', DashboardView.as_view(), name='dashboard'),

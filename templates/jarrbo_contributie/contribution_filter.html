@@ -1,0 +1,49 @@
+{% extends "jarrbo_contributie/base-2.html" %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+{% load my_tags %}
+
+{% block main_content %}
+  <h3>{% trans 'Contribution overview' %}</h3>
+  <table class="table table-sm table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">{% trans 'Name' %}</th>
+        <th scope="col">{% trans 'Activity' %}</th>
+        <th scope="col">{% trans 'Method' %}</th>
+        <th scope="col">{% trans 'Total Contribution' %}</th>
+        <th scope="col">{% trans 'Payed' %}</th>
+        <th scope="col">{% trans 'Voldaan' %}</th>
+      </tr>
+    </thead>
+    {% for contribution in object_list %}
+    <tr>
+      <td>
+        <a href="{{ contribution.member.get_absolute_url }}">
+          {{ contribution.member.fullname }}
+        </a>
+      </td>
+      <td>{{ contribution.activity }}</td>
+      <td>{{ contribution.payment_method }}</td>
+      <td>
+        € {{ contribution.tc }}
+      </td>
+      <td>
+        € {{ contribution.betaald }}
+      </td>
+      <td> {{ contribution.voldaan }} </td>
+    </tr>
+    {% endfor %}
+  </table>
+{% include "jarrbo_contributie/paginator.html" %}
+{% endblock %}
+{% block right_content %}
+    <h3>{% trans 'Selections' %}</h3>
+    <form method="get">
+        {{ filter.form|crispy }}
+        <button type="submit">Search</button>
+    </form>
+{% endblock %}
+
+
+

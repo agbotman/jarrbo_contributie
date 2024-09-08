@@ -55,6 +55,8 @@ class ContributionFilter(django_filters.FilterSet):
             'payment_method': ['exact'],
             'sponsored': ['exact'],
             'member__relatiecode': ['exact'],
+            'member__roepnaam': ['icontains'],
+            'member__achternaam': ['icontains'],
         }
 
     def voldaan_filter(self, queryset, name, value):

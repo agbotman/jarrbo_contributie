@@ -120,7 +120,7 @@ def import_member(r, imp):
         zaal = Activity.objects.get(description='Zaal')
     if not vr30:
         vr30 = Activity.objects.get(description='Vr7x7')
-    if r['Status'] == "definitief":
+    if r['Status'] == "Definitief":
         result["active"] += 1
         try:
             m = Member.objects.get(relatiecode=r['Relatiecode'])

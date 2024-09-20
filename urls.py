@@ -6,8 +6,8 @@ from .views import ImportMemberView, ImportMemberDetail, \
                     DashboardView, PaymentbatchListView, PaymentbatchSubmitView, PaymentbatchExecuteView, \
                     PaymentbatchCreateView, PaymentbatchPlanView, PaymentMovenextView, \
                     PaymentStatusupdateView, NoteCreateView, NoteUpdateView, PaymentMailView, \
-                    MemberCreateView, FactuurView, FailedListView
-from .views import PaymentExport, NotPayedExport
+                    MemberCreateView, FactuurView, FailedListView, ContributionExportView, \
+                    PaymentExport, NotPayedExport
 
 app_name = 'jarrbo_contributie'
 urlpatterns = [
@@ -45,4 +45,5 @@ urlpatterns = [
     re_path(r'^notpayed/$', NotPayedExport, name='notpayed_export'),
     re_path(r'^factuur/(?P<pk>\d+)/$', FactuurView.as_view(), name='factuur'),
     re_path(r'^failed/(?P<pk>\d+)/$', FailedListView.as_view(), name='failed'),
+    re_path(r'^contributions/export$', ContributionExportView.as_view(), name='contribution_export'),
 ]

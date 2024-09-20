@@ -601,3 +601,32 @@ class ContributionListView(TestContributieAdmin, FilterView):
                                                                      output_field=DecimalField(), default=0)))
         qs = qs.annotate(voldaan=ExpressionWrapper(Q(tc=F('betaald')),output_field=BooleanField()))
         return qs.order_by('member__achternaam')
+    
+class ContributionExportView(TestContributieAdmin, FilterView):
+    model = Contribution
+    filterset_class = ContributionFilter
+
+    def get_queryset(self):
+        qs = Contribution.seizoen_objects.annotate(betaald=Sum(Case(When(payments__status__description='Betaald', then=F('payments__amount')),
+                                                                     output_field=DecimalField(), default=0)))
+        qs = qs.annotate(voldaan=ExpressionWrapper(Q(tc=F('betaald')),output_field=BooleanField()))
+        return qs.order_by('member__achternaam')
+    
+    def render_to_response(self, context, **response_kwargs):
+        import csv
+
+        # set nl language code so that decimal point will be comma
+        import locale
+        locale.setlocale(locale.LC_ALL,'nl_NL.utf8')
+
+        # Could use timezone.now(), but that makes the string much longer
+        filename = "{}-export.csv".format(datetime.now().replace(microsecond=0).isoformat())
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename="{}"'.format(filename)
+
+        #set delimiter to ; so that , can be used in amounts
+        writer = csv.writer(response, delimiter=";")
+        writer.writerow(['Naam', 'Activiteit', 'Betaalmethode', 'Totaal te betalen', 'Reeds betaald', 'Voldaan'])
+        for obj in self.object_list:
+            writer.writerow([obj.member.fullname, obj.activity, obj.payment_method, obj.tc, obj.betaald, obj.voldaan])
+        return response

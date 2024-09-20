@@ -198,7 +198,7 @@ class ContributionUpdateView(TestContributieAdmin, UpdateView):
         redirect_url = super(ContributionUpdateView,self).form_valid(form)
         if form.has_changed():
             if 'iban' in form.changed_data:
-                self.iban_volgnr += 1
+                self.object.iban_volgnr += 1
             self.object.recreate_payments()
         return redirect_url
 

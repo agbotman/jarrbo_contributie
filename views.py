@@ -626,7 +626,7 @@ class ContributionExportView(TestContributieAdmin, FilterView):
 
         #set delimiter to ; so that , can be used in amounts
         writer = csv.writer(response, delimiter=";")
-        writer.writerow(['Naam', 'Activiteit', 'Betaalmethode', 'Totaal te betalen', 'Reeds betaald', 'Voldaan'])
+        writer.writerow(['Naam', 'Leeftijdscategorie', 'Activiteit', 'Betaalmethode', 'Totaal te betalen', 'Reeds betaald', 'Voldaan'])
         for obj in self.object_list:
-            writer.writerow([obj.member.fullname, obj.activity, obj.payment_method, obj.tc, obj.betaald, obj.voldaan])
+            writer.writerow([obj.member.fullname, obj.member.leeftijdscategorie, obj.activity, obj.payment_method, obj.tc, obj.betaald, obj.voldaan])
         return response

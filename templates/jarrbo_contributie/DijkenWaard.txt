@@ -1,11 +1,10 @@
-Beste ouder/verzorger van {{payment.contribution.member.fullname}},
+Geachte (ouder/verzorger van) {{payment.contribution.member.fullname}},
 
-Volgens onze administratie is {{payment.contribution.member.roepnaam}} aangemeld bij SVW'27.
+Volgens onze administratie wordt de contributie van {{payment.contribution.member.fullname}} betaald met de DijkenWaard pas.
 
-Bij ons admistratie staat aangegeven dat u wilt betalen met de DijkenWaardpas.
-
-U kunt de contributie voldoen met de DijkenWaardpas bij de vereniging op zaterdagochtend voor 13:00 uur of op dinsdagavond tussen 19:00 en 20:00 uur.
+U kunt de contributie betalen met de DijkenWaardpas in onze kantine iedere zaterdagochtend voor 13:00 uur of iedere dinsdagavond tussen 19:00 en 20:00 uur.
 De betaling met de DijkenWaard pas kun u dan doen bij Peter de Boer van de kledingshop.
+Als dit niet uitkomt dan kunt u contact met mij opnemen voor een andere afspraak.
 
 Het totale contributiebedrag is € {{payment.amount}}. Dit is inclusief € {{payment.contribution.kf}} voor het kledingfonds en € 7,50 administratiekosten.
 

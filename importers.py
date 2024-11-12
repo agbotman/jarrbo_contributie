@@ -152,7 +152,7 @@ def import_member(r, imp):
                     c = Contribution.seizoen_objects.create_contribution(member=m,
                                                                          seizoen=config.seizoen,
                                                                          activity=veld)
-        if "Zaal" or "Futsal" in r['Bondssporten']:
+        if "Futsal" in r['Bondssporten'] or "Zaal" in r['Bondssporten']:
             if not zaal in m.activities.all():
                 m.activities.add(zaal)
             try:

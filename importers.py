@@ -8,7 +8,7 @@ from django.utils.functional import SimpleLazyObject
 import pytz
 from django.db.models import Max, Min
 from .tools import valid_iban, clean_iban, valid_postcode, clean_postcode, \
-                    clean_date
+                    clean_date, backup_db
 import string
 
 # config = Configuration.objects.get()
@@ -51,6 +51,8 @@ class InvalidFileFormatException(Exception):
         super(InvalidFileFormatException, self).__init__(msg)
 
 def import_Memberfile(memberfile):
+    # first create a backup of the database
+    backup_db()
     Requiredfields = ['Relatiecode','Voorletter(s)',
                'Roepnaam', 'Tussenvoegsel(s)', 'Achternaam',
                'Geslacht', 'Geboortedatum', 'Straatnaam', 

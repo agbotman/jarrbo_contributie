@@ -77,3 +77,19 @@ def send_contributiemail(subject, body, to):
         ) as connection:
         EmailMessage(subject, body, from_email, [to], [bcc],
                  connection=connection).send()
+
+def backup_db(event="imp"):
+    from pathlib import Path
+    from django.core import management
+    from django.conf import settings
+    import datetime
+    import subprocess
+    dt = datetime.datetime.now()
+    filename = f"{settings.LOCALS['DB_NAME']}-{event}-{dt:%Y%m%d%H%M}.json"
+    backupfile = settings.DATA_FOLDER / filename
+    rcloneconfig = settings.BASE_DIR / 'rclone.conf'
+    remotebackup = settings.REMOTE_BACKUP / filename
+    with open(backupfile, 'w') as f:
+        management.call_command('dumpdata','--all', stdout=f)
+    rclonecmd = f"rclone copyto --config={rcloneconfig} {backupfile} Onedrive:'{remotebackup}'"
+    subprocess.run(rclonecmd, shell=True)

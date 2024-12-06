@@ -93,3 +93,4 @@ def backup_db(event="imp"):
         management.call_command('dumpdata','--all', stdout=f)
     rclonecmd = f"rclone copyto --config={rcloneconfig} {backupfile} Onedrive:'{remotebackup}'"
     subprocess.run(rclonecmd, shell=True)
+    subprocess.run(f"rm {backupfile}", shell=True)

@@ -630,3 +630,14 @@ class ContributionExportView(TestContributieAdmin, FilterView):
         for obj in self.object_list:
             writer.writerow([obj.member.fullname, obj.member.leeftijdscategorie, obj.activity, obj.payment_method, obj.tc, obj.betaald, obj.voldaan])
         return response
+                            
+class DatabaseBackupView(TestContributieAdmin, View):
+    
+    def get(self, request):
+        from jarrbo_contributie.tools import backup_db
+        backup_db('man')
+        redirect_url = reverse('jarrbo_contributie:backup_completed')
+        return redirect(redirect_url)
+
+class BackupCompletedView(TestContributieAdmin, TemplateView):
+    template_name = 'jarrbo_contributie/backup_completed.html'

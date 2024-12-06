@@ -54,6 +54,9 @@
                 <li class="nav-item">
                   <a class="nav-link" href="{% url "jarrbo_contributie:importmachtigingen" %}">{% trans 'Authority import' %}</a>
                 </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url "jarrbo_contributie:db_backup" %}">{% trans 'Database Backup' %}</a>
+                </li>
             {% endif %}
               </ul>
 			{% endblock left_content %}

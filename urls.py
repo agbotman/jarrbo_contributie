@@ -1,13 +1,5 @@
 from django.urls import re_path
-from .views import ImportMemberView, ImportMemberDetail, \
-                    ImportInschrijvingenView, ImportInschrijvingenDetail, \
-                    ImportMachtigingenView, ImportMachtigingenDetail, MemberListView, \
-                    MemberUpdateView, ContributionUpdateView, PaymentUpdateView, PaymentListView, ContributionListView, \
-                    DashboardView, PaymentbatchListView, PaymentbatchSubmitView, PaymentbatchExecuteView, \
-                    PaymentbatchCreateView, PaymentbatchPlanView, PaymentMovenextView, \
-                    PaymentStatusupdateView, NoteCreateView, NoteUpdateView, PaymentMailView, \
-                    MemberCreateView, FactuurView, FailedListView, ContributionExportView, \
-                    PaymentExport, NotPayedExport
+from .views import *
 
 app_name = 'jarrbo_contributie'
 urlpatterns = [
@@ -46,4 +38,6 @@ urlpatterns = [
     re_path(r'^factuur/(?P<pk>\d+)/$', FactuurView.as_view(), name='factuur'),
     re_path(r'^failed/(?P<pk>\d+)/$', FailedListView.as_view(), name='failed'),
     re_path(r'^contributions/export$', ContributionExportView.as_view(), name='contribution_export'),
+    re_path(r'^dbbackup/$', DatabaseBackupView.as_view(), name='db_backup'),
+    re_path(r'^backupcomleted/$', BackupCompletedView.as_view(), name='backup_completed'),
 ]

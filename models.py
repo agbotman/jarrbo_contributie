@@ -362,7 +362,7 @@ class Contribution(models.Model):
     ks = models.DecimalField(max_digits=6, decimal_places=2, default=0)
     # totaal contributiebedrag
     tc = models.DecimalField(max_digits=6, decimal_places=2, default=0)
-    # totaal ontvangen
+    # totaal ontvangen (not used anymore)
     received = models.DecimalField(max_digits=6, decimal_places=2, default=0)
 
     @ property
@@ -577,10 +577,6 @@ class Contribution(models.Model):
         else:
             self.tc = self.bc + self.aanmaningskosten + self.ak + self.kf \
                       - self.kortingopadres - self.kd - self.ks
-#        payments = Payment.seizoen_objects.filter(contribution=self,status__status='Betaald')
-#        p = payments.aggregate(total=Sum('amount'))['total']
-#        self.received = p or decimal.Decimal(0.00)
-
 
     class Meta:
         verbose_name = _("contribution")

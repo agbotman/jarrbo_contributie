@@ -65,4 +65,3 @@ def recovery_change(payment, newstatus):
     except PaymentstatusChange.DoesNotExist:
         return False
     return pc.recovery
-

@@ -1,0 +1,12 @@
+Goedendag,
+
+Op {{ payment.paymentbatch.datum|date:"d F" }} zullen wij de contributie {{payment.contribution.activity}}voetbal van {{payment.contribution.member.fullname}} voor het seizoen {{payment.contribution.seizoen}} incasseren van IBAN {{payment.contribution.member.iban}}.
+Het totale contributiebedrag is € {{payment.amount}}. {% if payment.contribution.activity.description == 'Veld' %} Dit is inclusief € {{payment.contribution.kf}} voor het kledingfonds. {% endif %}
+
+Voor vragen kunt u contact opnemen via de mail (of telefonisch als het heel dringend is).
+
+Met vriendelijke groeten.
+-- 
+Contributie administratie SVW'27
+contributie@svw27.nl
+06-51479006

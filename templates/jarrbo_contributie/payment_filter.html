@@ -76,6 +76,16 @@
         € {{ payment.contribution.outstanding }}
       </td>
       <td>
+          {% if payment.status.status == 'Gepland' and payment.method.description == 'Incasso' %}
+            <form
+              method="POST"
+              action="{% url 'jarrbo_contributie:mail' pk=payment.pk %}">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-primary btn-xs">
+                {% trans 'Mail' %}
+              </button>
+            </form>
+          {% endif %}
           {% if payment.status.status == 'Teruggeboekt' or payment.status.status == 'Geensaldo' %}
             {% if not payment.withdrawnmaildate %}
               <form 

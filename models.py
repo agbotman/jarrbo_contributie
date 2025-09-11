@@ -401,16 +401,18 @@ class Contribution(models.Model):
 
     @ property
     def administratiekosten(self):
-        if self.activity.description == 'Donateur':
-            return decimal.Decimal(0.00)
-        if self.sponsored:
-            return decimal.Decimal(0.00)
-        if not self.payment_method or \
-               self.payment_method.description == 'Incasso' or \
-               self.payment_method.description == 'Jeugdsportfonds':
-            return decimal.Decimal(0.00)
-        else:
-            return decimal.Decimal(7.50)
+        #2025-09-11 we berekenen geen administratiekosten meer
+        return decimal.Decimal(0.00)
+        #if self.activity.description == 'Donateur':
+        #    return decimal.Decimal(0.00)
+        #if self.sponsored:
+        #    return decimal.Decimal(0.00)
+        #if not self.payment_method or \
+        #       self.payment_method.description == 'Incasso' or \
+        #       self.payment_method.description == 'Jeugdsportfonds':
+        #    return decimal.Decimal(0.00)
+        #else:
+        #    return decimal.Decimal(7.50)
 
     @ property
     def korting(self):

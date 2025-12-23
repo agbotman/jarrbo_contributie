@@ -12,6 +12,7 @@
         <th scope="col">{% trans 'Activity' %}</th>
         <th scope="col">{% trans 'Method' %}</th>
         <th scope="col">{% trans 'Total Contribution' %}</th>
+        <th scope="col">{% trans 'Payments' %}</th>
         <th scope="col">{% trans 'Payed' %}</th>
         <th scope="col">{% trans 'Voldaan' %}</th>
       </tr>
@@ -27,6 +28,14 @@
       <td>{{ contribution.payment_method }}</td>
       <td>
         € {{ contribution.tc }}
+      </td>
+      <td>
+        <a 
+          class="btn btn-primary btn-xs"
+          href="{% url 'jarrbo_contributie:payments' %}?contribution__member__relatiecode={{ contribution.member.relatiecode }}"
+          role="button">
+          {% trans 'All' %}
+        </a>
       </td>
       <td>
         € {{ contribution.betaald }}

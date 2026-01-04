@@ -48,6 +48,8 @@ class Configuration(SingletonModel):
 #
 # python manage.py makemigrations --skip-checks
 # python manage.py migrate --skip-checks
+#
+# To be checked whether another implementation is possible
 
     last_memberimport = models.DateField(_("last member import"), null=True)
     refresh_all = models.BooleanField(_("refresh all"), default=False)

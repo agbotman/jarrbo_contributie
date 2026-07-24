@@ -78,7 +78,7 @@ def send_contributiemail(subject, body, to):
 # 2026-07-24: Remove bcc from e-mail. Information is also available mijn.host email tracking
 #        EmailMessage(subject, body, from_email, [to], [bcc],
 #                 connection=connection).send()
-        EmailMessage(subject, body, from_email, [to], [bcc],
+        EmailMessage(subject, body, from_email, [to],
                  connection=connection).send()
 
 

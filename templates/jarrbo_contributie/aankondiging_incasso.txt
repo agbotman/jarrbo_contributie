@@ -1,9 +1,9 @@
 Goedendag,
 
-Op {{ payment.paymentbatch.datum|date:"d F" }} zullen wij de contributie {{payment.contribution.activity}}voetbal van {{payment.contribution.member.fullname}} voor het seizoen {{payment.contribution.seizoen}} incasseren van IBAN {{payment.contribution.member.iban}}.
+Op {{ payment.paymentbatch.datum|date:"d F" }} zullen wij {% if payment.contribution.termijnen > 1 %} een termijn van {% endif %} de contributie {{payment.contribution.activity}}voetbal van {{payment.contribution.member.fullname}} voor het seizoen {{payment.contribution.seizoen}} incasseren van IBAN {{payment.contribution.member.iban}}.
 Het totale contributiebedrag is € {{payment.amount}}. {% if payment.contribution.activity.description == 'Veld' %} Dit is inclusief € {{payment.contribution.kf}} voor het kledingfonds. {% endif %}
 
-Voor vragen kunt u contact opnemen via de mail (of telefonisch als het heel dringend is).
+Voor vragen kunt u contact opnemen via de mail of Whatsapp.
 
 Met vriendelijke groeten.
 -- 

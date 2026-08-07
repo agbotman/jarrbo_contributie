@@ -108,6 +108,16 @@
                 </button>
               </form>
           {% endif %}
+          {% if payment.method.description == 'Jeugdsportfonds' and not payment.aanvraagnummer %}
+              <form 
+                method="POST"
+                action="{% url 'jarrbo_contributie:mail' pk=payment.pk %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-primary btn-xs">
+                  {% trans 'Jeugdfonds geen aanvraagnummer' %}
+                </button>
+              </form>
+          {% endif %}
       </td>
       {% for newstatus in view.paymentstatus %}
         {% if payment|status_valid:newstatus and not payment|recovery_change:newstatus %}

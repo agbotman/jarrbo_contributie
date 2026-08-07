@@ -420,6 +420,16 @@ class PaymentMailView(TestContributieAdmin, View):
             send_contributiemail(subject, body, to_mail)
             payment.huygensmaildate = date.today()
             payment.save()
+# 2026-08-04 mail to Jeugdsportfonds members without aanvraagnummer
+        if payment.method.description == 'Jeugdsportfonds' and not payment.aanvraagnummer:
+            template = get_template('jarrbo_contributie/jeugdfonds_geen_aanvraag.txt')
+
+            ctx = {'payment': payment,
+                  }
+            subject = "Nog geen contributie aanvraag ontvangen van het Jeugdsportfonds"
+            body = template.render(ctx)
+            to_mail = payment.contribution.member.email
+            send_contributiemail(subject, body, to_mail)
         redirect_url = request.META.get('HTTP_REFERER')
         return redirect(redirect_url)
 

@@ -1,0 +1,19 @@
+Geachte (ouder/verzorger van) {{payment.contribution.member.fullname}},
+
+Volgens onze administratie is de contributie van {{payment.contribution.member.fullname}} het vorige seizoen betaald door het Jeugdfonds Sport & Cultuur Noord-Holland.
+Voor dit seizoen hebben wij echter nog geen aanvraagnummer ontvangen van het Jeugdfonds.
+De contributie voor het nieuwe seizoen kan daarom nog niet betaald worden door het Jeugdfonds.
+Voor elk nieuw seizoen moet er opnieuw een aanvraag ingediend worden bij het Jeugdfonds.
+
+Het kan ook zijn dat u al een nieuwe aanvraag heeft gedaan maar dat deze nog niet afgehandeld is door het Jeugdfonds.
+Meer informatie over het jeugdfonds is te vinden op https://jeugdfondssportencultuur.nl/fondsen/noordholland/
+
+Het totale contributiebedrag is € {{payment.amount}}. Dit is inclusief € {{payment.contribution.kf}} voor het kledingfonds.
+
+Kunt u ons laten weten of u een nieuwe aanvraag gaat doen of dat u de contributie op een andere manier wilt gaan betalen?
+
+Met vriendelijke groeten.
+
+-- 
+Contributie administratie SVW'27
+contributie@svw27.nl

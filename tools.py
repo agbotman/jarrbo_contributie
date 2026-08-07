@@ -60,6 +60,7 @@ def clean_date(datum):
 
 def send_contributiemail(subject, body, to):
     from jarrbo_contributie.models import Configuration
+    from django.conf import settings
     config = Configuration.objects.get()
     host = config.mail_host
     port = config.mail_port
@@ -67,7 +68,12 @@ def send_contributiemail(subject, body, to):
     password = config.mail_password
     use_tls = config.mail_use_tls
     from_email = config.mail_username
-#    bcc = config.mail_username
+# 2026-08-07 in Non-prod environment don't send mail to mmeber
+    if settings.LOCALS['ENVIRONMENT'] == 'Production':
+        to_email = to
+    else:
+        to_email = config.mail_username
+# 2026-07-24: remove bcc   bcc = config.mail_username
     with get_connection(
                 host=host, 
                 port=port, 
@@ -78,7 +84,7 @@ def send_contributiemail(subject, body, to):
 # 2026-07-24: Remove bcc from e-mail. Information is also available mijn.host email tracking
 #        EmailMessage(subject, body, from_email, [to], [bcc],
 #                 connection=connection).send()
-        EmailMessage(subject, body, from_email, [to],
+        EmailMessage(subject, body, from_email, [to_email],
                  connection=connection).send()
 
 

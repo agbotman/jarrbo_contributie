@@ -6,7 +6,7 @@ U kunt de contributie betalen met de DijkenWaardpas in onze kantine iedere zater
 De betaling met de DijkenWaard pas kun u dan doen bij Peter de Boer van de kledingshop.
 Als dit niet uitkomt dan kunt u contact met mij opnemen voor een andere afspraak.
 
-Het totale contributiebedrag is € {{payment.amount}}. Dit is inclusief € {{payment.contribution.kf}} voor het kledingfonds en € 7,50 administratiekosten.
+Het totale contributiebedrag is € {{payment.amount}}. Dit is inclusief € {{payment.contribution.kf}} voor het kledingfonds.
 
 Als u de contributie op een andere manier wilt voldoen of bij overige vragen kunt u contact opnemen via dit e-mailadres.
 

@@ -501,8 +501,8 @@ def NotPayedExport(request):
     # Create a csv witer that writes to the response object
     writer = csv.writer(response, delimiter=";")
     # Write a first row with header information
-    writer.writerow(['relatiecode', 'naam', 'leeftijdscategorie', 'betaalwijze', 'contributie',
-                     'betaald'])
+    writer.writerow(['relatiecode', 'naam', , 'roepnaam', 'achternaam', 'leeftijdscategorie',\
+                     'betaalwijze', 'contributie', 'betaald'])
     
     for c in Contribution.seizoen_objects.all():
         betaald = Payment.seizoen_objects.filter(contribution=c,status__status='Betaald').aggregate(total=Sum('amount'))['total'] or 0
